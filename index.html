@@ -734,7 +734,6 @@ box-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
             <p>Sistema completo di gestione magazzino per la tua discoteca</p>
         </div>
     </div>
-
     <div class="container">
         <div class="nav-tabs">
             <button class="nav-tab active" data-tab="dashboard">📊 Dashboard</button>
@@ -770,7 +769,6 @@ box-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
                     <div class="change">Ultimi 7 giorni</div>
                 </div>
             </div>
-
             <div class="card">
                 <div class="card-header">
                     <h2 class="card-title">🔥 Prodotti Più Consumati (Ultima Settimana)</h2>
@@ -798,25 +796,139 @@ box-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
             </div>
         </div>
 
-        <h3 style="margin-bottom: 20px; color: var(--neon-purple);">📊 Dettaglio Consumi per Prodotto</h3>
-                        <div class="search-box">
-                            <input type="text" placeholder="Cerca prodotto nella serata..." id="nightProductSearch" onkeyup="app.filterNightProducts()">
+        <!-- Inventory Tab -->
+        <div class="tab-content" id="inventory">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">📦 Gestione Giacenza</h2>
+                    <div>
+                        <button class="btn btn-secondary" onclick="app.showInitialInventoryModal()">➕ Giacenza Iniziale</button>
+                        <button class="btn btn-primary" onclick="app.showEndOfNightModal()">🌙 Fine Serata</button>
+                    </div>
+                </div>
+                <div class="search-box">
+                    <input type="text" placeholder="Cerca prodotto..." id="inventorySearch">
+                </div>
+                <div class="table-container">
+                    <table id="inventoryTable">
+                        <thead>
+                            <tr>
+                                <th>Prodotto</th>
+                                <th>Categoria</th>
+                                <th>Formato</th>
+                                <th>Prezzo/L</th>
+                                <th>Giacenza (L)</th>
+                                <th>Valore (€)</th>
+                                <th>Stato</th>
+                                <th>Azioni</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Movements Tab -->
+        <div class="tab-content" id="movements">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">📝 Registro Movimenti</h2>
+                    <button class="btn btn-primary" onclick="app.showOrderModal()">➕ Nuovo Ordine</button>
+                </div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Filtra per tipo</label>
+                        <select id="movementTypeFilter">
+                            <option value="">Tutti</option>
+                            <option value="consumption">Consumo</option>
+                            <option value="order">Ordine</option>
+                            <option value="adjustment">Rettifica</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Data inizio</label>
+                        <input type="date" id="movementStartDate">
+                    </div>
+                    <div class="form-group">
+                        <label>Data fine</label>
+                        <input type="date" id="movementEndDate">
+                    </div>
+                </div>
+                <div class="table-container">
+                    <table id="movementsTable">
+                        <thead>
+                            <tr>
+                                <th>Data/Ora</th>
+                                <th>Tipo</th>
+                                <th>Prodotto</th>
+                                <th>Quantità (L)</th>
+                                <th>Valore (€)</th>
+                                <th>Note</th>
+                                <th>Operatore</th>
+                                <th>Azioni</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Nights Tab -->
+        <div class="tab-content" id="nights">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">🌙 Dettaglio Serate</h2>
+                </div>
+                <div class="form-grid" style="grid-template-columns: 1fr 200px;">
+                    <div class="form-group">
+                        <label>Seleziona Serata</label>
+                        <select id="nightSelector" onchange="app.showNightDetails()">
+                            <option value="">Seleziona una serata...</option>
+                        </select>
+                    </div>
+                    <div class="form-group" style="align-self: flex-end;">
+                        <button class="btn btn-danger" onclick="app.deleteNight()" id="deleteNightBtn" style="display: none;">🗑️ Elimina Serata</button>
+                    </div>
+                </div>
+                <div id="nightDetailsContainer" style="display: none;">
+                    <div class="stats-grid" style="margin-top: 20px;">
+                        <div class="stat-card">
+                            <h3>Totale Consumo</h3>
+                            <div class="value" id="nightTotalConsumption">€0.00</div>
                         </div>
-                        <div class="table-container">
-                            <table id="nightProductsTable">
-                                <thead>
-                                    <tr>
-                                        <th>Prodotto</th>
-                                        <th>Categoria</th>
-                                        <th>Quantità (L)</th>
-                                        <th>Bottiglie</th>
-                                        <th>Valore (€)</th>
-                                        <th>% del Totale</th>
-                                    </tr>
-                                </thead>
-                                <tbody></tbody>
-                            </table>
+                        <div class="stat-card">
+                            <h3>Bottiglie Consumate</h3>
+                            <div class="value" id="nightBottlesCount">0</div>
                         </div>
+                        <div class="stat-card">
+                            <h3>Litri Totali</h3>
+                            <div class="value" id="nightTotalLiters">0L</div>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Categoria Top</h3>
+                            <div class="value" id="nightTopCategory">-</div>
+                        </div>
+                    </div>
+                    <h3 style="margin-bottom: 20px; color: var(--neon-purple);">📊 Dettaglio Consumi per Prodotto</h3>
+                    <div class="search-box">
+                        <input type="text" placeholder="Cerca prodotto nella serata..." id="nightProductSearch" onkeyup="app.filterNightProducts()">
+                    </div>
+                    <div class="table-container">
+                        <table id="nightProductsTable">
+                            <thead>
+                                <tr>
+                                    <th>Prodotto</th>
+                                    <th>Categoria</th>
+                                    <th>Quantità (L)</th>
+                                    <th>Bottiglie</th>
+                                    <th>Valore (€)</th>
+                                    <th>% del Totale</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -827,15 +939,11 @@ box-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
             <div class="card">
                 <div class="card-header">
                     <h2 class="card-title">🍾 Catalogo Prodotti</h2>
-                    <button class="btn btn-primary" onclick="app.showAddProductModal()">
-                        ➕ Aggiungi Prodotto
-                    </button>
+                    <button class="btn btn-primary" onclick="app.showAddProductModal()">➕ Aggiungi Prodotto</button>
                 </div>
-
                 <div class="search-box">
                     <input type="text" placeholder="Cerca prodotto..." id="productSearch">
                 </div>
-
                 <div class="table-container">
                     <table id="productsTable">
                         <thead>
@@ -859,7 +967,6 @@ box-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
         <div class="tab-content" id="statistics">
             <div class="card">
                 <h2 class="card-title">📊 Statistiche Avanzate</h2>
-                
                 <div class="form-grid">
                     <div class="form-group">
                         <label>Periodo</label>
@@ -878,21 +985,18 @@ box-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
                     </div>
                 </div>
             </div>
-
             <div class="card">
                 <h2 class="card-title">🏆 Top 20 Prodotti per Consumo</h2>
                 <div class="chart-container">
                     <canvas id="topProductsChart"></canvas>
                 </div>
             </div>
-
             <div class="card">
                 <h2 class="card-title">📈 Trend Consumi nel Tempo</h2>
                 <div class="chart-container">
                     <canvas id="consumptionTrendChart"></canvas>
                 </div>
             </div>
-
             <div class="card">
                 <h2 class="card-title">🥧 Distribuzione per Categoria</h2>
                 <div class="chart-container">
@@ -933,11 +1037,8 @@ box-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
                         </select>
                     </div>
                 </div>
-                <button class="btn btn-primary" onclick="app.generateReport()">
-                    📥 Genera e Scarica Report
-                </button>
+                <button class="btn btn-primary" onclick="app.generateReport()">📥 Genera e Scarica Report</button>
             </div>
-
             <div class="card">
                 <h2 class="card-title">📅 Report Recenti</h2>
                 <div id="recentReportsContainer">
@@ -949,140 +1050,7 @@ box-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
         </div>
     </div>
 
-    <!-- CONTINUA NELLA PARTE 4 --><!-- Inventory Tab -->
-        <div class="tab-content" id="inventory">
-            <div class="card">
-                <div class="card-header">
-                    <h2 class="card-title">📦 Gestione Giacenza</h2>
-                    <div>
-                        <button class="btn btn-secondary" onclick="app.showInitialInventoryModal()">
-                            ➕ Giacenza Iniziale
-                        </button>
-                        <button class="btn btn-primary" onclick="app.showEndOfNightModal()">
-                            🌙 Fine Serata
-                        </button>
-                    </div>
-                </div>
-
-                <div class="search-box">
-                    <input type="text" placeholder="Cerca prodotto..." id="inventorySearch">
-                </div>
-
-                <div class="table-container">
-                    <table id="inventoryTable">
-                        <thead>
-                            <tr>
-                                <th>Prodotto</th>
-                                <th>Categoria</th>
-                                <th>Formato</th>
-                                <th>Prezzo/L</th>
-                                <th>Giacenza (L)</th>
-                                <th>Valore (€)</th>
-                                <th>Stato</th>
-                                <th>Azioni</th>
-                            </tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        <!-- Movements Tab -->
-        <div class="tab-content" id="movements">
-            <div class="card">
-                <div class="card-header">
-                    <h2 class="card-title">📝 Registro Movimenti</h2>
-                    <button class="btn btn-primary" onclick="app.showOrderModal()">
-                        ➕ Nuovo Ordine
-                    </button>
-                </div>
-
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label>Filtra per tipo</label>
-                        <select id="movementTypeFilter">
-                            <option value="">Tutti</option>
-                            <option value="consumption">Consumo</option>
-                            <option value="order">Ordine</option>
-                            <option value="adjustment">Rettifica</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Data inizio</label>
-                        <input type="date" id="movementStartDate">
-                    </div>
-                    <div class="form-group">
-                        <label>Data fine</label>
-                        <input type="date" id="movementEndDate">
-                    </div>
-                </div>
-
-                <div class="table-container">
-                    <table id="movementsTable">
-                        <thead>
-                            <tr>
-                                <th>Data/Ora</th>
-                                <th>Tipo</th>
-                                <th>Prodotto</th>
-                                <th>Quantità (L)</th>
-                                <th>Valore (€)</th>
-                                <th>Note</th>
-                                <th>Operatore</th>
-                                <th>Azioni</th>
-                            </tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        <!-- Nights Tab -->
-        <div class="tab-content" id="nights">
-            <div class="card">
-                <div class="card-header">
-                    <h2 class="card-title">🌙 Dettaglio Serate</h2>
-                </div>
-
-                <div class="form-grid" style="grid-template-columns: 1fr 200px;">
-                    <div class="form-group">
-                        <label>Seleziona Serata</label>
-                        <select id="nightSelector" onchange="app.showNightDetails()">
-                            <option value="">Seleziona una serata...</option>
-                        </select>
-                    </div>
-                    <div class="form-group" style="align-self: flex-end;">
-                        <button class="btn btn-danger" onclick="app.deleteNight()" id="deleteNightBtn" style="display: none;">
-                            🗑️ Elimina Serata
-                        </button>
-                    </div>
-                </div>
-
-                <div id="nightDetailsContainer" style="display: none;">
-                    <div class="stats-grid" style="margin-top: 20px;">
-                        <div class="stat-card">
-                            <h3>Totale Consumo</h3>
-                            <div class="value" id="nightTotalConsumption">€0.00</div>
-                        </div>
-                        <div class="stat-card">
-                            <h3>Bottiglie Consumate</h3>
-                            <div class="value" id="nightBottlesCount">0</div>
-                        </div>
-                        <div class="stat-card">
-                            <h3>Litri Totali</h3>
-                            <div class="value" id="nightTotalLiters">0L</div>
-                        </div>
-                        <div class="stat-card">
-                            <h3>Categoria Top</h3>
-                            <div class="value" id="nightTopCategory">-</div>
-                        </div>
-                    </div>
-
-                    <div class="card" style="margin-top: 20px;">
-                        <h3 style="margin-bottom: 20
-
-<!-- Modals -->
+   <!-- Modals -->
     <div class="modal" id="initialInventoryModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -1189,10 +1157,10 @@ box-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
         </div>
     </div>
 
-    <!-- Chart.js per i grafici -->
+
+    <!-- Chart.js + JS della tua app -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    
-    <script>
+   <script>
         // App principale
         const app = {
             // Dati
@@ -2598,5 +2566,3 @@ box-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
     </script>
 </body>
 </html>
-
-
