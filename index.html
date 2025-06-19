@@ -2586,5 +2586,17 @@ box-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
                         });
                     }
                 });
-       
-       
+                
+                return report.sort((a, b) => parseFloat(b['Valore Totale (€)']) - parseFloat(a['Valore Totale (€)']));
+            }
+        };
+        
+        // Initialize app when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            app.init();
+        });
+    </script>
+</body>
+</html>
+
+
