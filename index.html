@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -13,23 +12,31 @@
         }
 
         :root {
-            --primary: #6366f1;
-            --primary-dark: #4f46e5;
-            --secondary: #8b5cf6;
+            --primary: #8b5cf6;
+            --primary-dark: #7c3aed;
+            --secondary: #ec4899;
             --success: #10b981;
             --danger: #ef4444;
             --warning: #f59e0b;
-            --dark: #111827;
+            --dark: #0a0a0a;
+            --dark-secondary: #1a1a1a;
+            --dark-tertiary: #2a2a2a;
             --gray: #6b7280;
             --light: #f3f4f6;
             --white: #ffffff;
+            --neon-purple: #a855f7;
+            --neon-pink: #ec4899;
+            --neon-blue: #3b82f6;
         }
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background-color: var(--light);
-            color: var(--dark);
+            background-color: var(--dark);
+            color: var(--light);
             line-height: 1.6;
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(139, 92, 246, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(236, 72, 153, 0.1) 0%, transparent 50%);
         }
 
         .container {
@@ -39,36 +46,67 @@
         }
 
         .header {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.2) 0%, rgba(236, 72, 153, 0.2) 100%);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             color: white;
             padding: 30px 0;
             margin-bottom: 30px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 32px rgba(139, 92, 246, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent,
+                rgba(139, 92, 246, 0.1),
+                transparent
+            );
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
         }
 
         .header h1 {
             font-size: 2.5rem;
             margin-bottom: 10px;
+            text-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
+            position: relative;
+            z-index: 1;
         }
 
         .header p {
             opacity: 0.9;
             font-size: 1.1rem;
+            position: relative;
+            z-index: 1;
         }
 
         .nav-tabs {
             display: flex;
             gap: 10px;
             margin-bottom: 30px;
-            border-bottom: 2px solid #e5e7eb;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
             overflow-x: auto;
             padding-bottom: 2px;
         }
 
         .nav-tab {
             padding: 12px 24px;
-            background: white;
-            border: none;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
             cursor: pointer;
             font-size: 1rem;
             font-weight: 500;
@@ -76,17 +114,37 @@
             border-radius: 8px 8px 0 0;
             transition: all 0.3s ease;
             white-space: nowrap;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-tab::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .nav-tab:hover::before {
+            left: 100%;
         }
 
         .nav-tab:hover {
-            background: var(--light);
+            background: rgba(139, 92, 246, 0.1);
+            color: var(--light);
+            transform: translateY(-2px);
         }
 
         .nav-tab.active {
-            color: var(--primary);
-            background: white;
-            border-bottom: 2px solid var(--primary);
+            color: var(--neon-purple);
+            background: rgba(139, 92, 246, 0.2);
+            border-bottom: 2px solid var(--neon-purple);
             margin-bottom: -2px;
+            box-shadow: 0 4px 20px rgba(139, 92, 246, 0.3);
         }
 
         .tab-content {
@@ -104,11 +162,20 @@
         }
 
         .card {
-            background: white;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 12px;
             padding: 25px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
             margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(139, 92, 246, 0.2);
+            border-color: rgba(139, 92, 246, 0.3);
         }
 
         .card-header {
@@ -121,7 +188,8 @@
         .card-title {
             font-size: 1.5rem;
             font-weight: 600;
-            color: var(--dark);
+            color: var(--light);
+            text-shadow: 0 0 10px rgba(139, 92, 246, 0.3);
         }
 
         .form-grid {
@@ -139,13 +207,18 @@
         .form-group label {
             font-weight: 500;
             margin-bottom: 8px;
-            color: var(--gray);
+            color: var(--light);
+            text-transform: uppercase;
+            font-size: 0.875rem;
+            letter-spacing: 0.05em;
         }
 
         .form-group input,
         .form-group select {
             padding: 10px 15px;
-            border: 2px solid #e5e7eb;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--light);
             border-radius: 8px;
             font-size: 1rem;
             transition: all 0.3s ease;
@@ -154,8 +227,14 @@
         .form-group input:focus,
         .form-group select:focus {
             outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+            border-color: var(--neon-purple);
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2), 0 0 20px rgba(139, 92, 246, 0.3);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .form-group select option {
+            background: var(--dark-secondary);
+            color: var(--light);
         }
 
         .btn {
@@ -169,50 +248,81 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn:active::before {
+            width: 300px;
+            height: 300px;
         }
 
         .btn-primary {
-            background: var(--primary);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
             color: white;
+            box-shadow: 0 4px 20px rgba(139, 92, 246, 0.4);
         }
 
         .btn-primary:hover {
-            background: var(--primary-dark);
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 30px rgba(139, 92, 246, 0.6);
         }
 
         .btn-success {
-            background: var(--success);
+            background: linear-gradient(135deg, var(--success) 0%, #059669 100%);
             color: white;
+            box-shadow: 0 4px 20px rgba(16, 185, 129, 0.4);
         }
 
         .btn-success:hover {
-            background: #059669;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 30px rgba(16, 185, 129, 0.6);
         }
 
         .btn-danger {
-            background: var(--danger);
+            background: linear-gradient(135deg, var(--danger) 0%, #dc2626 100%);
             color: white;
+            box-shadow: 0 4px 20px rgba(239, 68, 68, 0.4);
         }
 
         .btn-danger:hover {
-            background: #dc2626;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 30px rgba(239, 68, 68, 0.6);
         }
 
         .btn-secondary {
-            background: var(--gray);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
             color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
         }
 
         .btn-secondary:hover {
-            background: #4b5563;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.1) 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 30px rgba(255, 255, 255, 0.1);
         }
 
         .table-container {
             overflow-x: auto;
             border-radius: 8px;
-            border: 1px solid #e5e7eb;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.02);
         }
 
         table {
@@ -221,21 +331,30 @@
         }
 
         th {
-            background: var(--light);
+            background: rgba(139, 92, 246, 0.1);
             padding: 12px;
             text-align: left;
             font-weight: 600;
-            color: var(--dark);
+            color: var(--light);
             white-space: nowrap;
+            text-transform: uppercase;
+            font-size: 0.875rem;
+            letter-spacing: 0.05em;
+            border-bottom: 1px solid rgba(139, 92, 246, 0.3);
         }
 
         td {
             padding: 12px;
-            border-top: 1px solid #e5e7eb;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--light);
+        }
+
+        tr {
+            transition: all 0.3s ease;
         }
 
         tr:hover {
-            background: #f9fafb;
+            background: rgba(139, 92, 246, 0.05);
         }
 
         .badge {
@@ -244,18 +363,71 @@
             border-radius: 9999px;
             font-size: 0.875rem;
             font-weight: 500;
+            backdrop-filter: blur(5px);
+            border: 1px solid;
         }
 
-        .badge-vodka { background: #fee2e2; color: #dc2626; }
-        .badge-gin { background: #dbeafe; color: #2563eb; }
-        .badge-rum { background: #fef3c7; color: #d97706; }
-        .badge-whisky { background: #fde68a; color: #92400e; }
-        .badge-tequila { background: #d1fae5; color: #065f46; }
-        .badge-liquori { background: #e9d5ff; color: #7c3aed; }
-        .badge-champagne { background: #fce7f3; color: #be185d; }
-        .badge-analcolici { background: #cffafe; color: #0891b2; }
-        .badge-energy { background: #fecaca; color: #b91c1c; }
-        .badge-succhi { background: #fed7aa; color: #c2410c; }
+        .badge-vodka { 
+            background: rgba(254, 226, 226, 0.1); 
+            color: #fca5a5; 
+            border-color: rgba(252, 165, 165, 0.3);
+            box-shadow: 0 0 10px rgba(252, 165, 165, 0.3);
+        }
+        .badge-gin { 
+            background: rgba(219, 234, 254, 0.1); 
+            color: #93c5fd; 
+            border-color: rgba(147, 197, 253, 0.3);
+            box-shadow: 0 0 10px rgba(147, 197, 253, 0.3);
+        }
+        .badge-rum { 
+            background: rgba(254, 243, 199, 0.1); 
+            color: #fcd34d; 
+            border-color: rgba(252, 211, 77, 0.3);
+            box-shadow: 0 0 10px rgba(252, 211, 77, 0.3);
+        }
+        .badge-whisky { 
+            background: rgba(253, 230, 138, 0.1); 
+            color: #fbbf24; 
+            border-color: rgba(251, 191, 36, 0.3);
+            box-shadow: 0 0 10px rgba(251, 191, 36,
+box-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
+        }
+        .badge-tequila { 
+            background: rgba(209, 250, 229, 0.1); 
+            color: #6ee7b7; 
+            border-color: rgba(110, 231, 183, 0.3);
+            box-shadow: 0 0 10px rgba(110, 231, 183, 0.3);
+        }
+        .badge-liquori { 
+            background: rgba(233, 213, 255, 0.1); 
+            color: #c084fc; 
+            border-color: rgba(192, 132, 252, 0.3);
+            box-shadow: 0 0 10px rgba(192, 132, 252, 0.3);
+        }
+        .badge-champagne { 
+            background: rgba(252, 231, 243, 0.1); 
+            color: #f9a8d4; 
+            border-color: rgba(249, 168, 212, 0.3);
+            box-shadow: 0 0 10px rgba(249, 168, 212, 0.3);
+        }
+        .badge-analcolici { 
+            background: rgba(207, 250, 254, 0.1); 
+            color: #67e8f9; 
+            border-color: rgba(103, 232, 249, 0.3);
+            box-shadow: 0 0 10px rgba(103, 232, 249, 0.3);
+        }
+        .badge-energy { 
+            background: rgba(254, 202, 202, 0.1); 
+            color: #fca5a5; 
+            border-color: rgba(252, 165, 165, 0.3);
+            box-shadow: 0 0 10px rgba(252, 165, 165, 0.3);
+        }
+        .badge-succhi { 
+            background: rgba(254, 215, 170, 0.1); 
+            color: #fdba74; 
+            border-color: rgba(253, 186, 116, 0.3);
+            box-shadow: 0 0 10px rgba(253, 186, 116, 0.3);
+        }
 
         .stats-grid {
             display: grid;
@@ -265,11 +437,37 @@
         }
 
         .stat-card {
-            background: white;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 12px;
             padding: 20px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            border-left: 4px solid var(--primary);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border-left: 4px solid var(--neon-purple);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(139, 92, 246, 0.1) 0%, transparent 70%);
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.2); opacity: 0.8; }
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(139, 92, 246, 0.3);
         }
 
         .stat-card h3 {
@@ -277,18 +475,25 @@
             color: var(--gray);
             margin-bottom: 10px;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
+            letter-spacing: 0.1em;
+            position: relative;
+            z-index: 1;
         }
 
         .stat-card .value {
             font-size: 2rem;
             font-weight: 700;
-            color: var(--dark);
+            color: var(--light);
+            text-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
+            position: relative;
+            z-index: 1;
         }
 
         .stat-card .change {
             font-size: 0.875rem;
             margin-top: 5px;
+            position: relative;
+            z-index: 1;
         }
 
         .change.positive { color: var(--success); }
@@ -301,7 +506,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
             z-index: 1000;
             animation: fadeIn 0.3s ease;
         }
@@ -313,19 +519,21 @@
         }
 
         .modal-content {
-            background: white;
+            background: var(--dark-secondary);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 12px;
             padding: 30px;
-            max-width: 600px;
+            max-width: 800px;
             width: 90%;
             max-height: 90vh;
             overflow-y: auto;
             animation: slideIn 0.3s ease;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
         }
 
         @keyframes slideIn {
-            from { transform: translateY(-20px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
+            from { transform: translateY(-20px) scale(0.95); opacity: 0; }
+            to { transform: translateY(0) scale(1); opacity: 1; }
         }
 
         .modal-header {
@@ -341,11 +549,19 @@
             font-size: 1.5rem;
             cursor: pointer;
             color: var(--gray);
-            transition: color 0.3s ease;
+            transition: all 0.3s ease;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .modal-close:hover {
-            color: var(--dark);
+            color: var(--light);
+            background: rgba(255, 255, 255, 0.1);
+            transform: rotate(90deg);
         }
 
         .alert {
@@ -355,21 +571,26 @@
             display: flex;
             align-items: center;
             gap: 12px;
+            backdrop-filter: blur(10px);
+            border: 1px solid;
         }
 
         .alert-success {
-            background: #d1fae5;
-            color: #065f46;
+            background: rgba(16, 185, 129, 0.1);
+            color: #6ee7b7;
+            border-color: rgba(110, 231, 183, 0.3);
         }
 
         .alert-error {
-            background: #fee2e2;
-            color: #991b1b;
+            background: rgba(239, 68, 68, 0.1);
+            color: #fca5a5;
+            border-color: rgba(252, 165, 165, 0.3);
         }
 
         .alert-info {
-            background: #dbeafe;
-            color: #1e40af;
+            background: rgba(59, 130, 246, 0.1);
+            color: #93c5fd;
+            border-color: rgba(147, 197, 253, 0.3);
         }
 
         .search-box {
@@ -380,7 +601,9 @@
         .search-box input {
             width: 100%;
             padding: 12px 20px 12px 45px;
-            border: 2px solid #e5e7eb;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--light);
             border-radius: 9999px;
             font-size: 1rem;
             transition: all 0.3s ease;
@@ -388,8 +611,9 @@
 
         .search-box input:focus {
             outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+            border-color: var(--neon-purple);
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2), 0 0 20px rgba(139, 92, 246, 0.3);
+            background: rgba(255, 255, 255, 0.1);
         }
 
         .search-box::before {
@@ -416,8 +640,8 @@
             display: inline-block;
             width: 20px;
             height: 20px;
-            border: 3px solid #f3f3f3;
-            border-top: 3px solid var(--primary);
+            border: 3px solid rgba(255, 255, 255, 0.1);
+            border-top: 3px solid var(--neon-purple);
             border-radius: 50%;
             animation: spin 1s linear infinite;
         }
@@ -425,6 +649,62 @@
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
+        }
+
+        /* Scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(139, 92, 246, 0.3);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(139, 92, 246, 0.5);
+        }
+
+        /* Consumption details card */
+        .consumption-details {
+            background: rgba(139, 92, 246, 0.05);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .consumption-details h4 {
+            color: var(--neon-purple);
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .detail-row:last-child {
+            border-bottom: none;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 400px;
+            margin: 20px 0;
+        }
+
+        .btn-sm {
+            padding: 6px 12px;
+            font-size: 0.875rem;
         }
 
         @media (max-width: 768px) {
@@ -460,6 +740,7 @@
             <button class="nav-tab active" data-tab="dashboard">📊 Dashboard</button>
             <button class="nav-tab" data-tab="inventory">📦 Giacenza</button>
             <button class="nav-tab" data-tab="movements">📝 Movimenti</button>
+            <button class="nav-tab" data-tab="nights">🌙 Serate</button>
             <button class="nav-tab" data-tab="products">🍾 Prodotti</button>
             <button class="nav-tab" data-tab="statistics">📈 Statistiche</button>
             <button class="nav-tab" data-tab="reports">📄 Report</button>
@@ -471,22 +752,22 @@
                 <div class="stat-card">
                     <h3>Valore Totale Magazzino</h3>
                     <div class="value" id="totalValue">€0.00</div>
-                    <div class="change positive">+0% vs ultima settimana</div>
+                    <div class="change positive">Stock attuale</div>
                 </div>
                 <div class="stat-card">
-                    <h3>Consumo Serata</h3>
-                    <div class="value" id="nightConsumption">€0.00</div>
-                    <div class="change negative">-0% vs media</div>
+                    <h3>Ultimo Consumo Serata</h3>
+                    <div class="value" id="lastNightConsumption">€0.00</div>
+                    <div class="change" id="lastNightDate">-</div>
                 </div>
                 <div class="stat-card">
                     <h3>Prodotti in Esaurimento</h3>
                     <div class="value" id="lowStock">0</div>
-                    <div class="change">Riordina subito</div>
+                    <div class="change negative">Riordina subito</div>
                 </div>
                 <div class="stat-card">
-                    <h3>Efficienza Magazzino</h3>
-                    <div class="value" id="efficiency">0%</div>
-                    <div class="change positive">Ottimo</div>
+                    <h3>Media Consumi Settimanale</h3>
+                    <div class="value" id="weeklyAverage">€0.00</div>
+                    <div class="change">Ultimi 7 giorni</div>
                 </div>
             </div>
 
@@ -517,7 +798,158 @@
             </div>
         </div>
 
-        <!-- Inventory Tab -->
+        <h3 style="margin-bottom: 20px; color: var(--neon-purple);">📊 Dettaglio Consumi per Prodotto</h3>
+                        <div class="search-box">
+                            <input type="text" placeholder="Cerca prodotto nella serata..." id="nightProductSearch" onkeyup="app.filterNightProducts()">
+                        </div>
+                        <div class="table-container">
+                            <table id="nightProductsTable">
+                                <thead>
+                                    <tr>
+                                        <th>Prodotto</th>
+                                        <th>Categoria</th>
+                                        <th>Quantità (L)</th>
+                                        <th>Bottiglie</th>
+                                        <th>Valore (€)</th>
+                                        <th>% del Totale</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Products Tab -->
+        <div class="tab-content" id="products">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">🍾 Catalogo Prodotti</h2>
+                    <button class="btn btn-primary" onclick="app.showAddProductModal()">
+                        ➕ Aggiungi Prodotto
+                    </button>
+                </div>
+
+                <div class="search-box">
+                    <input type="text" placeholder="Cerca prodotto..." id="productSearch">
+                </div>
+
+                <div class="table-container">
+                    <table id="productsTable">
+                        <thead>
+                            <tr>
+                                <th>Codice</th>
+                                <th>Nome</th>
+                                <th>Categoria</th>
+                                <th>Formato</th>
+                                <th>Prezzo (€)</th>
+                                <th>Prezzo/L (€)</th>
+                                <th>Azioni</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Statistics Tab -->
+        <div class="tab-content" id="statistics">
+            <div class="card">
+                <h2 class="card-title">📊 Statistiche Avanzate</h2>
+                
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Periodo</label>
+                        <select id="statsPeriod" onchange="app.updateCharts()">
+                            <option value="7">Ultima settimana</option>
+                            <option value="30">Ultimo mese</option>
+                            <option value="90">Ultimi 3 mesi</option>
+                            <option value="all">Tutto</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Prodotto Specifico (opzionale)</label>
+                        <select id="statsProduct" onchange="app.updateCharts()">
+                            <option value="">Tutti i prodotti</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2 class="card-title">🏆 Top 20 Prodotti per Consumo</h2>
+                <div class="chart-container">
+                    <canvas id="topProductsChart"></canvas>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2 class="card-title">📈 Trend Consumi nel Tempo</h2>
+                <div class="chart-container">
+                    <canvas id="consumptionTrendChart"></canvas>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2 class="card-title">🥧 Distribuzione per Categoria</h2>
+                <div class="chart-container">
+                    <canvas id="categoryPieChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Reports Tab -->
+        <div class="tab-content" id="reports">
+            <div class="card">
+                <h2 class="card-title">📄 Genera Report</h2>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Tipo Report</label>
+                        <select id="reportType">
+                            <option value="inventory">Report Inventario</option>
+                            <option value="consumption">Report Consumi</option>
+                            <option value="night">Report Serata Singola</option>
+                            <option value="product">Report per Prodotto</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Periodo</label>
+                        <select id="reportPeriod">
+                            <option value="day">Giornaliero</option>
+                            <option value="week">Settimanale</option>
+                            <option value="month">Mensile</option>
+                            <option value="custom">Personalizzato</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Formato</label>
+                        <select id="reportFormat">
+                            <option value="csv">CSV (Excel)</option>
+                            <option value="json">JSON</option>
+                            <option value="txt">TXT</option>
+                        </select>
+                    </div>
+                </div>
+                <button class="btn btn-primary" onclick="app.generateReport()">
+                    📥 Genera e Scarica Report
+                </button>
+            </div>
+
+            <div class="card">
+                <h2 class="card-title">📅 Report Recenti</h2>
+                <div id="recentReportsContainer">
+                    <p style="color: var(--gray); text-align: center; padding: 20px;">
+                        I report generati verranno salvati qui per un accesso rapido.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CONTINUA NELLA PARTE 4 --><!-- Inventory Tab -->
         <div class="tab-content" id="inventory">
             <div class="card">
                 <div class="card-header">
@@ -597,6 +1029,7 @@
                                 <th>Valore (€)</th>
                                 <th>Note</th>
                                 <th>Operatore</th>
+                                <th>Azioni</th>
                             </tr>
                         </thead>
                         <tbody></tbody>
@@ -605,135 +1038,51 @@
             </div>
         </div>
 
-        <!-- Products Tab -->
-        <div class="tab-content" id="products">
+        <!-- Nights Tab -->
+        <div class="tab-content" id="nights">
             <div class="card">
                 <div class="card-header">
-                    <h2 class="card-title">🍾 Catalogo Prodotti</h2>
-                    <button class="btn btn-primary" onclick="app.showAddProductModal()">
-                        ➕ Aggiungi Prodotto
-                    </button>
+                    <h2 class="card-title">🌙 Dettaglio Serate</h2>
                 </div>
 
-                <div class="search-box">
-                    <input type="text" placeholder="Cerca prodotto..." id="productSearch">
-                </div>
-
-                <div class="table-container">
-                    <table id="productsTable">
-                        <thead>
-                            <tr>
-                                <th>Codice</th>
-                                <th>Nome</th>
-                                <th>Categoria</th>
-                                <th>Formato</th>
-                                <th>Prezzo (€)</th>
-                                <th>Prezzo/L (€)</th>
-                                <th>Azioni</th>
-                            </tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        <!-- Statistics Tab -->
-        <div class="tab-content" id="statistics">
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <h3>Consumo Medio Serata</h3>
-                    <div class="value" id="avgNightConsumption">€0.00</div>
-                </div>
-                <div class="stat-card">
-                    <h3>Categoria Più Venduta</h3>
-                    <div class="value" id="topCategory">-</div>
-                </div>
-                <div class="stat-card">
-                    <h3>Prodotto Più Redditizio</h3>
-                    <div class="value" id="mostProfitable">-</div>
-                </div>
-                <div class="stat-card">
-                    <h3>Rotazione Media Stock</h3>
-                    <div class="value" id="stockRotation">0 giorni</div>
-                </div>
-            </div>
-
-            <div class="card">
-                <h2 class="card-title">📊 Analisi Consumi per Categoria</h2>
-                <canvas id="categoryChart" width="400" height="200"></canvas>
-            </div>
-
-            <div class="card">
-                <h2 class="card-title">📈 Trend Consumi Settimanali</h2>
-                <canvas id="weeklyTrendChart" width="400" height="200"></canvas>
-            </div>
-        </div>
-
-        <!-- Reports Tab -->
-        <div class="tab-content" id="reports">
-            <div class="card">
-                <h2 class="card-title">📄 Genera Report</h2>
-                <div class="form-grid">
+                <div class="form-grid" style="grid-template-columns: 1fr 200px;">
                     <div class="form-group">
-                        <label>Tipo Report</label>
-                        <select id="reportType">
-                            <option value="inventory">Report Inventario</option>
-                            <option value="consumption">Report Consumi</option>
-                            <option value="orders">Report Ordini</option>
-                            <option value="financial">Report Finanziario</option>
+                        <label>Seleziona Serata</label>
+                        <select id="nightSelector" onchange="app.showNightDetails()">
+                            <option value="">Seleziona una serata...</option>
                         </select>
                     </div>
-                    <div class="form-group">
-                        <label>Periodo</label>
-                        <select id="reportPeriod">
-                            <option value="day">Giornaliero</option>
-                            <option value="week">Settimanale</option>
-                            <option value="month">Mensile</option>
-                            <option value="custom">Personalizzato</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Formato</label>
-                        <select id="reportFormat">
-                            <option value="pdf">PDF</option>
-                            <option value="excel">Excel</option>
-                            <option value="csv">CSV</option>
-                        </select>
+                    <div class="form-group" style="align-self: flex-end;">
+                        <button class="btn btn-danger" onclick="app.deleteNight()" id="deleteNightBtn" style="display: none;">
+                            🗑️ Elimina Serata
+                        </button>
                     </div>
                 </div>
-                <button class="btn btn-primary" onclick="app.generateReport()">
-                    📥 Genera Report
-                </button>
-            </div>
 
-            <div class="card">
-                <h2 class="card-title">📅 Report Recenti</h2>
-                <div class="table-container">
-                    <table id="reportsTable">
-                        <thead>
-                            <tr>
-                                <th>Data</th>
-                                <th>Tipo</th>
-                                <th>Periodo</th>
-                                <th>Formato</th>
-                                <th>Azioni</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td colspan="5" class="empty-state">
-                                    <p>Nessun report generato</p>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
+                <div id="nightDetailsContainer" style="display: none;">
+                    <div class="stats-grid" style="margin-top: 20px;">
+                        <div class="stat-card">
+                            <h3>Totale Consumo</h3>
+                            <div class="value" id="nightTotalConsumption">€0.00</div>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Bottiglie Consumate</h3>
+                            <div class="value" id="nightBottlesCount">0</div>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Litri Totali</h3>
+                            <div class="value" id="nightTotalLiters">0L</div>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Categoria Top</h3>
+                            <div class="value" id="nightTopCategory">-</div>
+                        </div>
+                    </div>
 
-  <!-- Modals -->
+                    <div class="card" style="margin-top: 20px;">
+                        <h3 style="margin-bottom: 20
+
+<!-- Modals -->
     <div class="modal" id="initialInventoryModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -840,6 +1189,9 @@
         </div>
     </div>
 
+    <!-- Chart.js per i grafici -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
     <script>
         // App principale
         const app = {
@@ -847,6 +1199,8 @@
             products: [],
             inventory: {},
             movements: [],
+            nights: {}, // Nuovo: memorizza le serate
+            charts: {}, // Per salvare le istanze dei grafici
             
             // Inizializzazione
             init() {
@@ -855,6 +1209,8 @@
                 this.setupEventListeners();
                 this.updateAllTables();
                 this.updateDashboard();
+                this.updateNightSelector();
+                this.populateStatsProductSelect();
                 
                 // Set today's date as default
                 document.getElementById('nightDate').value = new Date().toISOString().split('T')[0];
@@ -975,9 +1331,11 @@
                 const savedInventory = localStorage.getItem('cambusa_inventory');
                 const savedMovements = localStorage.getItem('cambusa_movements');
                 const savedProducts = localStorage.getItem('cambusa_products');
+                const savedNights = localStorage.getItem('cambusa_nights');
                 
                 if (savedInventory) this.inventory = JSON.parse(savedInventory);
                 if (savedMovements) this.movements = JSON.parse(savedMovements);
+                if (savedNights) this.nights = JSON.parse(savedNights);
                 if (savedProducts) {
                     const customProducts = JSON.parse(savedProducts);
                     this.products = [...this.products, ...customProducts];
@@ -987,6 +1345,7 @@
             saveToStorage() {
                 localStorage.setItem('cambusa_inventory', JSON.stringify(this.inventory));
                 localStorage.setItem('cambusa_movements', JSON.stringify(this.movements));
+                localStorage.setItem('cambusa_nights', JSON.stringify(this.nights));
                 
                 // Save only custom products
                 const customProducts = this.products.filter(p => p.id > 1000);
@@ -1052,7 +1411,7 @@
                         <td>€${value.toFixed(2)}</td>
                         <td>${this.getStockStatus(stock, product)}</td>
                         <td>
-                            <button class="btn btn-secondary" onclick="app.adjustInventory(${product.id})">
+                            <button class="btn btn-secondary btn-sm" onclick="app.adjustInventory(${product.id})">
                                 ✏️ Modifica
                             </button>
                         </td>
@@ -1077,7 +1436,7 @@
                         <td>${product.price ? '€' + product.price.toFixed(2) : '-'}</td>
                         <td>€${pricePerLiter}</td>
                         <td>
-                            <button class="btn btn-secondary" onclick="app.editProduct(${product.id})">
+                            <button class="btn btn-secondary btn-sm" onclick="app.editProduct(${product.id})">
                                 ✏️ Modifica
                             </button>
                         </td>
@@ -1125,16 +1484,21 @@
                         <td>€${value.toFixed(2)}</td>
                         <td>${movement.note || '-'}</td>
                         <td>${movement.operator || 'Sistema'}</td>
+                        <td>
+                            <button class="btn btn-danger btn-sm" onclick="app.deleteMovement('${movement.id}')">
+                                🗑️
+                            </button>
+                        </td>
                     `;
                     tbody.appendChild(row);
                 });
                 
                 if (filteredMovements.length === 0) {
-                    tbody.innerHTML = '<tr><td colspan="7" class="empty-state"><p>Nessun movimento trovato</p></td></tr>';
+                    tbody.innerHTML = '<tr><td colspan="8" class="empty-state"><p>Nessun movimento trovato</p></td></tr>';
                 }
             },
             
-            // Dashboard
+            // Dashboard aggiornata
             updateDashboard() {
                 // Calculate total inventory value
                 let totalValue = 0;
@@ -1153,25 +1517,48 @@
                 document.getElementById('totalValue').textContent = '€' + totalValue.toFixed(2);
                 document.getElementById('lowStock').textContent = lowStockCount;
                 
-                // Calculate tonight's consumption (last consumption movement)
-                const todayConsumptions = this.movements.filter(m => {
-                    const today = new Date().toISOString().split('T')[0];
-                    return m.type === 'consumption' && m.date.startsWith(today);
-                });
+                // Trova l'ultima serata e il suo consumo
+                const nightDates = Object.keys(this.nights).sort((a, b) => new Date(b) - new Date(a));
                 
-                let nightConsumption = 0;
-                todayConsumptions.forEach(m => {
-                    const product = this.products.find(p => p.id === m.productId);
-                    if (product && product.price) {
-                        nightConsumption += Math.abs(m.quantity) * product.price;
+                if (nightDates.length > 0) {
+                    const lastNight = this.nights[nightDates[0]];
+                    let lastNightTotal = 0;
+                    
+                    Object.entries(lastNight.consumptions).forEach(([productId, quantity]) => {
+                        const product = this.products.find(p => p.id === parseInt(productId));
+                        if (product && product.price) {
+                            lastNightTotal += quantity * product.price;
+                        }
+                    });
+                    
+                    document.getElementById('lastNightConsumption').textContent = '€' + lastNightTotal.toFixed(2);
+                    document.getElementById('lastNightDate').textContent = new Date(nightDates[0]).toLocaleDateString('it-IT');
+                } else {
+                    document.getElementById('lastNightConsumption').textContent = '€0.00';
+                    document.getElementById('lastNightDate').textContent = 'Nessuna serata registrata';
+                }
+                
+                // Media settimanale
+                const oneWeekAgo = new Date();
+                oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+                
+                let weeklyTotal = 0;
+                let weeklyNights = 0;
+                
+                Object.entries(this.nights).forEach(([date, night]) => {
+                    if (new Date(date) >= oneWeekAgo) {
+                        weeklyNights++;
+                        Object.entries(night.consumptions).forEach(([productId, quantity]) => {
+                            const product = this.products.find(p => p.id === parseInt(productId));
+                            if (product && product.price) {
+                                weeklyTotal += quantity * product.price;
+                            }
+                        });
                     }
                 });
                 
-                document.getElementById('nightConsumption').textContent = '€' + nightConsumption.toFixed(2);
-                
-                // Update efficiency (example calculation)
-                const efficiency = totalValue > 0 ? Math.min(95, (nightConsumption / totalValue) * 500) : 0;
-                document.getElementById('efficiency').textContent = efficiency.toFixed(0) + '%';
+                const weeklyAverage = weeklyNights > 0 ? weeklyTotal / weeklyNights : 0;
+                document.getElementById('weeklyAverage').textContent = '€' + weeklyAverage.toFixed(2);
                 
                 // Update top products table
                 this.updateTopProducts();
@@ -1181,19 +1568,20 @@
                 const tbody = document.querySelector('#topProductsTable tbody');
                 tbody.innerHTML = '';
                 
-                // Calculate consumption by product
+                // Calculate consumption by product from nights data
                 const consumptionMap = {};
                 const lastWeek = new Date();
                 lastWeek.setDate(lastWeek.getDate() - 7);
                 
-                this.movements.filter(m => 
-                    m.type === 'consumption' && 
-                    new Date(m.date) >= lastWeek
-                ).forEach(m => {
-                    if (!consumptionMap[m.productId]) {
-                        consumptionMap[m.productId] = 0;
+                Object.entries(this.nights).forEach(([date, night]) => {
+                    if (new Date(date) >= lastWeek) {
+                        Object.entries(night.consumptions).forEach(([productId, quantity]) => {
+                            if (!consumptionMap[productId]) {
+                                consumptionMap[productId] = 0;
+                            }
+                            consumptionMap[productId] += quantity;
+                        });
                     }
-                    consumptionMap[m.productId] += Math.abs(m.quantity);
                 });
                 
                 // Sort by consumption
@@ -1218,13 +1606,528 @@
                         <td><span class="badge badge-${product.category}">${this.getCategoryName(product.category)}</span></td>
                         <td>${consumption.toFixed(2)}L</td>
                         <td>€${value.toFixed(2)}</td>
-                        <td>📈 +15%</td>
+                        <td>📈 Top</td>
                     `;
                     tbody.appendChild(row);
                 });
             },
             
-            // Modal Functions
+            // Funzioni per la tab Serate
+            updateNightSelector() {
+                const selector = document.getElementById('nightSelector');
+                selector.innerHTML = '<option value="">Seleziona una serata...</option>';
+                
+                const nightDates = Object.keys(this.nights).sort((a, b) => new Date(b) - new Date(a));
+                
+                nightDates.forEach(date => {
+                    const option = document.createElement('option');
+                    option.value = date;
+                    option.textContent = new Date(date).toLocaleDateString('it-IT', {
+                        weekday: 'long',
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                    });
+                    selector.appendChild(option);
+                });
+            },
+            
+            showNightDetails() {
+                const selectedDate = document.getElementById('nightSelector').value;
+                
+                if (!selectedDate) {
+                    document.getElementById('nightDetailsContainer').style.display = 'none';
+                    document.getElementById('deleteNightBtn').style.display = 'none';
+                    return;
+                }
+                
+                document.getElementById('nightDetailsContainer').style.display = 'block';
+                document.getElementById('deleteNightBtn').style.display = 'block';
+                
+                const night = this.nights[selectedDate];
+                let totalValue = 0;
+                let totalLiters = 0;
+                let totalBottles = 0;
+                const categoryTotals = {};
+                const productDetails = [];
+                
+                Object.entries(night.consumptions).forEach(([productId, quantity]) => {
+                    const product = this.products.find(p => p.id === parseInt(productId));
+                    if (product) {
+                        const value = quantity * (product.price || 0);
+                        totalValue += value;
+                        totalLiters += quantity;
+                        totalBottles += quantity / product.format;
+                        
+                        if (!categoryTotals[product.category]) {
+                            categoryTotals[product.category] = 0;
+                        }
+                        categoryTotals[product.category] += value;
+                        
+                        productDetails.push({
+                            product: product,
+                            quantity: quantity,
+                            bottles: quantity / product.format,
+                            value: value
+                        });
+                    }
+                });
+                
+                // Update stats
+                document.getElementById('nightTotalConsumption').textContent = '€' + totalValue.toFixed(2);
+                document.getElementById('nightBottlesCount').textContent = Math.round(totalBottles);
+                document.getElementById('nightTotalLiters').textContent = totalLiters.toFixed(2) + 'L';
+                
+                // Top category
+                const topCategory = Object.entries(categoryTotals)
+                    .sort((a, b) => b[1] - a[1])[0];
+                document.getElementById('nightTopCategory').textContent = topCategory 
+                    ? this.getCategoryName(topCategory[0]) 
+                    : '-';
+                
+                // Update products table
+                const tbody = document.querySelector('#nightProductsTable tbody');
+                tbody.innerHTML = '';
+                
+                productDetails.sort((a, b) => b.value - a.value);
+                
+                productDetails.forEach(detail => {
+                    const percentage = totalValue > 0 ? (detail.value / totalValue * 100) : 0;
+                    
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${detail.product.name}</td>
+                        <td><span class="badge badge-${detail.product.category}">${this.getCategoryName(detail.product.category)}</span></td>
+                        <td>${detail.quantity.toFixed(2)}L</td>
+                        <td>${detail.bottles.toFixed(1)}</td>
+                        <td>€${detail.value.toFixed(2)}</td>
+                        <td>${percentage.toFixed(1)}%</td>
+                    `;
+                    tbody.appendChild(row);
+                });
+            },
+            
+            filterNightProducts() {
+                const searchTerm = document.getElementById('nightProductSearch').value.toLowerCase();
+                const rows = document.querySelectorAll('#nightProductsTable tbody tr');
+                
+                rows.forEach(row => {
+                    const text = row.textContent.toLowerCase();
+                    row.style.display = text.includes(searchTerm) ? '' : 'none';
+                });
+            },
+            
+            deleteNight() {
+                const selectedDate = document.getElementById('nightSelector').value;
+                if (!selectedDate) return;
+                
+                if (confirm(`Sei sicuro di voler eliminare la serata del ${new Date(selectedDate).toLocaleDateString('it-IT')}? Questa azione non può essere annullata.`)) {
+                    // Rimuovi la serata
+                    delete this.nights[selectedDate];
+                    
+                    // Rimuovi anche i movimenti associati
+                    this.movements = this.movements.filter(m => {
+                        if (m.type === 'consumption' && m.date.startsWith(selectedDate)) {
+                            return false;
+                        }
+                        return true;
+                    });
+                    
+                    this.saveToStorage();
+                    this.updateNightSelector();
+                    this.updateMovementsTable();
+                    this.updateDashboard();
+                    document.getElementById('nightDetailsContainer').style.display = 'none';
+                    this.showAlert('Serata eliminata con successo', 'success');
+                }
+            },
+            
+            deleteMovement(movementId) {
+                if (confirm('Sei sicuro di voler eliminare questo movimento?')) {
+                    this.movements = this.movements.filter(m => m.id !== movementId);
+                    
+                    // Se è un consumo, aggiorna anche nights
+                    const movement = this.movements.find(m => m.id === movementId);
+                    if (movement && movement.type === 'consumption') {
+                        const nightDate = movement.date.split(' ')[0];
+                        if (this.nights[nightDate]) {
+                            // Ricalcola i consumi per quella notte
+                            this.recalculateNight(nightDate);
+                        }
+                    }
+                    
+                    this.saveToStorage();
+                    this.updateMovementsTable();
+                    this.updateDashboard();
+                    this.showAlert('Movimento eliminato con successo', 'success');
+                }
+            },
+            
+            recalculateNight(date) {
+                const nightMovements = this.movements.filter(m => 
+                    m.type === 'consumption' && m.date.startsWith(date)
+                );
+                
+                if (nightMovements.length === 0) {
+                    delete this.nights[date];
+                } else {
+                    const consumptions = {};
+                    nightMovements.forEach(m => {
+                        if (!consumptions[m.productId]) {
+                            consumptions[m.productId] = 0;
+                        }
+                        consumptions[m.productId] += Math.abs(m.quantity);
+                    });
+                    this.nights[date] = { consumptions };
+                }
+            },
+            
+            // Statistiche avanzate
+            populateStatsProductSelect() {
+                const select = document.getElementById('statsProduct');
+                this.products.forEach(product => {
+                    const option = document.createElement('option');
+                    option.value = product.id;
+                    option.textContent = product.name;
+                    select.appendChild(option);
+                });
+            },
+            
+            updateCharts() {
+                const period = parseInt(document.getElementById('statsPeriod').value);
+                const productId = document.getElementById('statsProduct').value;
+                
+                // Distruggi grafici esistenti
+                Object.values(this.charts).forEach(chart => {
+                    if (chart) chart.destroy();
+                });
+                
+                this.updateTopProductsChart(period);
+                this.updateConsumptionTrendChart(period, productId);
+                this.updateCategoryPieChart(period);
+            },
+            
+            updateTopProductsChart(period) {
+                const ctx = document.getElementById('topProductsChart').getContext('2d');
+                const consumptionData = this.getConsumptionData(period);
+                
+                const sorted = Object.entries(consumptionData)
+                    .sort((a, b) => b[1] - a[1])
+                    .slice(0, 20);
+                
+                const labels = sorted.map(([productId]) => {
+                    const product = this.products.find(p => p.id === parseInt(productId));
+                    return product ? product.name : 'Sconosciuto';
+                });
+                
+                const data = sorted.map(([_, value]) => value);
+                
+                this.charts.topProducts = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Consumo (L)',
+                            data: data,
+                            backgroundColor: 'rgba(139, 92, 246, 0.6)',
+                            borderColor: 'rgba(139, 92, 246, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false
+                            }
+                        },
+                        scales: {
+                            x: {
+                                ticks: {
+                                    color: '#f3f4f6',
+                                    autoSkip: false,
+                                    maxRotation: 45,
+                                    minRotation: 45
+                                },
+                                grid: {
+                                    color: 'rgba(255, 255, 255, 0.1)'
+                                }
+                            },
+                            y: {
+                                ticks: {
+                                    color: '#f3f4f6'
+                                },
+                                grid: {
+                                    color: 'rgba(255, 255, 255, 0.1)'
+                                }
+                            }
+                        }
+                    }
+                });
+            },
+            
+            updateConsumptionTrendChart(period, productId) {
+                const ctx = document.getElementById('consumptionTrendChart').getContext('2d');
+                const trendData = this.getTrendData(period, productId);
+                
+                this.charts.trend = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: trendData.labels,
+                        datasets: [{
+                            label: productId ? 'Consumo prodotto (L)' : 'Consumo totale (€)',
+                            data: trendData.values,
+                            borderColor: 'rgba(236, 72, 153, 1)',
+                            backgroundColor: 'rgba(236, 72, 153, 0.1)',
+                            tension: 0.4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                labels: {
+                                    color: '#f3f4f6'
+                                }
+                            }
+                        },
+                        scales: {
+                            x: {
+                                ticks: {
+                                    color: '#f3f4f6'
+                                },
+                                grid: {
+                                    color: 'rgba(255, 255, 255, 0.1)'
+                                }
+                            },
+                            y: {
+                                ticks: {
+                                    color: '#f3f4f6'
+                                },
+                                grid: {
+                                    color: 'rgba(255, 255, 255, 0.1)'
+                                }
+                            }
+                        }
+                    }
+                });
+            },
+            
+            updateCategoryPieChart(period) {
+                const ctx = document.getElementById('categoryPieChart').getContext('2d');
+                const categoryData = this.getCategoryData(period);
+                
+                this.charts.pie = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: Object.keys(categoryData).map(cat => this.getCategoryName(cat)),
+                        datasets: [{
+                            data: Object.values(categoryData),
+                            backgroundColor: [
+                                'rgba(252, 165, 165, 0.6)',
+                                'rgba(147, 197, 253, 0.6)',
+                                'rgba(252, 211, 77, 0.6)',
+                                'rgba(251, 191, 36, 0.6)',
+                                'rgba(110, 231, 183, 0.6)',
+                                'rgba(192, 132, 252, 0.6)',
+                                'rgba(249, 168, 212, 0.6)',
+                                'rgba(103, 232, 249, 0.6)',
+                                'rgba(252, 165, 165, 0.6)',
+                                'rgba(253, 186, 116, 0.6)'
+                            ]
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'right',
+                                labels: {
+                                    color: '#f3f4f6'
+                                }
+                            }
+                        }
+                    }
+                });
+            },
+            
+            getConsumptionData(period) {
+                const consumptionMap = {};
+                const startDate = new Date();
+                startDate.setDate(startDate.getDate() - (period === 'all' ? 365 : period));
+                
+                Object.entries(this.nights).forEach(([date, night]) => {
+                    if (period === 'all' || new Date(date) >= startDate) {
+                        Object.entries(night.consumptions).forEach(([productId, quantity]) => {
+                            if (!consumptionMap[productId]) {
+                                consumptionMap[productId] = 0;
+                            }
+                            consumptionMap[productId] += quantity;
+                        });
+                    }
+                });
+                
+                return consumptionMap;
+            },
+            
+            getTrendData(period, productId) {
+                const labels = [];
+                const values = [];
+                const startDate = new Date();
+                startDate.setDate(startDate.getDate() - (period === 'all' ? 365 : period));
+                
+                const nightDates = Object.keys(this.nights)
+                    .filter(date => period === 'all' || new Date(date) >= startDate)
+                    .sort();
+                
+                nightDates.forEach(date => {
+                    labels.push(new Date(date).toLocaleDateString('it-IT'));
+                    
+                    if (productId) {
+                        values.push(this.nights[date].consumptions[productId] || 0);
+                    } else {
+                        let total = 0;
+                        Object.entries(this.nights[date].consumptions).forEach(([pid, quantity]) => {
+                            const product = this.products.find(p => p.id === parseInt(pid));
+                            if (product && product.price) {
+                                total += quantity * product.price;
+                            }
+                        });
+                        values.push(total);
+                    }
+                });
+                
+                return { labels, values };
+            },
+            
+            getCategoryData(period) {
+                const categoryMap = {};
+                const startDate = new Date();
+                startDate.setDate(startDate.getDate() - (period === 'all' ? 365 : period));
+                
+                Object.entries(this.nights).forEach(([date, night]) => {
+                    if (period === 'all' || new Date(date) >= startDate) {
+                        Object.entries(night.consumptions).forEach(([productId, quantity]) => {
+                            const product = this.products.find(p => p.id === parseInt(productId));
+                            if (product && product.price) {
+                                if (!categoryMap[product.category]) {
+                                    categoryMap[product.category] = 0;
+                                }
+                                categoryMap[product.category] += quantity * product.price;
+                            }
+                        });
+                    }
+                });
+                
+                return categoryMap;
+            },
+            
+            // Report Generation - FUNZIONANTE
+            generateReport() {
+                const reportType = document.getElementById('reportType').value;
+                const reportPeriod = document.getElementById('reportPeriod').value;
+                const reportFormat = document.getElementById('reportFormat').value;
+                
+                let data = [];
+                let filename = `cambusa_report_${reportType}_${new Date().toISOString().split('T')[0]}`;
+                
+                switch (reportType) {
+                    case 'inventory':
+                        data = this.generateInventoryReport();
+                        break;
+                    case 'consumption':
+                        data = this.generateConsumptionReport(reportPeriod);
+                        break;
+                    case 'night':
+                        data = this.generateNightReport();
+                        break;
+                    case 'product':
+                        data = this.generateProductReport();
+                        break;
+                }
+                
+                switch (reportFormat) {
+                    case 'csv':
+                        this.downloadCSV(data, filename + '.csv');
+                        break;
+                    case 'json':
+                        this.downloadJSON(data, filename + '.json');
+                        break;
+                    case 'txt':
+                        this.downloadTXT(data, filename + '.txt');
+                        break;
+                }
+                
+                this.showAlert('Report generato e scaricato con successo!', 'success');
+            },
+            
+            generateInventoryReport() {
+                return this.products.map(product => ({
+                    Prodotto: product.name,
+                    Categoria: this.getCategoryName(product.category),
+                    Formato: product.format + 'L',
+                    Prezzo: product.price || 0,
+                    Giacenza: this.inventory[product.id] || 0,
+                    Valore: ((this.inventory[product.id] || 0) * (product.price || 0)).toFixed(2)
+                }));
+            },
+            
+            generateConsumptionReport(period) {
+                const consumptionData = this.getConsumptionData(period === 'all' ? 'all' : 30);
+                
+                return Object.entries(consumptionData).map(([productId, quantity]) => {
+                    const product = this.products.find(p => p.id === parseInt(productId));
+                    return {
+                        Prodotto: product ? product.name : 'Sconosciuto',
+                        Categoria: product ? this.getCategoryName(product.category) : '-',
+                        'Quantità Consumata (L)': quantity.toFixed(2),
+                        'Valore (€)': product ? (quantity * product.price).toFixed(2) : '0.00'
+                    };
+                });
+            },
+            
+            downloadCSV(data, filename) {
+                if (data.length === 0) return;
+                
+                const headers = Object.keys(data[0]);
+                const csv = [
+                    headers.join(','),
+                    ...data.map(row => headers.map(header => `"${row[header]}"`).join(','))
+                ].join('\n');
+                
+                const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.download = filename;
+                link.click();
+            },
+            
+            downloadJSON(data, filename) {
+                const json = JSON.stringify(data, null, 2);
+                const blob = new Blob([json], { type: 'application/json' });
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.download = filename;
+                link.click();
+            },
+            
+            downloadTXT(data, filename) {
+                let txt = '';
+                data.forEach(row => {
+                    txt += Object.entries(row).map(([key, value]) => `${key}: ${value}`).join(' | ') + '\n';
+                });
+                
+                const blob = new Blob([txt], { type: 'text/plain' });
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.download = filename;
+                link.click();
+            },
+            
+            // Modal Functions (continua dalle precedenti)
             showInitialInventoryModal() {
                 const form = document.getElementById('initialInventoryForm');
                 form.innerHTML = '';
@@ -1351,6 +2254,7 @@
             saveEndOfNight() {
                 const nightDate = document.getElementById('nightDate').value;
                 const consumptions = [];
+                const nightConsumptions = {};
                 
                 this.products.forEach(product => {
                     const input = document.getElementById(`endnight_${product.id}`);
@@ -1359,7 +2263,7 @@
                         const initialStock = this.inventory[product.id] || 0;
                         const consumption = initialStock - finalStock;
                         
-                        if (consumption !== 0) {
+                        if (consumption > 0) {
                             consumptions.push({
                                 id: Date.now() + Math.random(),
                                 date: nightDate + ' 23:59:59',
@@ -1370,30 +2274,42 @@
                                 operator: 'Sistema'
                             });
                             
+                            nightConsumptions[product.id] = consumption;
+                            
                             // Update inventory
                             this.inventory[product.id] = finalStock;
                         }
                     }
                 });
                 
-                // Add all consumptions to movements
-                this.movements.push(...consumptions);
-                
-                this.saveToStorage();
-                this.updateAllTables();
-                this.updateDashboard();
-                this.closeModal('endOfNightModal');
-                
-                // Calculate total consumption value
-                let totalConsumption = 0;
-                consumptions.forEach(c => {
-                    const product = this.products.find(p => p.id === c.productId);
-                    if (product && product.price) {
-                        totalConsumption += Math.abs(c.quantity) * product.price;
-                    }
-                });
-                
-                this.showAlert(`Consumi della serata registrati! Totale: €${totalConsumption.toFixed(2)}`, 'success');
+                if (Object.keys(nightConsumptions).length > 0) {
+                    // Salva i dati della serata
+                    this.nights[nightDate] = {
+                        consumptions: nightConsumptions
+                    };
+                    
+                    // Add all consumptions to movements
+                    this.movements.push(...consumptions);
+                    
+                    this.saveToStorage();
+                    this.updateAllTables();
+                    this.updateDashboard();
+                    this.updateNightSelector();
+                    this.closeModal('endOfNightModal');
+                    
+                    // Calculate total consumption value
+                    let totalConsumption = 0;
+                    Object.entries(nightConsumptions).forEach(([productId, quantity]) => {
+                        const product = this.products.find(p => p.id === parseInt(productId));
+                        if (product && product.price) {
+                            totalConsumption += quantity * product.price;
+                        }
+                    });
+                    
+                    this.showAlert(`Consumi della serata registrati! Totale: €${totalConsumption.toFixed(2)}`, 'success');
+                } else {
+                    this.showAlert('Nessun consumo registrato per questa serata', 'warning');
+                }
             },
             
             saveOrder() {
@@ -1466,6 +2382,7 @@
                 this.products.push(newProduct);
                 this.saveToStorage();
                 this.updateProductsTable();
+                this.populateStatsProductSelect(); // Aggiorna select nelle statistiche
                 this.closeModal('addProductModal');
                 this.showAlert('Prodotto aggiunto con successo!', 'success');
             },
@@ -1492,7 +2409,7 @@
                         <input type="number" class="order-quantity" step="0.01" min="0" placeholder="0">
                     </div>
                     <div class="form-group" style="align-self: flex-end;">
-                        <button class="btn btn-danger" onclick="this.parentElement.parentElement.remove()">
+                        <button class="btn btn-danger btn-sm" onclick="this.parentElement.parentElement.remove()">
                             🗑️ Rimuovi
                         </button>
                     </div>
@@ -1515,7 +2432,7 @@
                         
                         if (difference !== 0) {
                             this.movements.push({
-                                id: Date.now(),
+                                id: Date.now().toString(),
                                 date: new Date().toISOString(),
                                 type: 'adjustment',
                                 productId: productId,
@@ -1598,7 +2515,7 @@
                 const alert = document.createElement('div');
                 alert.className = `alert alert-${type}`;
                 alert.innerHTML = `
-                    ${type === 'success' ? '✅' : type === 'error' ? '❌' : 'ℹ️'} ${message}
+                    ${type === 'success' ? '✅' : type === 'error' ? '❌' : type === 'warning' ? '⚠️' : 'ℹ️'} ${message}
                 `;
                 
                 document.body.appendChild(alert);
@@ -1607,223 +2524,67 @@
                 alert.style.right = '20px';
                 alert.style.zIndex = '2000';
                 alert.style.maxWidth = '400px';
+                alert.style.animation = 'slideIn 0.3s ease';
                 
                 setTimeout(() => {
                     alert.style.opacity = '0';
+                    alert.style.transform = 'translateX(100px)';
                     setTimeout(() => alert.remove(), 300);
                 }, 3000);
             },
             
-            // Charts
-            updateCharts() {
-                this.updateCategoryChart();
-                this.updateWeeklyTrendChart();
-                this.updateStatistics();
-            },
-            
-            updateCategoryChart() {
-                const canvas = document.getElementById('categoryChart');
-                const ctx = canvas.getContext('2d');
+            // Report aggiuntivi
+            generateNightReport() {
+                const report = [];
+                const nightDates = Object.keys(this.nights).sort((a, b) => new Date(b) - new Date(a));
                 
-                // Calculate consumption by category
-                const categoryData = {};
-                
-                this.movements.filter(m => m.type === 'consumption').forEach(m => {
-                    const product = this.products.find(p => p.id === m.productId);
-                    if (product) {
-                        if (!categoryData[product.category]) {
-                            categoryData[product.category] = 0;
+                nightDates.forEach(date => {
+                    let totalValue = 0;
+                    let totalLiters = 0;
+                    
+                    Object.entries(this.nights[date].consumptions).forEach(([productId, quantity]) => {
+                        const product = this.products.find(p => p.id === parseInt(productId));
+                        if (product) {
+                            totalValue += quantity * (product.price || 0);
+                            totalLiters += quantity;
                         }
-                        categoryData[product.category] += Math.abs(m.quantity) * (product.price || 0);
-                    }
+                    });
+                    
+                    report.push({
+                        Data: new Date(date).toLocaleDateString('it-IT'),
+                        'Totale Consumo (€)': totalValue.toFixed(2),
+                        'Litri Totali': totalLiters.toFixed(2),
+                        'Numero Prodotti': Object.keys(this.nights[date].consumptions).length
+                    });
                 });
                 
-                // Simple bar chart
-                const categories = Object.keys(categoryData);
-                const values = Object.values(categoryData);
-                const maxValue = Math.max(...values, 1);
-                
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                
-                const barWidth = canvas.width / (categories.length * 2);
-                const barSpacing = barWidth;
-                
-                categories.forEach((category, index) => {
-                    const x = index * (barWidth + barSpacing) + barSpacing;
-                    const height = (values[index] / maxValue) * (canvas.height - 40);
-                    const y = canvas.height - height - 20;
-                    
-                    // Draw bar
-                    ctx.fillStyle = '#6366f1';
-                    ctx.fillRect(x, y, barWidth, height);
-                    
-                    // Draw label
-                    ctx.fillStyle = '#333';
-                    ctx.font = '12px Arial';
-                    ctx.textAlign = 'center';
-                    ctx.fillText(this.getCategoryName(category), x + barWidth/2, canvas.height - 5);
-                    
-                    // Draw value
-                    ctx.fillText('€' + values[index].toFixed(0), x + barWidth/2, y - 5);
-                });
+                return report;
             },
             
-            updateWeeklyTrendChart() {
-                const canvas = document.getElementById('weeklyTrendChart');
-                const ctx = canvas.getContext('2d');
+            generateProductReport() {
+                const report = [];
                 
-                // Get last 7 days
-                const days = [];
-                const values = [];
-                
-                for (let i = 6; i >= 0; i--) {
-                    const date = new Date();
-                    date.setDate(date.getDate() - i);
-                    const dateStr = date.toISOString().split('T')[0];
+                this.products.forEach(product => {
+                    let totalConsumed = 0;
+                    let nightsCount = 0;
                     
-                    const dayConsumption = this.movements
-                        .filter(m => m.type === 'consumption' && m.date.startsWith(dateStr))
-                        .reduce((sum, m) => {
-                            const product = this.products.find(p => p.id === m.productId);
-                            return sum + Math.abs(m.quantity) * (product?.price || 0);
-                        }, 0);
-                    
-                    days.push(date.toLocaleDateString('it-IT', { weekday: 'short' }));
-                    values.push(dayConsumption);
-                }
-                
-                // Simple line chart
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                
-                const maxValue = Math.max(...values, 1);
-                const pointSpacing = canvas.width / (days.length - 1);
-                
-                // Draw grid lines
-                ctx.strokeStyle = '#e5e7eb';
-                ctx.lineWidth = 1;
-                for (let i = 0; i <= 4; i++) {
-                    const y = (canvas.height - 40) * (i / 4) + 20;
-                    ctx.beginPath();
-                    ctx.moveTo(0, y);
-                    ctx.lineTo(canvas.width, y);
-                    ctx.stroke();
-                }
-                
-                // Draw line
-                ctx.strokeStyle = '#6366f1';
-                ctx.lineWidth = 2;
-                ctx.beginPath();
-                
-                days.forEach((day, index) => {
-                    const x = index * pointSpacing;
-                    const y = canvas.height - 20 - (values[index] / maxValue) * (canvas.height - 40);
-                    
-                    if (index === 0) {
-                        ctx.moveTo(x, y);
-                    } else {
-                        ctx.lineTo(x, y);
-                    }
-                    
-                    // Draw point
-                    ctx.fillStyle = '#6366f1';
-                    ctx.beginPath();
-                    ctx.arc(x, y, 4, 0, Math.PI * 2);
-                    ctx.fill();
-                    
-                    // Draw label
-                    ctx.fillStyle = '#333';
-                    ctx.font = '12px Arial';
-                    ctx.textAlign = 'center';
-                    ctx.fillText(day, x, canvas.height - 5);
-                });
-                
-                ctx.stroke();
-            },
-            
-            updateStatistics() {
-                // Average night consumption
-                const nightConsumptions = {};
-                this.movements.filter(m => m.type === 'consumption').forEach(m => {
-                    const date = m.date.split(' ')[0];
-                    if (!nightConsumptions[date]) {
-                        nightConsumptions[date] = 0;
-                    }
-                    const product = this.products.find(p => p.id === m.productId);
-                    if (product && product.price) {
-                        nightConsumptions[date] += Math.abs(m.quantity) * product.price;
-                    }
-                });
-                
-                const avgConsumption = Object.values(nightConsumptions).length > 0
-                    ? Object.values(nightConsumptions).reduce((a, b) => a + b, 0) / Object.values(nightConsumptions).length
-                    : 0;
-                
-                document.getElementById('avgNightConsumption').textContent = '€' + avgConsumption.toFixed(2);
-                
-                // Top category
-                const categoryTotals = {};
-                this.movements.filter(m => m.type === 'consumption').forEach(m => {
-                    const product = this.products.find(p => p.id === m.productId);
-                    if (product) {
-                        if (!categoryTotals[product.category]) {
-                            categoryTotals[product.category] = 0;
+                    Object.values(this.nights).forEach(night => {
+                        if (night.consumptions[product.id]) {
+                            totalConsumed += night.consumptions[product.id];
+                            nightsCount++;
                         }
-                        categoryTotals[product.category] += Math.abs(m.quantity) * (product.price || 0);
+                    });
+                    
+                    if (totalConsumed > 0) {
+                        report.push({
+                            Prodotto: product.name,
+                            Categoria: this.getCategoryName(product.category),
+                            'Consumo Totale (L)': totalConsumed.toFixed(2),
+                            'Valore Totale (€)': (totalConsumed * (product.price || 0)).toFixed(2),
+                            'Serate con Consumo': nightsCount,
+                            'Media per Serata (L)': (totalConsumed / nightsCount).toFixed(2)
+                        });
                     }
                 });
-                
-                const topCategory = Object.entries(categoryTotals)
-                    .sort((a, b) => b[1] - a[1])[0];
-                
-                document.getElementById('topCategory').textContent = topCategory 
-                    ? this.getCategoryName(topCategory[0]) 
-                    : '-';
-                
-                // Most profitable product
-                const productProfits = {};
-                this.movements.filter(m => m.type === 'consumption').forEach(m => {
-                    const product = this.products.find(p => p.id === m.productId);
-                    if (product && product.price) {
-                        if (!productProfits[product.id]) {
-                            productProfits[product.id] = 0;
-                        }
-                        productProfits[product.id] += Math.abs(m.quantity) * product.price;
-                    }
-                });
-                
-                const mostProfitable = Object.entries(productProfits)
-                    .sort((a, b) => b[1] - a[1])[0];
-                
-                if (mostProfitable) {
-                    const product = this.products.find(p => p.id === parseInt(mostProfitable[0]));
-                    document.getElementById('mostProfitable').textContent = product ? product.name : '-';
-                } else {
-                    document.getElementById('mostProfitable').textContent = '-';
-                }
-                
-                // Stock rotation (simplified)
-                document.getElementById('stockRotation').textContent = '7 giorni';
-            },
-            
-            // Report Generation
-            generateReport() {
-                const reportType = document.getElementById('reportType').value;
-                const reportPeriod = document.getElementById('reportPeriod').value;
-                const reportFormat = document.getElementById('reportFormat').value;
-                
-                this.showAlert(`Generazione report ${reportType} in formato ${reportFormat}...`, 'info');
-                
-                // In a real app, this would generate actual reports
-                setTimeout(() => {
-                    this.showAlert('Report generato con successo! (Demo)', 'success');
-                }, 1500);
-            }
-        };
-        
-        // Initialize app when DOM is loaded
-        document.addEventListener('DOMContentLoaded', () => {
-            app.init();
-        });
-    </script>
-</body>
-</html>
+       
+       
