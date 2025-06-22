@@ -494,6 +494,31 @@
                 grid-template-columns: 1fr;
             }
         }
+th.sortable {
+            cursor: pointer;
+            user-select: none;
+            position: relative;
+        }
+
+        th.sortable:hover {
+            background: rgba(139, 92, 246, 0.2);
+        }
+
+        th.sortable::after {
+            content: ' ↕';
+            opacity: 0.5;
+            font-size: 0.8em;
+        }
+
+        th.sortable.asc::after {
+            content: ' ↑';
+            opacity: 1;
+        }
+
+        th.sortable.desc::after {
+            content: ' ↓';
+            opacity: 1;
+        } 
     </style>
 </head> <body>
     <div class="header">
@@ -605,6 +630,13 @@
                 <div class="card-header">
                     <h2 class="card-title">📝 Registro Movimenti</h2>
                     <button class="btn btn-primary" onclick="app.showOrderModal()">➕ Nuovo Ordine</button>
+<div class="card-header">
+                    <h2 class="card-title">📝 Registro Movimenti</h2>
+                    <div>
+                        <button class="btn btn-primary" onclick="app.showOrderModal()">➕ Nuovo Ordine</button>
+                        <button class="btn btn-danger" onclick="app.clearAllMovements()">🗑️ Azzera Tutti i Movimenti</button>
+                    </div>
+                </div>
                 </div>
                 <div class="form-grid">
                     <div class="form-group">
@@ -713,22 +745,21 @@
                 <div class="search-box">
                     <input type="text" placeholder="Cerca prodotto..." id="productSearch">
                 </div>
-                <div class="table-container">
-                    <table id="productsTable">
-                        <thead>
-                            <tr>
-                                <th>Codice</th>
-                                <th>Nome</th>
-                                <th>Categoria</th>
-                                <th>Formato</th>
-                                <th>Prezzo (€)</th>
-                                <th>Prezzo/L (€)</th>
-                                <th>Azioni</th>
-                            </tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
-                </div>
+               <div class="table-container">
+                        <table id="nightProductsTable">
+                            <thead>
+                                <tr>
+                                    <th class="sortable" data-sort="name">Prodotto</th>
+                                    <th class="sortable" data-sort="category">Categoria</th>
+                                    <th class="sortable" data-sort="quantity">Quantità (L)</th>
+                                    <th class="sortable" data-sort="bottles">Bottiglie</th>
+                                    <th class="sortable" data-sort="value">Valore (€)</th>
+                                    <th class="sortable" data-sort="percentage">% del Totale</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
             </div>
         </div>
 
@@ -937,6 +968,8 @@
             movements: [],
             nights: {},
             charts: {},
+            nightProductDetails: [],
+            currentSort: { column: 'value', direction: 'desc' },
             
             // Inizializzazione
             init() {
@@ -1374,7 +1407,7 @@ updateTopProducts() {
                 });
             },
             
-            showNightDetails() {
+           showNightDetails() {
                 const selectedDate = document.getElementById('nightSelector').value;
                 
                 if (!selectedDate) {
@@ -1391,7 +1424,7 @@ updateTopProducts() {
                 let totalLiters = 0;
                 let totalBottles = 0;
                 const categoryTotals = {};
-                const productDetails = [];
+                this.nightProductDetails = []; // Store for sorting
                 
                 Object.entries(night.consumptions).forEach(([productId, quantity]) => {
                     const product = this.products.find(p => p.id === parseInt(productId));
@@ -1406,13 +1439,21 @@ updateTopProducts() {
                         }
                         categoryTotals[product.category] += value;
                         
-                        productDetails.push({
+                        this.nightProductDetails.push({
                             product: product,
                             quantity: quantity,
                             bottles: quantity / product.format,
-                            value: value
+                            value: value,
+                            name: product.name,
+                            category: product.category,
+                            percentage: 0 // Will be calculated after
                         });
                     }
+                });
+                
+                // Calculate percentages
+                this.nightProductDetails.forEach(detail => {
+                    detail.percentage = totalValue > 0 ? (detail.value / totalValue * 100) : 0;
                 });
                 
                 // Update stats
@@ -1427,15 +1468,65 @@ updateTopProducts() {
                     ? this.getCategoryName(topCategory[0]) 
                     : '-';
                 
-                // Update products table
+                // Initial sort by value
+                this.currentSort = { column: 'value', direction: 'desc' };
+                this.updateNightProductsTable();
+                
+                // Setup sorting listeners
+                this.setupNightTableSorting();
+            },
+            
+            setupNightTableSorting() {
+                const headers = document.querySelectorAll('#nightProductsTable th.sortable');
+                headers.forEach(header => {
+                    header.onclick = () => {
+                        const column = header.dataset.sort;
+                        
+                        // Remove classes from all headers
+                        headers.forEach(h => {
+                            h.classList.remove('asc', 'desc');
+                        });
+                        
+                        // Toggle direction
+                        if (this.currentSort.column === column) {
+                            this.currentSort.direction = this.currentSort.direction === 'asc' ? 'desc' : 'asc';
+                        } else {
+                            this.currentSort.column = column;
+                            this.currentSort.direction = 'asc';
+                        }
+                        
+                        // Add class to current header
+                        header.classList.add(this.currentSort.direction);
+                        
+                        // Sort and update table
+                        this.updateNightProductsTable();
+                    };
+                });
+            },
+            
+            updateNightProductsTable() {
                 const tbody = document.querySelector('#nightProductsTable tbody');
                 tbody.innerHTML = '';
                 
-                productDetails.sort((a, b) => b.value - a.value);
-                
-                productDetails.forEach(detail => {
-                    const percentage = totalValue > 0 ? (detail.value / totalValue * 100) : 0;
+                // Sort the details
+                const sorted = [...this.nightProductDetails].sort((a, b) => {
+                    let aVal = a[this.currentSort.column];
+                    let bVal = b[this.currentSort.column];
                     
+                    // Handle string comparison for name and category
+                    if (this.currentSort.column === 'name' || this.currentSort.column === 'category') {
+                        aVal = aVal.toLowerCase();
+                        bVal = bVal.toLowerCase();
+                    }
+                    
+                    if (this.currentSort.direction === 'asc') {
+                        return aVal > bVal ? 1 : -1;
+                    } else {
+                        return aVal < bVal ? 1 : -1;
+                    }
+                });
+                
+                sorted.forEach(detail => {
                     const row = document.createElement('tr');
                     row.innerHTML = `
                         <td>${detail.product.name}</td>
@@ -1443,9 +1534,77 @@ updateTopProducts() {
                         <td>${detail.quantity.toFixed(2)}L</td>
                         <td>${detail.bottles.toFixed(1)}</td>
                         <td>€${detail.value.toFixed(2)}</td>
-                        <td>${percentage.toFixed(1)}%</td>
+                        <td>${detail.percentage.toFixed(1)}%</td>
                     `;
                     tbody.appendChild(row);
+                });
+            },
+            
+            deleteMovement(movementId) {
+                if (confirm('Sei sicuro di voler eliminare questo movimento?')) {
+                    // Find the movement first
+                    const movement = this.movements.find(m => m.id == movementId);
+                    
+                    // Remove the movement
+                    this.movements = this.movements.filter(m => m.id != movementId);
+                    
+                    // If it's a consumption, update nights
+                    if (movement && movement.type === 'consumption') {
+                        const nightDate = movement.date.split(' ')[0];
+                        if (this.nights[nightDate]) {
+                            this.recalculateNight(nightDate);
+                        }
+                    }
+                    
+                    // If it's an order or adjustment, recalculate inventory
+                    if (movement && (movement.type === 'order' || movement.type === 'adjustment')) {
+                        // Recalculate inventory from scratch
+                        this.recalculateInventory();
+                    }
+                    
+                    this.saveToStorage();
+                    this.updateMovementsTable();
+                    this.updateDashboard();
+                    this.updateAllTables();
+                    this.showAlert('Movimento eliminato con successo', 'success');
+                }
+            },
+            
+            clearAllMovements() {
+                if (confirm('⚠️ ATTENZIONE: Sei sicuro di voler eliminare TUTTI i movimenti? Questa azione non può essere annullata!')) {
+                    if (confirm('⚠️ SECONDA CONFERMA: Verranno eliminati tutti i movimenti, le serate e l\'inventario verrà azzerato. Continuare?')) {
+                        // Clear all data
+                        this.movements = [];
+                        this.nights = {};
+                        this.inventory = {};
+                        
+                        // Save and update
+                        this.saveToStorage();
+                        this.updateAllTables();
+                        this.updateDashboard();
+                        this.updateNightSelector();
+                        this.showAlert('Tutti i movimenti sono stati eliminati', 'success');
+                    }
+                }
+            },
+            
+            recalculateInventory() {
+                // Reset inventory
+                this.inventory = {};
+                
+                // Recalculate from all movements
+                this.movements.forEach(movement => {
+                    if (!this.inventory[movement.productId]) {
+                        this.inventory[movement.productId] = 0;
+                    }
+                    this.inventory[movement.productId] += movement.quantity;
+                });
+                
+                // Ensure no negative values
+                Object.keys(this.inventory).forEach(productId => {
+                    if (this.inventory[productId] < 0) {
+                        this.inventory[productId] = 0;
+                    }
                 });
             },
             
