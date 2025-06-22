@@ -24,9 +24,6 @@
             --gray: #6b7280;
             --light: #f3f4f6;
             --white: #ffffff;
-            --neon-purple: #a855f7;
-            --neon-pink: #ec4899;
-            --neon-blue: #3b82f6;
         }
 
         body {
@@ -34,9 +31,6 @@
             background-color: var(--dark);
             color: var(--light);
             line-height: 1.6;
-            background-image: 
-                radial-gradient(circle at 20% 50%, rgba(139, 92, 246, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(236, 72, 153, 0.1) 0%, transparent 50%);
         }
 
         .container {
@@ -47,50 +41,20 @@
 
         .header {
             background: linear-gradient(135deg, rgba(139, 92, 246, 0.2) 0%, rgba(236, 72, 153, 0.2) 100%);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
             color: white;
             padding: 30px 0;
             margin-bottom: 30px;
-            box-shadow: 0 8px 32px rgba(139, 92, 246, 0.3);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .header::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(
-                45deg,
-                transparent,
-                rgba(139, 92, 246, 0.1),
-                transparent
-            );
-            animation: shine 3s infinite;
-        }
-
-        @keyframes shine {
-            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
-            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .header h1 {
             font-size: 2.5rem;
             margin-bottom: 10px;
-            text-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
-            position: relative;
-            z-index: 1;
         }
 
         .header p {
             opacity: 0.9;
             font-size: 1.1rem;
-            position: relative;
-            z-index: 1;
         }
 
         .nav-tabs {
@@ -106,7 +70,6 @@
             padding: 12px 24px;
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(5px);
             cursor: pointer;
             font-size: 1rem;
             font-weight: 500;
@@ -114,68 +77,34 @@
             border-radius: 8px 8px 0 0;
             transition: all 0.3s ease;
             white-space: nowrap;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .nav-tab::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.3), transparent);
-            transition: left 0.5s;
-        }
-
-        .nav-tab:hover::before {
-            left: 100%;
         }
 
         .nav-tab:hover {
             background: rgba(139, 92, 246, 0.1);
             color: var(--light);
-            transform: translateY(-2px);
         }
 
         .nav-tab.active {
-            color: var(--neon-purple);
+            color: var(--primary);
             background: rgba(139, 92, 246, 0.2);
-            border-bottom: 2px solid var(--neon-purple);
+            border-bottom: 2px solid var(--primary);
             margin-bottom: -2px;
-            box-shadow: 0 4px 20px rgba(139, 92, 246, 0.3);
         }
 
         .tab-content {
             display: none;
-            animation: fadeIn 0.3s ease;
         }
 
         .tab-content.active {
             display: block;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
         .card {
             background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 12px;
             padding: 25px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
             margin-bottom: 20px;
-            transition: all 0.3s ease;
-        }
-
-        .card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 40px rgba(139, 92, 246, 0.2);
-            border-color: rgba(139, 92, 246, 0.3);
         }
 
         .card-header {
@@ -189,7 +118,6 @@
             font-size: 1.5rem;
             font-weight: 600;
             color: var(--light);
-            text-shadow: 0 0 10px rgba(139, 92, 246, 0.3);
         }
 
         .form-grid {
@@ -227,8 +155,7 @@
         .form-group input:focus,
         .form-group select:focus {
             outline: none;
-            border-color: var(--neon-purple);
-            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2), 0 0 20px rgba(139, 92, 246, 0.3);
+            border-color: var(--primary);
             background: rgba(255, 255, 255, 0.1);
         }
 
@@ -248,74 +175,37 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            position: relative;
-            overflow: hidden;
             text-transform: uppercase;
             letter-spacing: 0.05em;
         }
 
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            transition: width 0.6s, height 0.6s;
-        }
-
-        .btn:active::before {
-            width: 300px;
-            height: 300px;
+        .btn:hover {
+            transform: translateY(-2px);
         }
 
         .btn-primary {
             background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
             color: white;
-            box-shadow: 0 4px 20px rgba(139, 92, 246, 0.4);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 30px rgba(139, 92, 246, 0.6);
         }
 
         .btn-success {
             background: linear-gradient(135deg, var(--success) 0%, #059669 100%);
             color: white;
-            box-shadow: 0 4px 20px rgba(16, 185, 129, 0.4);
-        }
-
-        .btn-success:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 30px rgba(16, 185, 129, 0.6);
         }
 
         .btn-danger {
             background: linear-gradient(135deg, var(--danger) 0%, #dc2626 100%);
             color: white;
-            box-shadow: 0 4px 20px rgba(239, 68, 68, 0.4);
-        }
-
-        .btn-danger:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 30px rgba(239, 68, 68, 0.6);
         }
 
         .btn-secondary {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+            background: rgba(255, 255, 255, 0.1);
             color: white;
             border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
         }
 
         .btn-secondary:hover {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.1) 100%);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 30px rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.2);
         }
 
         .table-container {
@@ -349,10 +239,6 @@
             color: var(--light);
         }
 
-        tr {
-            transition: all 0.3s ease;
-        }
-
         tr:hover {
             background: rgba(139, 92, 246, 0.05);
         }
@@ -363,7 +249,6 @@
             border-radius: 9999px;
             font-size: 0.875rem;
             font-weight: 500;
-            backdrop-filter: blur(5px);
             border: 1px solid;
         }
 
@@ -371,62 +256,60 @@
             background: rgba(254, 226, 226, 0.1); 
             color: #fca5a5; 
             border-color: rgba(252, 165, 165, 0.3);
-            box-shadow: 0 0 10px rgba(252, 165, 165, 0.3);
         }
+
         .badge-gin { 
             background: rgba(219, 234, 254, 0.1); 
             color: #93c5fd; 
             border-color: rgba(147, 197, 253, 0.3);
-            box-shadow: 0 0 10px rgba(147, 197, 253, 0.3);
         }
+
         .badge-rum { 
             background: rgba(254, 243, 199, 0.1); 
             color: #fcd34d; 
             border-color: rgba(252, 211, 77, 0.3);
-            box-shadow: 0 0 10px rgba(252, 211, 77, 0.3);
         }
+
         .badge-whisky { 
             background: rgba(253, 230, 138, 0.1); 
             color: #fbbf24; 
             border-color: rgba(251, 191, 36, 0.3);
-            box-shadow: 0 0 10px rgba(251, 191, 36,
-box-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
         }
+
         .badge-tequila { 
             background: rgba(209, 250, 229, 0.1); 
             color: #6ee7b7; 
             border-color: rgba(110, 231, 183, 0.3);
-            box-shadow: 0 0 10px rgba(110, 231, 183, 0.3);
         }
+
         .badge-liquori { 
             background: rgba(233, 213, 255, 0.1); 
             color: #c084fc; 
             border-color: rgba(192, 132, 252, 0.3);
-            box-shadow: 0 0 10px rgba(192, 132, 252, 0.3);
         }
+
         .badge-champagne { 
             background: rgba(252, 231, 243, 0.1); 
             color: #f9a8d4; 
             border-color: rgba(249, 168, 212, 0.3);
-            box-shadow: 0 0 10px rgba(249, 168, 212, 0.3);
         }
+
         .badge-analcolici { 
             background: rgba(207, 250, 254, 0.1); 
             color: #67e8f9; 
             border-color: rgba(103, 232, 249, 0.3);
-            box-shadow: 0 0 10px rgba(103, 232, 249, 0.3);
         }
+
         .badge-energy { 
             background: rgba(254, 202, 202, 0.1); 
             color: #fca5a5; 
             border-color: rgba(252, 165, 165, 0.3);
-            box-shadow: 0 0 10px rgba(252, 165, 165, 0.3);
         }
+
         .badge-succhi { 
             background: rgba(254, 215, 170, 0.1); 
             color: #fdba74; 
             border-color: rgba(253, 186, 116, 0.3);
-            box-shadow: 0 0 10px rgba(253, 186, 116, 0.3);
         }
 
         .stats-grid {
@@ -438,36 +321,10 @@ box-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
 
         .stat-card {
             background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 12px;
             padding: 20px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-            border-left: 4px solid var(--neon-purple);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .stat-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -50%;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, rgba(139, 92, 246, 0.1) 0%, transparent 70%);
-            animation: pulse 4s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); opacity: 0.5; }
-            50% { transform: scale(1.2); opacity: 0.8; }
-        }
-
-        .stat-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 40px rgba(139, 92, 246, 0.3);
+            border-left: 4px solid var(--primary);
         }
 
         .stat-card h3 {
@@ -476,24 +333,17 @@ box-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
             margin-bottom: 10px;
             text-transform: uppercase;
             letter-spacing: 0.1em;
-            position: relative;
-            z-index: 1;
         }
 
         .stat-card .value {
             font-size: 2rem;
             font-weight: 700;
             color: var(--light);
-            text-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
-            position: relative;
-            z-index: 1;
         }
 
         .stat-card .change {
             font-size: 0.875rem;
             margin-top: 5px;
-            position: relative;
-            z-index: 1;
         }
 
         .change.positive { color: var(--success); }
@@ -507,9 +357,7 @@ box-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
             width: 100%;
             height: 100%;
             background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(5px);
             z-index: 1000;
-            animation: fadeIn 0.3s ease;
         }
 
         .modal.active {
@@ -527,13 +375,6 @@ box-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
             width: 90%;
             max-height: 90vh;
             overflow-y: auto;
-            animation: slideIn 0.3s ease;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-        }
-
-        @keyframes slideIn {
-            from { transform: translateY(-20px) scale(0.95); opacity: 0; }
-            to { transform: translateY(0) scale(1); opacity: 1; }
         }
 
         .modal-header {
@@ -561,7 +402,6 @@ box-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
         .modal-close:hover {
             color: var(--light);
             background: rgba(255, 255, 255, 0.1);
-            transform: rotate(90deg);
         }
 
         .alert {
@@ -571,7 +411,6 @@ box-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
             display: flex;
             align-items: center;
             gap: 12px;
-            backdrop-filter: blur(10px);
             border: 1px solid;
         }
 
@@ -600,7 +439,7 @@ box-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
 
         .search-box input {
             width: 100%;
-            padding: 12px 20px 12px 45px;
+            padding: 12px 20px;
             border: 1px solid rgba(255, 255, 255, 0.2);
             background: rgba(255, 255, 255, 0.05);
             color: var(--light);
@@ -611,18 +450,8 @@ box-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
 
         .search-box input:focus {
             outline: none;
-            border-color: var(--neon-purple);
-            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2), 0 0 20px rgba(139, 92, 246, 0.3);
+            border-color: var(--primary);
             background: rgba(255, 255, 255, 0.1);
-        }
-
-        .search-box::before {
-            content: "🔍";
-            position: absolute;
-            left: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 1.2rem;
         }
 
         .empty-state {
@@ -634,66 +463,6 @@ box-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
         .empty-state h3 {
             font-size: 1.5rem;
             margin-bottom: 10px;
-        }
-
-        .loading {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(255, 255, 255, 0.1);
-            border-top: 3px solid var(--neon-purple);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* Scrollbar styling */
-        ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.05);
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: rgba(139, 92, 246, 0.3);
-            border-radius: 4px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: rgba(139, 92, 246, 0.5);
-        }
-
-        /* Consumption details card */
-        .consumption-details {
-            background: rgba(139, 92, 246, 0.05);
-            border: 1px solid rgba(139, 92, 246, 0.2);
-            border-radius: 8px;
-            padding: 20px;
-            margin-top: 20px;
-        }
-
-        .consumption-details h4 {
-            color: var(--neon-purple);
-            margin-bottom: 15px;
-            font-size: 1.2rem;
-        }
-
-        .detail-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 8px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .detail-row:last-child {
-            border-bottom: none;
         }
 
         .chart-container {
@@ -726,14 +495,14 @@ box-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
             }
         }
     </style>
-</head>
-<body>
+</head> <body>
     <div class="header">
         <div class="container">
             <h1>🍾 Cambusa Tracker</h1>
             <p>Sistema completo di gestione magazzino per la tua discoteca</p>
         </div>
     </div>
+
     <div class="container">
         <div class="nav-tabs">
             <button class="nav-tab active" data-tab="dashboard">📊 Dashboard</button>
@@ -742,7 +511,7 @@ box-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
             <button class="nav-tab" data-tab="nights">🌙 Serate</button>
             <button class="nav-tab" data-tab="products">🍾 Prodotti</button>
             <button class="nav-tab" data-tab="statistics">📈 Statistiche</button>
-            <button class="nav-tab" data-tab="reports">📄 Report</button>
+            <button class="nav-tab" data-tab="reports">📋 Report</button>
         </div>
 
         <!-- Dashboard Tab -->
@@ -769,6 +538,7 @@ box-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
                     <div class="change">Ultimi 7 giorni</div>
                 </div>
             </div>
+
             <div class="card">
                 <div class="card-header">
                     <h2 class="card-title">🔥 Prodotti Più Consumati (Ultima Settimana)</h2>
@@ -911,7 +681,7 @@ box-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
                             <div class="value" id="nightTopCategory">-</div>
                         </div>
                     </div>
-                    <h3 style="margin-bottom: 20px; color: var(--neon-purple);">📊 Dettaglio Consumi per Prodotto</h3>
+                    <h3 style="margin-bottom: 20px; color: var(--primary);">📊 Dettaglio Consumi per Prodotto</h3>
                     <div class="search-box">
                         <input type="text" placeholder="Cerca prodotto nella serata..." id="nightProductSearch" onkeyup="app.filterNightProducts()">
                     </div>
@@ -933,8 +703,7 @@ box-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
                 </div>
             </div>
         </div>
-
-        <!-- Products Tab -->
+<!-- Products Tab -->
         <div class="tab-content" id="products">
             <div class="card">
                 <div class="card-header">
@@ -1008,7 +777,7 @@ box-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
         <!-- Reports Tab -->
         <div class="tab-content" id="reports">
             <div class="card">
-                <h2 class="card-title">📄 Genera Report</h2>
+                <h2 class="card-title">📋 Genera Report</h2>
                 <div class="form-grid">
                     <div class="form-group">
                         <label>Tipo Report</label>
@@ -1040,7 +809,7 @@ box-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
                 <button class="btn btn-primary" onclick="app.generateReport()">📥 Genera e Scarica Report</button>
             </div>
             <div class="card">
-                <h2 class="card-title">📅 Report Recenti</h2>
+                <h2 class="card-title">📂 Report Recenti</h2>
                 <div id="recentReportsContainer">
                     <p style="color: var(--gray); text-align: center; padding: 20px;">
                         I report generati verranno salvati qui per un accesso rapido.
@@ -1050,7 +819,7 @@ box-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
         </div>
     </div>
 
-   <!-- Modals -->
+    <!-- Modals -->
     <div class="modal" id="initialInventoryModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -1157,18 +926,17 @@ box-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
         </div>
     </div>
 
-
     <!-- Chart.js + JS della tua app -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-   <script>
+<script>
         // App principale
         const app = {
             // Dati
             products: [],
             inventory: {},
             movements: [],
-            nights: {}, // Nuovo: memorizza le serate
-            charts: {}, // Per salvare le istanze dei grafici
+            nights: {},
+            charts: {},
             
             // Inizializzazione
             init() {
@@ -1293,31 +1061,38 @@ box-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
                     { id: 84, name: "SUCCO LIMONE FUSTO", category: "succhi", format: 1, price: 8.45 }
                 ];
             },
-            
-            // Storage
+// Storage
             loadFromStorage() {
-                const savedInventory = localStorage.getItem('cambusa_inventory');
-                const savedMovements = localStorage.getItem('cambusa_movements');
-                const savedProducts = localStorage.getItem('cambusa_products');
-                const savedNights = localStorage.getItem('cambusa_nights');
-                
-                if (savedInventory) this.inventory = JSON.parse(savedInventory);
-                if (savedMovements) this.movements = JSON.parse(savedMovements);
-                if (savedNights) this.nights = JSON.parse(savedNights);
-                if (savedProducts) {
-                    const customProducts = JSON.parse(savedProducts);
-                    this.products = [...this.products, ...customProducts];
+                try {
+                    const savedInventory = localStorage.getItem('cambusa_inventory');
+                    const savedMovements = localStorage.getItem('cambusa_movements');
+                    const savedProducts = localStorage.getItem('cambusa_products');
+                    const savedNights = localStorage.getItem('cambusa_nights');
+                    
+                    if (savedInventory) this.inventory = JSON.parse(savedInventory);
+                    if (savedMovements) this.movements = JSON.parse(savedMovements);
+                    if (savedNights) this.nights = JSON.parse(savedNights);
+                    if (savedProducts) {
+                        const customProducts = JSON.parse(savedProducts);
+                        this.products = [...this.products, ...customProducts];
+                    }
+                } catch (error) {
+                    console.error('Errore nel caricamento dei dati:', error);
                 }
             },
             
             saveToStorage() {
-                localStorage.setItem('cambusa_inventory', JSON.stringify(this.inventory));
-                localStorage.setItem('cambusa_movements', JSON.stringify(this.movements));
-                localStorage.setItem('cambusa_nights', JSON.stringify(this.nights));
-                
-                // Save only custom products
-                const customProducts = this.products.filter(p => p.id > 1000);
-                localStorage.setItem('cambusa_products', JSON.stringify(customProducts));
+                try {
+                    localStorage.setItem('cambusa_inventory', JSON.stringify(this.inventory));
+                    localStorage.setItem('cambusa_movements', JSON.stringify(this.movements));
+                    localStorage.setItem('cambusa_nights', JSON.stringify(this.nights));
+                    
+                    // Save only custom products
+                    const customProducts = this.products.filter(p => p.id > 1000);
+                    localStorage.setItem('cambusa_products', JSON.stringify(customProducts));
+                } catch (error) {
+                    console.error('Errore nel salvataggio dei dati:', error);
+                }
             },
             
             // Event Listeners
@@ -1466,7 +1241,7 @@ box-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
                 }
             },
             
-            // Dashboard aggiornata
+            // Dashboard
             updateDashboard() {
                 // Calculate total inventory value
                 let totalValue = 0;
@@ -1485,7 +1260,7 @@ box-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
                 document.getElementById('totalValue').textContent = '€' + totalValue.toFixed(2);
                 document.getElementById('lowStock').textContent = lowStockCount;
                 
-                // Trova l'ultima serata e il suo consumo
+                // Find last night consumption
                 const nightDates = Object.keys(this.nights).sort((a, b) => new Date(b) - new Date(a));
                 
                 if (nightDates.length > 0) {
@@ -1506,7 +1281,7 @@ box-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
                     document.getElementById('lastNightDate').textContent = 'Nessuna serata registrata';
                 }
                 
-                // Media settimanale
+                // Weekly average
                 const oneWeekAgo = new Date();
                 oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
                 
@@ -1531,8 +1306,7 @@ box-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
                 // Update top products table
                 this.updateTopProducts();
             },
-            
-            updateTopProducts() {
+updateTopProducts() {
                 const tbody = document.querySelector('#topProductsTable tbody');
                 tbody.innerHTML = '';
                 
@@ -1580,7 +1354,7 @@ box-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
                 });
             },
             
-            // Funzioni per la tab Serate
+            // Nights functions
             updateNightSelector() {
                 const selector = document.getElementById('nightSelector');
                 selector.innerHTML = '<option value="">Seleziona una serata...</option>';
@@ -1690,10 +1464,10 @@ box-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
                 if (!selectedDate) return;
                 
                 if (confirm(`Sei sicuro di voler eliminare la serata del ${new Date(selectedDate).toLocaleDateString('it-IT')}? Questa azione non può essere annullata.`)) {
-                    // Rimuovi la serata
+                    // Remove night
                     delete this.nights[selectedDate];
                     
-                    // Rimuovi anche i movimenti associati
+                    // Remove associated movements
                     this.movements = this.movements.filter(m => {
                         if (m.type === 'consumption' && m.date.startsWith(selectedDate)) {
                             return false;
@@ -1712,14 +1486,13 @@ box-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
             
             deleteMovement(movementId) {
                 if (confirm('Sei sicuro di voler eliminare questo movimento?')) {
+                    const movement = this.movements.find(m => m.id === movementId);
                     this.movements = this.movements.filter(m => m.id !== movementId);
                     
-                    // Se è un consumo, aggiorna anche nights
-                    const movement = this.movements.find(m => m.id === movementId);
+                    // If it's a consumption, update nights
                     if (movement && movement.type === 'consumption') {
                         const nightDate = movement.date.split(' ')[0];
                         if (this.nights[nightDate]) {
-                            // Ricalcola i consumi per quella notte
                             this.recalculateNight(nightDate);
                         }
                     }
@@ -1750,9 +1523,10 @@ box-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
                 }
             },
             
-            // Statistiche avanzate
+            // Statistics
             populateStatsProductSelect() {
                 const select = document.getElementById('statsProduct');
+                select.innerHTML = '<option value="">Tutti i prodotti</option>';
                 this.products.forEach(product => {
                     const option = document.createElement('option');
                     option.value = product.id;
@@ -1765,7 +1539,7 @@ box-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
                 const period = parseInt(document.getElementById('statsPeriod').value);
                 const productId = document.getElementById('statsProduct').value;
                 
-                // Distruggi grafici esistenti
+                // Destroy existing charts
                 Object.values(this.charts).forEach(chart => {
                     if (chart) chart.destroy();
                 });
@@ -1774,8 +1548,7 @@ box-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
                 this.updateConsumptionTrendChart(period, productId);
                 this.updateCategoryPieChart(period);
             },
-            
-            updateTopProductsChart(period) {
+updateTopProductsChart(period) {
                 const ctx = document.getElementById('topProductsChart').getContext('2d');
                 const consumptionData = this.getConsumptionData(period);
                 
@@ -1993,7 +1766,7 @@ box-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
                 return categoryMap;
             },
             
-            // Report Generation - FUNZIONANTE
+            // Report Generation
             generateReport() {
                 const reportType = document.getElementById('reportType').value;
                 const reportPeriod = document.getElementById('reportPeriod').value;
@@ -2057,7 +1830,62 @@ box-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
                 });
             },
             
-            downloadCSV(data, filename) {
+            generateNightReport() {
+                const report = [];
+                const nightDates = Object.keys(this.nights).sort((a, b) => new Date(b) - new Date(a));
+                
+                nightDates.forEach(date => {
+                    let totalValue = 0;
+                    let totalLiters = 0;
+                    
+                    Object.entries(this.nights[date].consumptions).forEach(([productId, quantity]) => {
+                        const product = this.products.find(p => p.id === parseInt(productId));
+                        if (product) {
+                            totalValue += quantity * (product.price || 0);
+                            totalLiters += quantity;
+                        }
+                    });
+                    
+                    report.push({
+                        Data: new Date(date).toLocaleDateString('it-IT'),
+                        'Totale Consumo (€)': totalValue.toFixed(2),
+                        'Litri Totali': totalLiters.toFixed(2),
+                        'Numero Prodotti': Object.keys(this.nights[date].consumptions).length
+                    });
+                });
+                
+                return report;
+            },
+            
+            generateProductReport() {
+                const report = [];
+                
+                this.products.forEach(product => {
+                    let totalConsumed = 0;
+                    let nightsCount = 0;
+                    
+                    Object.values(this.nights).forEach(night => {
+                        if (night.consumptions[product.id]) {
+                            totalConsumed += night.consumptions[product.id];
+                            nightsCount++;
+                        }
+                    });
+                    
+                    if (totalConsumed > 0) {
+                        report.push({
+                            Prodotto: product.name,
+                            Categoria: this.getCategoryName(product.category),
+                            'Consumo Totale (L)': totalConsumed.toFixed(2),
+                            'Valore Totale (€)': (totalConsumed * (product.price || 0)).toFixed(2),
+                            'Serate con Consumo': nightsCount,
+                            'Media per Serata (L)': (totalConsumed / nightsCount).toFixed(2)
+                        });
+                    }
+                });
+                
+                return report.sort((a, b) => parseFloat(b['Valore Totale (€)']) - parseFloat(a['Valore Totale (€)']));
+            },
+downloadCSV(data, filename) {
                 if (data.length === 0) return;
                 
                 const headers = Object.keys(data[0]);
@@ -2095,7 +1923,7 @@ box-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
                 link.click();
             },
             
-            // Modal Functions (continua dalle precedenti)
+            // Modal Functions
             showInitialInventoryModal() {
                 const form = document.getElementById('initialInventoryForm');
                 form.innerHTML = '';
@@ -2124,11 +1952,11 @@ box-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
                         group.innerHTML = `
                             <label>${product.name} (${product.format}L)</label>
                             <input type="number" 
-                                   id="initial_${product.id}" 
-                                   value="${currentStock}" 
-                                   step="0.01" 
-                                   min="0"
-                                   placeholder="0">
+                                id="initial_${product.id}" 
+                                value="${currentStock}" 
+                                step="0.01" 
+                                min="0"
+                                placeholder="0">
                         `;
                         grid.appendChild(group);
                     });
@@ -2169,12 +1997,12 @@ box-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
                             <label>${product.name} (${product.format}L)</label>
                             <div style="display: flex; gap: 10px; align-items: center;">
                                 <input type="number" 
-                                       id="endnight_${product.id}" 
-                                       value="${currentStock}" 
-                                       step="0.01" 
-                                       min="0"
-                                       placeholder="0"
-                                       style="flex: 1">
+                                    id="endnight_${product.id}" 
+                                    value="${currentStock}" 
+                                    step="0.01" 
+                                    min="0"
+                                    placeholder="0"
+                                    style="flex: 1">
                                 <span style="color: var(--gray);">Attuale: ${currentStock.toFixed(2)}L</span>
                             </div>
                         `;
@@ -2221,6 +2049,11 @@ box-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
             
             saveEndOfNight() {
                 const nightDate = document.getElementById('nightDate').value;
+                if (!nightDate) {
+                    this.showAlert('Inserisci la data della serata', 'error');
+                    return;
+                }
+                
                 const consumptions = [];
                 const nightConsumptions = {};
                 
@@ -2246,12 +2079,15 @@ box-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
                             
                             // Update inventory
                             this.inventory[product.id] = finalStock;
+                        } else if (consumption < 0) {
+                            // If final stock is higher than initial, update inventory
+                            this.inventory[product.id] = finalStock;
                         }
                     }
                 });
                 
                 if (Object.keys(nightConsumptions).length > 0) {
-                    // Salva i dati della serata
+                    // Save night data
                     this.nights[nightDate] = {
                         consumptions: nightConsumptions
                     };
@@ -2327,8 +2163,7 @@ box-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
                 this.closeModal('orderModal');
                 this.showAlert('Ordine registrato con successo!', 'success');
             },
-            
-            saveNewProduct() {
+saveNewProduct() {
                 const name = document.getElementById('newProductName').value;
                 const category = document.getElementById('newProductCategory').value;
                 const format = parseFloat(document.getElementById('newProductFormat').value);
@@ -2350,9 +2185,14 @@ box-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
                 this.products.push(newProduct);
                 this.saveToStorage();
                 this.updateProductsTable();
-                this.populateStatsProductSelect(); // Aggiorna select nelle statistiche
+                this.populateStatsProductSelect();
                 this.closeModal('addProductModal');
                 this.showAlert('Prodotto aggiunto con successo!', 'success');
+                
+                // Clear form
+                document.getElementById('newProductName').value = '';
+                document.getElementById('newProductFormat').value = '';
+                document.getElementById('newProductPrice').value = '';
             },
             
             // Order Item Management
@@ -2422,7 +2262,6 @@ box-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
             // Product Editing
             editProduct(productId) {
                 const product = this.products.find(p => p.id === productId);
-                
                 const newPrice = prompt(`Modifica prezzo per ${product.name}\nPrezzo attuale: €${product.price || 'N/D'}\nNuovo prezzo:`, product.price || '');
                 
                 if (newPrice !== null) {
@@ -2458,7 +2297,7 @@ box-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
                 const names = {
                     consumption: '📉 Consumo',
                     order: '📦 Ordine',
-                    adjustment: '✏️ Rettifica'
+                    adjustment: '🔧 Rettifica'
                 };
                 return names[type] || type;
             },
@@ -2492,70 +2331,12 @@ box-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
                 alert.style.right = '20px';
                 alert.style.zIndex = '2000';
                 alert.style.maxWidth = '400px';
-                alert.style.animation = 'slideIn 0.3s ease';
                 
                 setTimeout(() => {
                     alert.style.opacity = '0';
                     alert.style.transform = 'translateX(100px)';
                     setTimeout(() => alert.remove(), 300);
                 }, 3000);
-            },
-            
-            // Report aggiuntivi
-            generateNightReport() {
-                const report = [];
-                const nightDates = Object.keys(this.nights).sort((a, b) => new Date(b) - new Date(a));
-                
-                nightDates.forEach(date => {
-                    let totalValue = 0;
-                    let totalLiters = 0;
-                    
-                    Object.entries(this.nights[date].consumptions).forEach(([productId, quantity]) => {
-                        const product = this.products.find(p => p.id === parseInt(productId));
-                        if (product) {
-                            totalValue += quantity * (product.price || 0);
-                            totalLiters += quantity;
-                        }
-                    });
-                    
-                    report.push({
-                        Data: new Date(date).toLocaleDateString('it-IT'),
-                        'Totale Consumo (€)': totalValue.toFixed(2),
-                        'Litri Totali': totalLiters.toFixed(2),
-                        'Numero Prodotti': Object.keys(this.nights[date].consumptions).length
-                    });
-                });
-                
-                return report;
-            },
-            
-            generateProductReport() {
-                const report = [];
-                
-                this.products.forEach(product => {
-                    let totalConsumed = 0;
-                    let nightsCount = 0;
-                    
-                    Object.values(this.nights).forEach(night => {
-                        if (night.consumptions[product.id]) {
-                            totalConsumed += night.consumptions[product.id];
-                            nightsCount++;
-                        }
-                    });
-                    
-                    if (totalConsumed > 0) {
-                        report.push({
-                            Prodotto: product.name,
-                            Categoria: this.getCategoryName(product.category),
-                            'Consumo Totale (L)': totalConsumed.toFixed(2),
-                            'Valore Totale (€)': (totalConsumed * (product.price || 0)).toFixed(2),
-                            'Serate con Consumo': nightsCount,
-                            'Media per Serata (L)': (totalConsumed / nightsCount).toFixed(2)
-                        });
-                    }
-                });
-                
-                return report.sort((a, b) => parseFloat(b['Valore Totale (€)']) - parseFloat(a['Valore Totale (€)']));
             }
         };
         
