@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -494,7 +496,8 @@
                 grid-template-columns: 1fr;
             }
         }
-th.sortable {
+
+        th.sortable {
             cursor: pointer;
             user-select: none;
             position: relative;
@@ -520,7 +523,8 @@ th.sortable {
             opacity: 1;
         } 
     </style>
-</head> <body>
+</head>
+<body>
     <div class="header">
         <div class="container">
             <h1>🍾 Cambusa Tracker</h1>
@@ -608,12 +612,12 @@ th.sortable {
                     <table id="inventoryTable">
                         <thead>
                             <tr>
-                                <th>Prodotto</th>
-                                <th>Categoria</th>
-                                <th>Formato</th>
-                                <th>Prezzo/L</th>
-                                <th>Giacenza (L)</th>
-                                <th>Valore (€)</th>
+                                <th class="sortable" data-sort="name">Prodotto</th>
+                                <th class="sortable" data-sort="category">Categoria</th>
+                                <th class="sortable" data-sort="format">Formato</th>
+                                <th class="sortable" data-sort="pricePerLiter">Prezzo/L</th>
+                                <th class="sortable" data-sort="stock">Giacenza (L)</th>
+                                <th class="sortable" data-sort="value">Valore (€)</th>
                                 <th>Stato</th>
                                 <th>Azioni</th>
                             </tr>
@@ -629,14 +633,10 @@ th.sortable {
             <div class="card">
                 <div class="card-header">
                     <h2 class="card-title">📝 Registro Movimenti</h2>
-                    <button class="btn btn-primary" onclick="app.showOrderModal()">➕ Nuovo Ordine</button>
-<div class="card-header">
-                    <h2 class="card-title">📝 Registro Movimenti</h2>
                     <div>
                         <button class="btn btn-primary" onclick="app.showOrderModal()">➕ Nuovo Ordine</button>
                         <button class="btn btn-danger" onclick="app.clearAllMovements()">🗑️ Azzera Tutti i Movimenti</button>
                     </div>
-                </div>
                 </div>
                 <div class="form-grid">
                     <div class="form-group">
@@ -661,11 +661,11 @@ th.sortable {
                     <table id="movementsTable">
                         <thead>
                             <tr>
-                                <th>Data/Ora</th>
-                                <th>Tipo</th>
-                                <th>Prodotto</th>
-                                <th>Quantità (L)</th>
-                                <th>Valore (€)</th>
+                                <th class="sortable" data-sort="date">Data/Ora</th>
+                                <th class="sortable" data-sort="type">Tipo</th>
+                                <th class="sortable" data-sort="product">Prodotto</th>
+                                <th class="sortable" data-sort="quantity">Quantità (L)</th>
+                                <th class="sortable" data-sort="value">Valore (€)</th>
                                 <th>Note</th>
                                 <th>Operatore</th>
                                 <th>Azioni</th>
@@ -721,34 +721,6 @@ th.sortable {
                         <table id="nightProductsTable">
                             <thead>
                                 <tr>
-                                    <th>Prodotto</th>
-                                    <th>Categoria</th>
-                                    <th>Quantità (L)</th>
-                                    <th>Bottiglie</th>
-                                    <th>Valore (€)</th>
-                                    <th>% del Totale</th>
-                                </tr>
-                            </thead>
-                            <tbody></tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-<!-- Products Tab -->
-        <div class="tab-content" id="products">
-            <div class="card">
-                <div class="card-header">
-                    <h2 class="card-title">🍾 Catalogo Prodotti</h2>
-                    <button class="btn btn-primary" onclick="app.showAddProductModal()">➕ Aggiungi Prodotto</button>
-                </div>
-                <div class="search-box">
-                    <input type="text" placeholder="Cerca prodotto..." id="productSearch">
-                </div>
-               <div class="table-container">
-                        <table id="nightProductsTable">
-                            <thead>
-                                <tr>
                                     <th class="sortable" data-sort="name">Prodotto</th>
                                     <th class="sortable" data-sort="category">Categoria</th>
                                     <th class="sortable" data-sort="quantity">Quantità (L)</th>
@@ -760,6 +732,36 @@ th.sortable {
                             <tbody></tbody>
                         </table>
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Products Tab -->
+        <div class="tab-content" id="products">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">🍾 Catalogo Prodotti</h2>
+                    <button class="btn btn-primary" onclick="app.showAddProductModal()">➕ Aggiungi Prodotto</button>
+                </div>
+                <div class="search-box">
+                    <input type="text" placeholder="Cerca prodotto..." id="productSearch">
+                </div>
+                <div class="table-container">
+                    <table id="productsTable">
+                        <thead>
+                            <tr>
+                                <th class="sortable" data-sort="id">ID</th>
+                                <th class="sortable" data-sort="name">Prodotto</th>
+                                <th class="sortable" data-sort="category">Categoria</th>
+                                <th class="sortable" data-sort="format">Formato</th>
+                                <th class="sortable" data-sort="price">Prezzo (€)</th>
+                                <th class="sortable" data-sort="pricePerLiter">Prezzo/L</th>
+                                <th>Azioni</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
             </div>
         </div>
 
@@ -803,9 +805,7 @@ th.sortable {
                     <canvas id="categoryPieChart"></canvas>
                 </div>
             </div>
-        </div>
-
-        <!-- Reports Tab -->
+        </div> <!-- Reports Tab -->
         <div class="tab-content" id="reports">
             <div class="card">
                 <h2 class="card-title">📋 Genera Report</h2>
@@ -957,7 +957,67 @@ th.sortable {
         </div>
     </div>
 
-    <!-- Chart.js + JS della tua app -->
+    <!-- Adjustment Modal -->
+    <div class="modal" id="adjustmentModal">
+        <div class="modal-content adjustment-modal">
+            <div class="modal-header">
+                <h2>✏️ Modifica Giacenza</h2>
+                <button class="modal-close" onclick="app.closeModal('adjustmentModal')">×</button>
+            </div>
+            <div class="form-group">
+                <label>Prodotto</label>
+                <input type="text" id="adjustmentProductName" readonly style="background: rgba(255,255,255,0.02);">
+            </div>
+            <div class="form-group">
+                <label>Giacenza Attuale (L)</label>
+                <input type="text" id="adjustmentCurrentStock" readonly style="background: rgba(255,255,255,0.02);">
+            </div>
+            <div class="form-group">
+                <label>Nuova Giacenza (L)</label>
+                <input type="number" id="adjustmentNewStock" step="0.01" placeholder="0.00">
+            </div>
+            <div class="form-group">
+                <label>Motivo della Modifica</label>
+                <select id="adjustmentReason">
+                    <option value="inventory_count">Conteggio Inventario</option>
+                    <option value="breakage">Rottura/Perdita</option>
+                    <option value="error_correction">Correzione Errore</option>
+                    <option value="other">Altro</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Note (opzionale)</label>
+                <input type="text" id="adjustmentNote" placeholder="Aggiungi una nota...">
+            </div>
+            <div style="margin-top: 20px; display: flex; gap: 10px; justify-content: flex-end;">
+                <button class="btn btn-secondary" onclick="app.closeModal('adjustmentModal')">Annulla</button>
+                <button class="btn btn-primary" onclick="app.saveAdjustment()">Salva Modifica</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div class="modal" id="deleteConfirmModal">
+        <div class="modal-content" style="max-width: 500px;">
+            <div class="modal-header">
+                <h2>⚠️ Conferma Eliminazione</h2>
+                <button class="modal-close" onclick="app.closeModal('deleteConfirmModal')">×</button>
+            </div>
+            <div class="alert alert-error">
+                ⚠️ Sei sicuro di voler eliminare questo elemento? Questa azione non può essere annullata.
+            </div>
+            <p id="deleteConfirmMessage" style="margin-bottom: 20px;"></p>
+            <div style="display: flex; gap: 10px; justify-content: flex-end;">
+                <button class="btn btn-secondary" onclick="app.closeModal('deleteConfirmModal')">Annulla</button>
+                <button class="btn btn-danger" onclick="app.confirmDelete()">Elimina</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success/Error Messages -->
+    <div id="messageContainer" style="position: fixed; top: 20px; right: 20px; z-index: 2000;"></div>
+
+    <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
         // App principale
@@ -970,6 +1030,7 @@ th.sortable {
             charts: {},
             nightProductDetails: [],
             currentSort: { column: 'value', direction: 'desc' },
+            deleteContext: { type: null, id: null },
             
             // Inizializzazione
             init() {
@@ -1069,32 +1130,33 @@ th.sortable {
                     { id: 65, name: "BELLAVISTA", category: "champagne", format: 1, price: 30.18 },
                     
                     // Energy Drink
-                    { id: 66, name: "REDBULL", category: "energy", format: 1, price: 1.20 },
-                    { id: 67, name: "REDBULL ANGURIA", category: "energy", format: 1, price: 1.00 },
-                    { id: 68, name: "REDBULL LEMON", category: "energy", format: 1, price: 1.00 },
-                    { id: 69, name: "REDBULL TONICA", category: "energy", format: 1, price: 1.00 },
+                    { id: 66, name: "REDBULL", category: "energy", format: 0.25, price: 1.20 },
+                    { id: 67, name: "REDBULL ANGURIA", category: "energy", format: 0.25, price: 1.00 },
+                    { id: 68, name: "REDBULL LEMON", category: "energy", format: 0.25, price: 1.00 },
+                    { id: 69, name: "REDBULL TONICA", category: "energy", format: 0.25, price: 1.00 },
                     
                     // Analcolici
-                    { id: 70, name: "TONICA PREMIUM", category: "analcolici", format: 1, price: 1.20 },
-                    { id: 71, name: "TONICA", category: "analcolici", format: 1, price: 0.00 },
-                    { id: 72, name: "TONICA FUSTO", category: "analcolici", format: 1, price: 62.15 },
-                    { id: 73, name: "LEMON PREMIUM", category: "analcolici", format: 1, price: 1.20 },
-                    { id: 74, name: "LEMON", category: "analcolici", format: 1, price: 0.00 },
-                    { id: 75, name: "LEMON FUSTO", category: "analcolici", format: 1, price: 62.15 },
-                    { id: 76, name: "COCA COLA", category: "analcolici", format: 1, price: 1.95 },
+                    { id: 70, name: "TONICA PREMIUM", category: "analcolici", format: 0.2, price: 1.20 },
+                    { id: 71, name: "TONICA", category: "analcolici", format: 0.2, price: 0.00 },
+                    { id: 72, name: "TONICA FUSTO", category: "analcolici", format: 20, price: 62.15 },
+                    { id: 73, name: "LEMON PREMIUM", category: "analcolici", format: 0.2, price: 1.20 },
+                    { id: 74, name: "LEMON", category: "analcolici", format: 0.2, price: 0.00 },
+                    { id: 75, name: "LEMON FUSTO", category: "analcolici", format: 20, price: 62.15 },
+                    { id: 76, name: "COCA COLA", category: "analcolici", format: 0.33, price: 1.95 },
                     { id: 77, name: "COCACOLA LATTINA", category: "analcolici", format: 0.33, price: 0.80 },
-                    { id: 78, name: "PEPSI FUSTO", category: "analcolici", format: 1, price: 60.39 },
-                    { id: 79, name: "GINGER ALE", category: "analcolici", format: 1, price: 0.99 },
-                    { id: 80, name: "GINGER BEER", category: "analcolici", format: 1, price: 0.99 },
+                    { id: 78, name: "PEPSI FUSTO", category: "analcolici", format: 20, price: 60.39 },
+                    { id: 79, name: "GINGER ALE", category: "analcolici", format: 0.2, price: 0.99 },
+                    { id: 80, name: "GINGER BEER", category: "analcolici", format: 0.2, price: 0.99 },
                     
                     // Succhi
                     { id: 81, name: "CRANBERRY", category: "succhi", format: 1, price: 1.99 },
                     { id: 82, name: "ANANAS", category: "succhi", format: 1, price: 3.58 },
                     { id: 83, name: "ARANCIA", category: "succhi", format: 1, price: 2.73 },
-                    { id: 84, name: "SUCCO LIMONE FUSTO", category: "succhi", format: 1, price: 8.45 }
+                    { id: 84, name: "SUCCO LIMONE FUSTO", category: "succhi", format: 5, price: 8.45 }
                 ];
             },
-// Storage
+
+            // Storage
             loadFromStorage() {
                 try {
                     const savedInventory = localStorage.getItem('cambusa_inventory');
@@ -1127,7 +1189,66 @@ th.sortable {
                     console.error('Errore nel salvataggio dei dati:', error);
                 }
             },
-            
+
+            // Utility Functions
+            getCategoryName(category) {
+                const names = {
+                    vodka: 'Vodka',
+                    gin: 'Gin',
+                    rum: 'Rum',
+                    whisky: 'Whisky',
+                    tequila: 'Tequila',
+                    liquori: 'Liquori',
+                    champagne: 'Champagne',
+                    analcolici: 'Analcolici',
+                    energy: 'Energy',
+                    succhi: 'Succhi'
+                };
+                return names[category] || category;
+            },
+
+            getStockStatus(stock, product) {
+                // Calcola lo stato in base al tipo di prodotto
+                let threshold = 5; // Default per alcolici
+                
+                if (['analcolici', 'energy', 'succhi'].includes(product.category)) {
+                    threshold = 20; // Soglia più alta per analcolici
+                }
+                
+                if (stock <= 0) {
+                    return '<span class="status-critical">⚠️ Esaurito</span>';
+                } else if (stock < threshold) {
+                    return '<span class="status-low">⚠️ In esaurimento</span>';
+                } else {
+                    return '<span class="status-ok">✅ OK</span>';
+                }
+            },
+
+            formatDate(date) {
+                return new Date(date).toLocaleDateString('it-IT', {
+                    day: '2-digit',
+                    month: '2-digit',
+                    year: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+            },
+
+            showMessage(message, type = 'success') {
+                const container = document.getElementById('messageContainer');
+                const messageEl = document.createElement('div');
+                messageEl.className = `alert alert-${type}`;
+                messageEl.textContent = message;
+                messageEl.style.animation = 'fadeIn 0.3s ease';
+                
+                container.appendChild(messageEl);
+                
+                setTimeout(() => {
+                    messageEl.style.animation = 'fadeOut 0.3s ease';
+                    setTimeout(() => messageEl.remove(), 300);
+                }, 3000);
+            },
+
             // Event Listeners
             setupEventListeners() {
                 // Tab navigation
@@ -1159,13 +1280,129 @@ th.sortable {
                 document.getElementById('movementTypeFilter').addEventListener('change', () => this.updateMovementsTable());
                 document.getElementById('movementStartDate').addEventListener('change', () => this.updateMovementsTable());
                 document.getElementById('movementEndDate').addEventListener('change', () => this.updateMovementsTable());
+                
+                // Setup table sorting
+                this.setupTableSorting();
             },
-            
-            // Table Updates
+
+            filterTable(tableId, searchTerm) {
+                const rows = document.querySelectorAll(`#${tableId} tbody tr`);
+                const term = searchTerm.toLowerCase();
+                
+                rows.forEach(row => {
+                    const text = row.textContent.toLowerCase();
+                    row.style.display = text.includes(term) ? '' : 'none';
+                });
+            },
+// Table Updates
             updateAllTables() {
                 this.updateInventoryTable();
                 this.updateProductsTable();
                 this.updateMovementsTable();
+            },
+            
+            setupTableSorting() {
+                const tables = ['inventoryTable', 'productsTable', 'movementsTable', 'nightProductsTable'];
+                
+                tables.forEach(tableId => {
+                    const headers = document.querySelectorAll(`#${tableId} th.sortable`);
+                    headers.forEach(header => {
+                        header.onclick = () => {
+                            const column = header.dataset.sort;
+                            this.sortTable(tableId, column, header);
+                        };
+                    });
+                });
+            },
+            
+            sortTable(tableId, column, headerElement) {
+                const tbody = document.querySelector(`#${tableId} tbody`);
+                const rows = Array.from(tbody.querySelectorAll('tr'));
+                
+                // Remove sorting classes from all headers in this table
+                const allHeaders = document.querySelectorAll(`#${tableId} th.sortable`);
+                allHeaders.forEach(h => h.classList.remove('asc', 'desc'));
+                
+                // Determine sort direction
+                const isAsc = !headerElement.classList.contains('asc');
+                headerElement.classList.add(isAsc ? 'asc' : 'desc');
+                
+                // Sort rows
+                rows.sort((a, b) => {
+                    let aValue, bValue;
+                    
+                    switch (column) {
+                        case 'name':
+                        case 'product':
+                            aValue = a.cells[tableId === 'productsTable' ? 1 : tableId === 'movementsTable' ? 2 : 0].textContent.toLowerCase();
+                            bValue = b.cells[tableId === 'productsTable' ? 1 : tableId === 'movementsTable' ? 2 : 0].textContent.toLowerCase();
+                            break;
+                        case 'category':
+                            aValue = a.cells[tableId === 'productsTable' ? 2 : 1].textContent.toLowerCase();
+                            bValue = b.cells[tableId === 'productsTable' ? 2 : 1].textContent.toLowerCase();
+                            break;
+                        case 'format':
+                            aValue = parseFloat(a.cells[tableId === 'productsTable' ? 3 : 2].textContent);
+                            bValue = parseFloat(b.cells[tableId === 'productsTable' ? 3 : 2].textContent);
+                            break;
+                        case 'price':
+                            aValue = parseFloat(a.cells[4].textContent.replace('€', '').replace('-', '0'));
+                            bValue = parseFloat(b.cells[4].textContent.replace('€', '').replace('-', '0'));
+                            break;
+                        case 'pricePerLiter':
+                            const colIndex = tableId === 'productsTable' ? 5 : 3;
+                            aValue = parseFloat(a.cells[colIndex].textContent.replace('€', '').replace('-', '0'));
+                            bValue = parseFloat(b.cells[colIndex].textContent.replace('€', '').replace('-', '0'));
+                            break;
+                        case 'stock':
+                            aValue = parseFloat(a.cells[4].textContent.replace('L', ''));
+                            bValue = parseFloat(b.cells[4].textContent.replace('L', ''));
+                            break;
+                        case 'value':
+                            const valueColIndex = tableId === 'inventoryTable' ? 5 : tableId === 'movementsTable' ? 4 : tableId === 'nightProductsTable' ? 4 : 0;
+                            aValue = parseFloat(a.cells[valueColIndex].textContent.replace('€', ''));
+                            bValue = parseFloat(b.cells[valueColIndex].textContent.replace('€', ''));
+                            break;
+                        case 'date':
+                            aValue = new Date(a.cells[0].textContent);
+                            bValue = new Date(b.cells[0].textContent);
+                            break;
+                        case 'type':
+                            aValue = a.cells[1].textContent.toLowerCase();
+                            bValue = b.cells[1].textContent.toLowerCase();
+                            break;
+                        case 'quantity':
+                            const qtyColIndex = tableId === 'movementsTable' ? 3 : tableId === 'nightProductsTable' ? 2 : 0;
+                            aValue = parseFloat(a.cells[qtyColIndex].textContent.replace('L', '').replace('+', ''));
+                            bValue = parseFloat(b.cells[qtyColIndex].textContent.replace('L', '').replace('+', ''));
+                            break;
+                        case 'bottles':
+                            aValue = parseFloat(a.cells[3].textContent);
+                            bValue = parseFloat(b.cells[3].textContent);
+                            break;
+                        case 'percentage':
+                            aValue = parseFloat(a.cells[5].textContent.replace('%', ''));
+                            bValue = parseFloat(b.cells[5].textContent.replace('%', ''));
+                            break;
+                        case 'id':
+                            aValue = parseInt(a.cells[0].textContent.replace('#', ''));
+                            bValue = parseInt(b.cells[0].textContent.replace('#', ''));
+                            break;
+                        default:
+                            aValue = a.cells[0].textContent.toLowerCase();
+                            bValue = b.cells[0].textContent.toLowerCase();
+                    }
+                    
+                    if (isNaN(aValue) || isNaN(bValue)) {
+                        return isAsc ? (aValue > bValue ? 1 : -1) : (aValue < bValue ? 1 : -1);
+                    } else {
+                        return isAsc ? aValue - bValue : bValue - aValue;
+                    }
+                });
+                
+                // Clear tbody and append sorted rows
+                tbody.innerHTML = '';
+                rows.forEach(row => tbody.appendChild(row));
             },
             
             updateInventoryTable() {
@@ -1195,7 +1432,7 @@ th.sortable {
                     tbody.appendChild(row);
                 });
             },
-            
+
             updateProductsTable() {
                 const tbody = document.querySelector('#productsTable tbody');
                 tbody.innerHTML = '';
@@ -1215,47 +1452,66 @@ th.sortable {
                             <button class="btn btn-secondary btn-sm" onclick="app.editProduct(${product.id})">
                                 ✏️ Modifica
                             </button>
+                            ${product.id > 1000 ? `
+                                <button class="btn btn-danger btn-sm" onclick="app.deleteProduct(${product.id})">
+                                    🗑️ Elimina
+                                </button>
+                            ` : ''}
                         </td>
                     `;
                     tbody.appendChild(row);
                 });
             },
-            
+
             updateMovementsTable() {
                 const tbody = document.querySelector('#movementsTable tbody');
                 tbody.innerHTML = '';
                 
-                let filteredMovements = [...this.movements];
-                
-                // Apply filters
+                // Get filters
                 const typeFilter = document.getElementById('movementTypeFilter').value;
                 const startDate = document.getElementById('movementStartDate').value;
                 const endDate = document.getElementById('movementEndDate').value;
+                
+                // Filter movements
+                let filteredMovements = [...this.movements];
                 
                 if (typeFilter) {
                     filteredMovements = filteredMovements.filter(m => m.type === typeFilter);
                 }
                 
                 if (startDate) {
-                    filteredMovements = filteredMovements.filter(m => m.date >= startDate);
+                    filteredMovements = filteredMovements.filter(m => 
+                        new Date(m.date) >= new Date(startDate)
+                    );
                 }
                 
                 if (endDate) {
-                    filteredMovements = filteredMovements.filter(m => m.date <= endDate);
+                    filteredMovements = filteredMovements.filter(m => 
+                        new Date(m.date) <= new Date(endDate + ' 23:59:59')
+                    );
                 }
                 
                 // Sort by date descending
                 filteredMovements.sort((a, b) => new Date(b.date) - new Date(a.date));
                 
+                // Display movements
                 filteredMovements.forEach(movement => {
                     const product = this.products.find(p => p.id === movement.productId);
-                    const value = Math.abs(movement.quantity) * (product?.price || 0);
+                    if (!product) return;
+                    
+                    const value = Math.abs(movement.quantity * (product.price || 0));
+                    const typeIcon = {
+                        consumption: '🍾',
+                        order: '📦',
+                        adjustment: '✏️'
+                    }[movement.type] || '📝';
                     
                     const row = document.createElement('tr');
                     row.innerHTML = `
-                        <td>${new Date(movement.date).toLocaleString('it-IT')}</td>
-                        <td>${this.getMovementTypeName(movement.type)}</td>
-                        <td>${product?.name || 'Prodotto rimosso'}</td>
+                        <td>${this.formatDate(movement.date)}</td>
+                        <td>${typeIcon} ${movement.type === 'consumption' ? 'Consumo' : 
+                             movement.type === 'order' ? 'Ordine' : 'Rettifica'}</td>
+                        <td>${product.name}</td>
                         <td>${movement.quantity > 0 ? '+' : ''}${movement.quantity.toFixed(2)}L</td>
                         <td>€${value.toFixed(2)}</td>
                         <td>${movement.note || '-'}</td>
@@ -1270,11 +1526,17 @@ th.sortable {
                 });
                 
                 if (filteredMovements.length === 0) {
-                    tbody.innerHTML = '<tr><td colspan="8" class="empty-state"><p>Nessun movimento trovato</p></td></tr>';
+                    tbody.innerHTML = `
+                        <tr>
+                            <td colspan="8" class="empty-state">
+                                <p>Nessun movimento trovato con i filtri selezionati.</p>
+                            </td>
+                        </tr>
+                    `;
                 }
             },
-            
-            // Dashboard
+
+            // Dashboard Functions
             updateDashboard() {
                 // Calculate total inventory value
                 let totalValue = 0;
@@ -1285,29 +1547,31 @@ th.sortable {
                     if (product.price) {
                         totalValue += stock * product.price;
                     }
-                    if (stock < 5 && stock > 0) {
+                    
+                    // Check low stock
+                    const threshold = ['analcolici', 'energy', 'succhi'].includes(product.category) ? 20 : 5;
+                    if (stock > 0 && stock < threshold) {
                         lowStockCount++;
                     }
                 });
                 
-                document.getElementById('totalValue').textContent = '€' + totalValue.toFixed(2);
+                document.getElementById('totalValue').textContent = `€${totalValue.toFixed(2)}`;
                 document.getElementById('lowStock').textContent = lowStockCount;
                 
-                // Find last night consumption
-                const nightDates = Object.keys(this.nights).sort((a, b) => new Date(b) - new Date(a));
-                
+                // Last night consumption
+                const nightDates = Object.keys(this.nights).sort().reverse();
                 if (nightDates.length > 0) {
                     const lastNight = this.nights[nightDates[0]];
-                    let lastNightTotal = 0;
+                    let nightTotal = 0;
                     
-                    Object.entries(lastNight.consumptions).forEach(([productId, quantity]) => {
-                        const product = this.products.find(p => p.id === parseInt(productId));
+                    lastNight.consumption.forEach(item => {
+                        const product = this.products.find(p => p.id === item.productId);
                         if (product && product.price) {
-                            lastNightTotal += quantity * product.price;
+                            nightTotal += item.quantity * product.price;
                         }
                     });
                     
-                    document.getElementById('lastNightConsumption').textContent = '€' + lastNightTotal.toFixed(2);
+                    document.getElementById('lastNightConsumption').textContent = `€${nightTotal.toFixed(2)}`;
                     document.getElementById('lastNightDate').textContent = new Date(nightDates[0]).toLocaleDateString('it-IT');
                 } else {
                     document.getElementById('lastNightConsumption').textContent = '€0.00';
@@ -1315,219 +1579,658 @@ th.sortable {
                 }
                 
                 // Weekly average
-                const oneWeekAgo = new Date();
-                oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+                const weekAgo = new Date();
+                weekAgo.setDate(weekAgo.getDate() - 7);
                 
                 let weeklyTotal = 0;
                 let weeklyNights = 0;
                 
                 Object.entries(this.nights).forEach(([date, night]) => {
-                    if (new Date(date) >= oneWeekAgo) {
+                    if (new Date(date) >= weekAgo) {
                         weeklyNights++;
-                        Object.entries(night.consumptions).forEach(([productId, quantity]) => {
-                            const product = this.products.find(p => p.id === parseInt(productId));
+                        night.consumption.forEach(item => {
+                            const product = this.products.find(p => p.id === item.productId);
                             if (product && product.price) {
-                                weeklyTotal += quantity * product.price;
+                                weeklyTotal += item.quantity * product.price;
                             }
                         });
                     }
                 });
                 
                 const weeklyAverage = weeklyNights > 0 ? weeklyTotal / weeklyNights : 0;
-                document.getElementById('weeklyAverage').textContent = '€' + weeklyAverage.toFixed(2);
+                document.getElementById('weeklyAverage').textContent = `€${weeklyAverage.toFixed(2)}`;
                 
                 // Update top products table
-                this.updateTopProducts();
+                this.updateTopProductsTable();
             },
-updateTopProducts() {
+
+            updateTopProductsTable() {
                 const tbody = document.querySelector('#topProductsTable tbody');
                 tbody.innerHTML = '';
                 
-                // Calculate consumption by product from nights data
-                const consumptionMap = {};
-                const lastWeek = new Date();
-                lastWeek.setDate(lastWeek.getDate() - 7);
+                // Calculate consumption for last 7 days
+                const weekAgo = new Date();
+                weekAgo.setDate(weekAgo.getDate() - 7);
                 
+                const productConsumption = {};
+                
+                // Sum consumption from nights
                 Object.entries(this.nights).forEach(([date, night]) => {
-                    if (new Date(date) >= lastWeek) {
-                        Object.entries(night.consumptions).forEach(([productId, quantity]) => {
-                            if (!consumptionMap[productId]) {
-                                consumptionMap[productId] = 0;
+                    if (new Date(date) >= weekAgo) {
+                        night.consumption.forEach(item => {
+                            if (!productConsumption[item.productId]) {
+                                productConsumption[item.productId] = 0;
                             }
-                            consumptionMap[productId] += quantity;
+                            productConsumption[item.productId] += item.quantity;
                         });
                     }
                 });
                 
-                // Sort by consumption
-                const topProducts = Object.entries(consumptionMap)
-                    .sort((a, b) => b[1] - a[1])
-                    .slice(0, 5);
+                // Convert to array and sort
+                const topProducts = Object.entries(productConsumption)
+                    .map(([productId, quantity]) => {
+                        const product = this.products.find(p => p.id === parseInt(productId));
+                        if (!product) return null;
+                        
+                        return {
+                            product,
+                            quantity,
+                            value: quantity * (product.price || 0)
+                        };
+                    })
+                    .filter(item => item !== null)
+                    .sort((a, b) => b.value - a.value)
+                    .slice(0, 10);
                 
                 if (topProducts.length === 0) {
-                    tbody.innerHTML = '<tr><td colspan="5" class="empty-state"><p>Nessun dato disponibile. Inizia registrando i movimenti!</p></td></tr>';
+                    tbody.innerHTML = `
+                        <tr>
+                            <td colspan="5" class="empty-state">
+                                <p>Nessun dato disponibile per l'ultima settimana.</p>
+                            </td>
+                        </tr>
+                    `;
                     return;
                 }
                 
-                topProducts.forEach(([productId, consumption]) => {
-                    const product = this.products.find(p => p.id === parseInt(productId));
-                    if (!product) return;
-                    
-                    const value = consumption * (product.price || 0);
-                    
+                topProducts.forEach(item => {
                     const row = document.createElement('tr');
                     row.innerHTML = `
-                        <td>${product.name}</td>
-                        <td><span class="badge badge-${product.category}">${this.getCategoryName(product.category)}</span></td>
-                        <td>${consumption.toFixed(2)}L</td>
-                        <td>€${value.toFixed(2)}</td>
-                        <td>📈 Top</td>
+                        <td>${item.product.name}</td>
+                        <td><span class="badge badge-${item.product.category}">${this.getCategoryName(item.product.category)}</span></td>
+                        <td>${item.quantity.toFixed(2)}L</td>
+                        <td>€${item.value.toFixed(2)}</td>
+                        <td><span class="status-ok">📈</span></td>
                     `;
                     tbody.appendChild(row);
                 });
             },
-            
-            // Nights functions
+// Modal Functions
+            showModal(modalId) {
+                document.getElementById(modalId).classList.add('active');
+            },
+
+            closeModal(modalId) {
+                document.getElementById(modalId).classList.remove('active');
+            },
+
+            // Initial Inventory Modal
+            showInitialInventoryModal() {
+                const form = document.getElementById('initialInventoryForm');
+                form.innerHTML = '';
+                
+                // Group products by category
+                const categories = {};
+                this.products.forEach(product => {
+                    if (!categories[product.category]) {
+                        categories[product.category] = [];
+                    }
+                    categories[product.category].push(product);
+                });
+                
+                // Create form for each category
+                Object.entries(categories).forEach(([category, products]) => {
+                    const categoryDiv = document.createElement('div');
+                    categoryDiv.innerHTML = `
+                        <h3 style="color: var(--primary); margin: 20px 0 10px 0;">
+                            ${this.getCategoryName(category)}
+                        </h3>
+                        <div class="form-grid">
+                            ${products.map(product => `
+                                <div class="form-group">
+                                    <label>${product.name} (${product.format}L)</label>
+                                    <input type="number" 
+                                           id="initial_${product.id}" 
+                                           step="0.01" 
+                                           min="0"
+                                           value="${this.inventory[product.id] || 0}"
+                                           placeholder="0.00">
+                                </div>
+                            `).join('')}
+                        </div>
+                    `;
+                    form.appendChild(categoryDiv);
+                });
+                
+                this.showModal('initialInventoryModal');
+            },
+
+            saveInitialInventory() {
+                this.products.forEach(product => {
+                    const input = document.getElementById(`initial_${product.id}`);
+                    if (input) {
+                        const value = parseFloat(input.value) || 0;
+                        if (value >= 0) {
+                            this.inventory[product.id] = value;
+                        }
+                    }
+                });
+                
+                this.saveToStorage();
+                this.updateAllTables();
+                this.updateDashboard();
+                this.closeModal('initialInventoryModal');
+                this.showMessage('Giacenza iniziale salvata con successo!');
+            },
+
+            // End of Night Modal
+            showEndOfNightModal() {
+                const form = document.getElementById('endOfNightForm');
+                form.innerHTML = '';
+                
+                // Group products by category
+                const categories = {};
+                this.products.forEach(product => {
+                    // Only show products with stock
+                    if ((this.inventory[product.id] || 0) > 0) {
+                        if (!categories[product.category]) {
+                            categories[product.category] = [];
+                        }
+                        categories[product.category].push(product);
+                    }
+                });
+                
+                // Create form for each category
+                Object.entries(categories).forEach(([category, products]) => {
+                    const categoryDiv = document.createElement('div');
+                    categoryDiv.innerHTML = `
+                        <h3 style="color: var(--primary); margin: 20px 0 10px 0;">
+                            ${this.getCategoryName(category)}
+                        </h3>
+                        <div class="form-grid">
+                            ${products.map(product => {
+                                const currentStock = this.inventory[product.id] || 0;
+                                return `
+                                    <div class="form-group">
+                                        <label>${product.name} (Attuale: ${currentStock.toFixed(2)}L)</label>
+                                        <input type="number" 
+                                               id="endnight_${product.id}" 
+                                               step="0.01" 
+                                               min="0"
+                                               max="${currentStock}"
+                                               value="${currentStock}"
+                                               placeholder="0.00">
+                                    </div>
+                                `;
+                            }).join('')}
+                        </div>
+                    `;
+                    form.appendChild(categoryDiv);
+                });
+                
+                this.showModal('endOfNightModal');
+            },
+
+            saveEndOfNight() {
+                const nightDate = document.getElementById('nightDate').value;
+                if (!nightDate) {
+                    this.showMessage('Seleziona una data per la serata', 'error');
+                    return;
+                }
+                
+                const consumption = [];
+                let hasConsumption = false;
+                
+                this.products.forEach(product => {
+                    const input = document.getElementById(`endnight_${product.id}`);
+                    if (input) {
+                        const currentStock = this.inventory[product.id] || 0;
+                        const finalStock = parseFloat(input.value) || 0;
+                        const consumed = currentStock - finalStock;
+                        
+                        if (consumed > 0) {
+                            hasConsumption = true;
+                            consumption.push({
+                                productId: product.id,
+                                quantity: consumed,
+                                initialStock: currentStock,
+                                finalStock: finalStock
+                            });
+                            
+                            // Update inventory
+                            this.inventory[product.id] = finalStock;
+                            
+                            // Add movement
+                            this.addMovement({
+                                type: 'consumption',
+                                productId: product.id,
+                                quantity: -consumed,
+                                date: new Date(`${nightDate} 23:59:59`),
+                                note: `Consumo serata ${nightDate}`,
+                                operator: 'Sistema'
+                            });
+                        }
+                    }
+                });
+                
+                if (!hasConsumption) {
+                    this.showMessage('Nessun consumo registrato', 'error');
+                    return;
+                }
+                
+                // Save night data
+                this.nights[nightDate] = {
+                    date: nightDate,
+                    consumption: consumption,
+                    createdAt: new Date().toISOString()
+                };
+                
+                this.saveToStorage();
+                this.updateAllTables();
+                this.updateDashboard();
+                this.updateNightSelector();
+                this.closeModal('endOfNightModal');
+                this.showMessage('Consumi della serata registrati con successo!');
+            },
+
+            // Order Modal
+            showOrderModal() {
+                document.getElementById('orderSupplier').value = '';
+                document.getElementById('orderItems').innerHTML = '';
+                this.addOrderItem(); // Add first item
+                this.showModal('orderModal');
+            },
+
+            addOrderItem() {
+                const container = document.getElementById('orderItems');
+                const itemId = Date.now();
+                
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'order-item';
+                itemDiv.id = `orderItem_${itemId}`;
+                itemDiv.innerHTML = `
+                    <div class="order-item-header">
+                        <h4>Prodotto ${container.children.length + 1}</h4>
+                        <button class="btn btn-danger btn-sm" onclick="app.removeOrderItem('${itemId}')">
+                            🗑️ Rimuovi
+                        </button>
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Prodotto</label>
+                            <select id="orderProduct_${itemId}" required>
+                                <option value="">Seleziona prodotto...</option>
+                                ${this.products.map(p => 
+                                    `<option value="${p.id}">${p.name} (${p.format}L)</option>`
+                                ).join('')}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Quantità (bottiglie)</label>
+                            <input type="number" id="orderQuantity_${itemId}" min="1" value="1" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Prezzo Totale (€)</label>
+                            <input type="number" id="orderPrice_${itemId}" step="0.01" min="0" placeholder="0.00">
+                        </div>
+                    </div>
+                `;
+                
+                container.appendChild(itemDiv);
+            },
+
+            removeOrderItem(itemId) {
+                const item = document.getElementById(`orderItem_${itemId}`);
+                if (item) {
+                    item.remove();
+                }
+            },
+
+            saveOrder() {
+                const supplier = document.getElementById('orderSupplier').value;
+                const orderDate = document.getElementById('orderDate').value;
+                
+                if (!supplier || !orderDate) {
+                    this.showMessage('Compila tutti i campi obbligatori', 'error');
+                    return;
+                }
+                
+                const orderItems = document.querySelectorAll('.order-item');
+                let hasItems = false;
+                
+                orderItems.forEach(item => {
+                    const itemId = item.id.split('_')[1];
+                    const productId = parseInt(document.getElementById(`orderProduct_${itemId}`).value);
+                    const quantity = parseInt(document.getElementById(`orderQuantity_${itemId}`).value);
+                    const price = parseFloat(document.getElementById(`orderPrice_${itemId}`).value) || 0;
+                    
+                    if (productId && quantity > 0) {
+                        hasItems = true;
+                        const product = this.products.find(p => p.id === productId);
+                        if (product) {
+                            const liters = quantity * product.format;
+                            
+                            // Update inventory
+                            if (!this.inventory[productId]) {
+                                this.inventory[productId] = 0;
+                            }
+                            this.inventory[productId] += liters;
+                            
+                            // Add movement
+                            this.addMovement({
+                                type: 'order',
+                                productId: productId,
+                                quantity: liters,
+                                date: new Date(orderDate),
+                                note: `Ordine da ${supplier} - ${quantity} bottiglie`,
+                                operator: 'Sistema',
+                                price: price
+                            });
+                        }
+                    }
+                });
+                
+                if (!hasItems) {
+                    this.showMessage('Aggiungi almeno un prodotto all\'ordine', 'error');
+                    return;
+                }
+                
+                this.saveToStorage();
+                this.updateAllTables();
+                this.updateDashboard();
+                this.closeModal('orderModal');
+                this.showMessage('Ordine registrato con successo!');
+            },
+
+            // Product Management
+            showAddProductModal() {
+                document.getElementById('newProductName').value = '';
+                document.getElementById('newProductCategory').value = 'vodka';
+                document.getElementById('newProductFormat').value = '1';
+                document.getElementById('newProductPrice').value = '';
+                this.showModal('addProductModal');
+            },
+
+            saveNewProduct() {
+                const name = document.getElementById('newProductName').value.trim();
+                const category = document.getElementById('newProductCategory').value;
+                const format = parseFloat(document.getElementById('newProductFormat').value);
+                const price = parseFloat(document.getElementById('newProductPrice').value) || null;
+                
+                if (!name || !format) {
+                    this.showMessage('Compila tutti i campi obbligatori', 'error');
+                    return;
+                }
+                
+                // Generate new ID
+                const maxId = Math.max(...this.products.map(p => p.id), 1000);
+                const newProduct = {
+                    id: maxId + 1,
+                    name: name.toUpperCase(),
+                    category: category,
+                    format: format,
+                    price: price
+                };
+                
+                this.products.push(newProduct);
+                this.saveToStorage();
+                this.updateProductsTable();
+                this.populateStatsProductSelect();
+                this.closeModal('addProductModal');
+                this.showMessage('Prodotto aggiunto con successo!');
+            },
+
+            editProduct(productId) {
+                const product = this.products.find(p => p.id === productId);
+                if (!product) return;
+                
+                // Reuse add product modal for editing
+                document.getElementById('newProductName').value = product.name;
+                document.getElementById('newProductCategory').value = product.category;
+                document.getElementById('newProductFormat').value = product.format;
+                document.getElementById('newProductPrice').value = product.price || '';
+                
+                // Change save button behavior
+                const modal = document.getElementById('addProductModal');
+                modal.querySelector('h2').textContent = '✏️ Modifica Prodotto';
+                modal.querySelector('.btn-primary').onclick = () => this.updateProduct(productId);
+                
+                this.showModal('addProductModal');
+            },
+
+            updateProduct(productId) {
+                const product = this.products.find(p => p.id === productId);
+                if (!product) return;
+                
+                product.name = document.getElementById('newProductName').value.trim().toUpperCase();
+                product.category = document.getElementById('newProductCategory').value;
+                product.format = parseFloat(document.getElementById('newProductFormat').value);
+                product.price = parseFloat(document.getElementById('newProductPrice').value) || null;
+                
+                this.saveToStorage();
+                this.updateAllTables();
+                this.updateDashboard();
+                this.closeModal('addProductModal');
+                
+                // Reset modal
+                const modal = document.getElementById('addProductModal');
+                modal.querySelector('h2').textContent = '➕ Aggiungi Nuovo Prodotto';
+                modal.querySelector('.btn-primary').onclick = () => this.saveNewProduct();
+                
+                this.showMessage('Prodotto modificato con successo!');
+            },
+
+            deleteProduct(productId) {
+                this.deleteContext = { type: 'product', id: productId };
+                const product = this.products.find(p => p.id === productId);
+                
+                document.getElementById('deleteConfirmMessage').textContent = 
+                    `Vuoi eliminare il prodotto "${product.name}"? Tutti i movimenti associati saranno mantenuti.`;
+                
+                this.showModal('deleteConfirmModal');
+            },
+
+            // Inventory Adjustments
+            adjustInventory(productId) {
+                const product = this.products.find(p => p.id === productId);
+                if (!product) return;
+                
+                const currentStock = this.inventory[productId] || 0;
+                
+                document.getElementById('adjustmentProductName').value = product.name;
+                document.getElementById('adjustmentCurrentStock').value = currentStock.toFixed(2) + ' L';
+                document.getElementById('adjustmentNewStock').value = currentStock;
+                document.getElementById('adjustmentReason').value = 'inventory_count';
+                document.getElementById('adjustmentNote').value = '';
+                
+                // Store product ID for save
+                this.adjustmentProductId = productId;
+                
+                this.showModal('adjustmentModal');
+            },
+
+            saveAdjustment() {
+                const newStock = parseFloat(document.getElementById('adjustmentNewStock').value) || 0;
+                const reason = document.getElementById('adjustmentReason').value;
+                const note = document.getElementById('adjustmentNote').value;
+                
+                if (newStock < 0) {
+                    this.showMessage('La giacenza non può essere negativa', 'error');
+                    return;
+                }
+                
+                const product = this.products.find(p => p.id === this.adjustmentProductId);
+                const currentStock = this.inventory[this.adjustmentProductId] || 0;
+                const difference = newStock - currentStock;
+                
+                if (difference !== 0) {
+                    // Update inventory
+                    this.inventory[this.adjustmentProductId] = newStock;
+                    
+                    // Add movement
+                    this.addMovement({
+                        type: 'adjustment',
+                        productId: this.adjustmentProductId,
+                        quantity: difference,
+                        date: new Date(),
+                        note: `${this.getAdjustmentReasonText(reason)}${note ? ': ' + note : ''}`,
+                        operator: 'Utente'
+                    });
+                    
+                    this.saveToStorage();
+                    this.updateAllTables();
+                    this.updateDashboard();
+                }
+                
+                this.closeModal('adjustmentModal');
+                this.showMessage('Giacenza aggiornata con successo!');
+            },
+
+            getAdjustmentReasonText(reason) {
+                const reasons = {
+                    inventory_count: 'Conteggio inventario',
+                    breakage: 'Rottura/Perdita',
+                    error_correction: 'Correzione errore',
+                    other: 'Altro'
+                };
+                return reasons[reason] || reason;
+            },
+
+            // Movement Management
+            addMovement(movementData) {
+                const movement = {
+                    id: Date.now().toString(),
+                    ...movementData
+                };
+                
+                this.movements.push(movement);
+                return movement;
+            },
+
+            deleteMovement(movementId) {
+                this.deleteContext = { type: 'movement', id: movementId };
+                
+                document.getElementById('deleteConfirmMessage').textContent = 
+                    'Vuoi eliminare questo movimento? La giacenza non sarà modificata.';
+                
+                this.showModal('deleteConfirmModal');
+            },
+
+            clearAllMovements() {
+                if (confirm('Sei sicuro di voler eliminare TUTTI i movimenti? Questa azione non può essere annullata.')) {
+                    this.movements = [];
+                    this.saveToStorage();
+                    this.updateMovementsTable();
+                    this.showMessage('Tutti i movimenti sono stati eliminati');
+                }
+            },
+// Night Management
             updateNightSelector() {
                 const selector = document.getElementById('nightSelector');
                 selector.innerHTML = '<option value="">Seleziona una serata...</option>';
                 
-                const nightDates = Object.keys(this.nights).sort((a, b) => new Date(b) - new Date(a));
-                
+                const nightDates = Object.keys(this.nights).sort().reverse();
                 nightDates.forEach(date => {
                     const option = document.createElement('option');
                     option.value = date;
                     option.textContent = new Date(date).toLocaleDateString('it-IT', {
                         weekday: 'long',
-                        year: 'numeric',
+                        day: 'numeric',
                         month: 'long',
-                        day: 'numeric'
+                        year: 'numeric'
                     });
                     selector.appendChild(option);
                 });
             },
-            
-           showNightDetails() {
+
+            showNightDetails() {
                 const selectedDate = document.getElementById('nightSelector').value;
+                const container = document.getElementById('nightDetailsContainer');
+                const deleteBtn = document.getElementById('deleteNightBtn');
                 
-                if (!selectedDate) {
-                    document.getElementById('nightDetailsContainer').style.display = 'none';
-                    document.getElementById('deleteNightBtn').style.display = 'none';
+                if (!selectedDate || !this.nights[selectedDate]) {
+                    container.style.display = 'none';
+                    deleteBtn.style.display = 'none';
                     return;
                 }
                 
-                document.getElementById('nightDetailsContainer').style.display = 'block';
-                document.getElementById('deleteNightBtn').style.display = 'block';
+                container.style.display = 'block';
+                deleteBtn.style.display = 'block';
                 
                 const night = this.nights[selectedDate];
-                let totalValue = 0;
-                let totalLiters = 0;
+                let totalConsumption = 0;
                 let totalBottles = 0;
+                let totalLiters = 0;
                 const categoryTotals = {};
-                this.nightProductDetails = []; // Store for sorting
                 
-                Object.entries(night.consumptions).forEach(([productId, quantity]) => {
-                    const product = this.products.find(p => p.id === parseInt(productId));
-                    if (product) {
-                        const value = quantity * (product.price || 0);
-                        totalValue += value;
-                        totalLiters += quantity;
-                        totalBottles += quantity / product.format;
-                        
-                        if (!categoryTotals[product.category]) {
-                            categoryTotals[product.category] = 0;
-                        }
-                        categoryTotals[product.category] += value;
-                        
-                        this.nightProductDetails.push({
-                            product: product,
-                            quantity: quantity,
-                            bottles: quantity / product.format,
-                            value: value,
-                            name: product.name,
-                            category: product.category,
-                            percentage: 0 // Will be calculated after
-                        });
+                // Prepare night product details
+                this.nightProductDetails = [];
+                
+                night.consumption.forEach(item => {
+                    const product = this.products.find(p => p.id === item.productId);
+                    if (!product) return;
+                    
+                    const value = item.quantity * (product.price || 0);
+                    const bottles = item.quantity / product.format;
+                    
+                    totalConsumption += value;
+                    totalBottles += bottles;
+                    totalLiters += item.quantity;
+                    
+                    if (!categoryTotals[product.category]) {
+                        categoryTotals[product.category] = 0;
                     }
+                    categoryTotals[product.category] += value;
+                    
+                    this.nightProductDetails.push({
+                        product: product,
+                        quantity: item.quantity,
+                        bottles: bottles,
+                        value: value,
+                        percentage: 0 // Will be calculated after total
+                    });
                 });
                 
                 // Calculate percentages
                 this.nightProductDetails.forEach(detail => {
-                    detail.percentage = totalValue > 0 ? (detail.value / totalValue * 100) : 0;
+                    detail.percentage = (detail.value / totalConsumption * 100);
                 });
+                
+                // Sort by value descending
+                this.nightProductDetails.sort((a, b) => b.value - a.value);
+                
+                // Find top category
+                const topCategory = Object.entries(categoryTotals)
+                    .sort(([,a], [,b]) => b - a)[0];
                 
                 // Update stats
-                document.getElementById('nightTotalConsumption').textContent = '€' + totalValue.toFixed(2);
+                document.getElementById('nightTotalConsumption').textContent = `€${totalConsumption.toFixed(2)}`;
                 document.getElementById('nightBottlesCount').textContent = Math.round(totalBottles);
-                document.getElementById('nightTotalLiters').textContent = totalLiters.toFixed(2) + 'L';
+                document.getElementById('nightTotalLiters').textContent = `${totalLiters.toFixed(2)}L`;
+                document.getElementById('nightTopCategory').textContent = 
+                    topCategory ? this.getCategoryName(topCategory[0]) : '-';
                 
-                // Top category
-                const topCategory = Object.entries(categoryTotals)
-                    .sort((a, b) => b[1] - a[1])[0];
-                document.getElementById('nightTopCategory').textContent = topCategory 
-                    ? this.getCategoryName(topCategory[0]) 
-                    : '-';
-                
-                // Initial sort by value
-                this.currentSort = { column: 'value', direction: 'desc' };
+                // Update table
                 this.updateNightProductsTable();
-                
-                // Setup sorting listeners
-                this.setupNightTableSorting();
             },
-            
-            setupNightTableSorting() {
-                const headers = document.querySelectorAll('#nightProductsTable th.sortable');
-                headers.forEach(header => {
-                    header.onclick = () => {
-                        const column = header.dataset.sort;
-                        
-                        // Remove classes from all headers
-                        headers.forEach(h => {
-                            h.classList.remove('asc', 'desc');
-                        });
-                        
-                        // Toggle direction
-                        if (this.currentSort.column === column) {
-                            this.currentSort.direction = this.currentSort.direction === 'asc' ? 'desc' : 'asc';
-                        } else {
-                            this.currentSort.column = column;
-                            this.currentSort.direction = 'asc';
-                        }
-                        
-                        // Add class to current header
-                        header.classList.add(this.currentSort.direction);
-                        
-                        // Sort and update table
-                        this.updateNightProductsTable();
-                    };
-                });
-            },
-            
+
             updateNightProductsTable() {
                 const tbody = document.querySelector('#nightProductsTable tbody');
                 tbody.innerHTML = '';
                 
-                // Sort the details
-                const sorted = [...this.nightProductDetails].sort((a, b) => {
-                    let aVal = a[this.currentSort.column];
-                    let bVal = b[this.currentSort.column];
-                    
-                    // Handle string comparison for name and category
-                    if (this.currentSort.column === 'name' || this.currentSort.column === 'category') {
-                        aVal = aVal.toLowerCase();
-                        bVal = bVal.toLowerCase();
-                    }
-                    
-                    if (this.currentSort.direction === 'asc') {
-                        return aVal > bVal ? 1 : -1;
-                    } else {
-                        return aVal < bVal ? 1 : -1;
-                    }
-                });
-                
-                sorted.forEach(detail => {
+                this.nightProductDetails.forEach(detail => {
                     const row = document.createElement('tr');
+                    row.className = 'night-product-row';
                     row.innerHTML = `
                         <td>${detail.product.name}</td>
                         <td><span class="badge badge-${detail.product.category}">${this.getCategoryName(detail.product.category)}</span></td>
@@ -1539,75 +2242,7 @@ updateTopProducts() {
                     tbody.appendChild(row);
                 });
             },
-            
-            deleteMovement(movementId) {
-                if (confirm('Sei sicuro di voler eliminare questo movimento?')) {
-                    // Find the movement first
-                    const movement = this.movements.find(m => m.id == movementId);
-                    
-                    // Remove the movement
-                    this.movements = this.movements.filter(m => m.id != movementId);
-                    
-                    // If it's a consumption, update nights
-                    if (movement && movement.type === 'consumption') {
-                        const nightDate = movement.date.split(' ')[0];
-                        if (this.nights[nightDate]) {
-                            this.recalculateNight(nightDate);
-                        }
-                    }
-                    
-                    // If it's an order or adjustment, recalculate inventory
-                    if (movement && (movement.type === 'order' || movement.type === 'adjustment')) {
-                        // Recalculate inventory from scratch
-                        this.recalculateInventory();
-                    }
-                    
-                    this.saveToStorage();
-                    this.updateMovementsTable();
-                    this.updateDashboard();
-                    this.updateAllTables();
-                    this.showAlert('Movimento eliminato con successo', 'success');
-                }
-            },
-            
-            clearAllMovements() {
-                if (confirm('⚠️ ATTENZIONE: Sei sicuro di voler eliminare TUTTI i movimenti? Questa azione non può essere annullata!')) {
-                    if (confirm('⚠️ SECONDA CONFERMA: Verranno eliminati tutti i movimenti, le serate e l\'inventario verrà azzerato. Continuare?')) {
-                        // Clear all data
-                        this.movements = [];
-                        this.nights = {};
-                        this.inventory = {};
-                        
-                        // Save and update
-                        this.saveToStorage();
-                        this.updateAllTables();
-                        this.updateDashboard();
-                        this.updateNightSelector();
-                        this.showAlert('Tutti i movimenti sono stati eliminati', 'success');
-                    }
-                }
-            },
-            
-            recalculateInventory() {
-                // Reset inventory
-                this.inventory = {};
-                
-                // Recalculate from all movements
-                this.movements.forEach(movement => {
-                    if (!this.inventory[movement.productId]) {
-                        this.inventory[movement.productId] = 0;
-                    }
-                    this.inventory[movement.productId] += movement.quantity;
-                });
-                
-                // Ensure no negative values
-                Object.keys(this.inventory).forEach(productId => {
-                    if (this.inventory[productId] < 0) {
-                        this.inventory[productId] = 0;
-                    }
-                });
-            },
-            
+
             filterNightProducts() {
                 const searchTerm = document.getElementById('nightProductSearch').value.toLowerCase();
                 const rows = document.querySelectorAll('#nightProductsTable tbody tr');
@@ -1617,75 +2252,59 @@ updateTopProducts() {
                     row.style.display = text.includes(searchTerm) ? '' : 'none';
                 });
             },
-            
+
             deleteNight() {
                 const selectedDate = document.getElementById('nightSelector').value;
                 if (!selectedDate) return;
                 
-                if (confirm(`Sei sicuro di voler eliminare la serata del ${new Date(selectedDate).toLocaleDateString('it-IT')}? Questa azione non può essere annullata.`)) {
-                    // Remove night
-                    delete this.nights[selectedDate];
-                    
-                    // Remove associated movements
-                    this.movements = this.movements.filter(m => {
-                        if (m.type === 'consumption' && m.date.startsWith(selectedDate)) {
-                            return false;
-                        }
-                        return true;
-                    });
-                    
-                    this.saveToStorage();
-                    this.updateNightSelector();
-                    this.updateMovementsTable();
-                    this.updateDashboard();
-                    document.getElementById('nightDetailsContainer').style.display = 'none';
-                    this.showAlert('Serata eliminata con successo', 'success');
-                }
-            },
-            
-            deleteMovement(movementId) {
-                if (confirm('Sei sicuro di voler eliminare questo movimento?')) {
-                    const movement = this.movements.find(m => m.id === movementId);
-                    this.movements = this.movements.filter(m => m.id !== movementId);
-                    
-                    // If it's a consumption, update nights
-                    if (movement && movement.type === 'consumption') {
-                        const nightDate = movement.date.split(' ')[0];
-                        if (this.nights[nightDate]) {
-                            this.recalculateNight(nightDate);
-                        }
-                    }
-                    
-                    this.saveToStorage();
-                    this.updateMovementsTable();
-                    this.updateDashboard();
-                    this.showAlert('Movimento eliminato con successo', 'success');
-                }
-            },
-            
-            recalculateNight(date) {
-                const nightMovements = this.movements.filter(m => 
-                    m.type === 'consumption' && m.date.startsWith(date)
-                );
+                this.deleteContext = { type: 'night', id: selectedDate };
                 
-                if (nightMovements.length === 0) {
-                    delete this.nights[date];
-                } else {
-                    const consumptions = {};
-                    nightMovements.forEach(m => {
-                        if (!consumptions[m.productId]) {
-                            consumptions[m.productId] = 0;
-                        }
-                        consumptions[m.productId] += Math.abs(m.quantity);
-                    });
-                    this.nights[date] = { consumptions };
-                }
+                document.getElementById('deleteConfirmMessage').textContent = 
+                    `Vuoi eliminare i dati della serata del ${new Date(selectedDate).toLocaleDateString('it-IT')}? I movimenti di consumo associati saranno mantenuti.`;
+                
+                this.showModal('deleteConfirmModal');
             },
-            
-            // Statistics
+
+            // Delete Confirmation
+            confirmDelete() {
+                const { type, id } = this.deleteContext;
+                
+                switch (type) {
+                    case 'product':
+                        this.products = this.products.filter(p => p.id !== id);
+                        delete this.inventory[id];
+                        this.saveToStorage();
+                        this.updateAllTables();
+                        this.updateDashboard();
+                        this.showMessage('Prodotto eliminato con successo');
+                        break;
+                        
+                    case 'movement':
+                        this.movements = this.movements.filter(m => m.id !== id);
+                        this.saveToStorage();
+                        this.updateMovementsTable();
+                        this.showMessage('Movimento eliminato con successo');
+                        break;
+                        
+                    case 'night':
+                        delete this.nights[id];
+                        this.saveToStorage();
+                        this.updateNightSelector();
+                        this.updateDashboard();
+                        document.getElementById('nightDetailsContainer').style.display = 'none';
+                        document.getElementById('nightSelector').value = '';
+                        this.showMessage('Serata eliminata con successo');
+                        break;
+                }
+                
+                this.closeModal('deleteConfirmModal');
+            },
+
+            // Statistics and Charts
             populateStatsProductSelect() {
                 const select = document.getElementById('statsProduct');
                 select.innerHTML = '<option value="">Tutti i prodotti</option>';
+                
                 this.products.forEach(product => {
                     const option = document.createElement('option');
                     option.value = product.id;
@@ -1693,7 +2312,7 @@ updateTopProducts() {
                     select.appendChild(option);
                 });
             },
-            
+
             updateCharts() {
                 const period = parseInt(document.getElementById('statsPeriod').value);
                 const productId = document.getElementById('statsProduct').value;
@@ -1703,32 +2322,59 @@ updateTopProducts() {
                     if (chart) chart.destroy();
                 });
                 
-                this.updateTopProductsChart(period);
-                this.updateConsumptionTrendChart(period, productId);
-                this.updateCategoryPieChart(period);
-            },
-updateTopProductsChart(period) {
-                const ctx = document.getElementById('topProductsChart').getContext('2d');
-                const consumptionData = this.getConsumptionData(period);
+                // Get data for period
+                const endDate = new Date();
+                const startDate = new Date();
+                if (period !== 'all') {
+                    startDate.setDate(startDate.getDate() - period);
+                } else {
+                    startDate.setFullYear(2020); // Arbitrary old date
+                }
                 
-                const sorted = Object.entries(consumptionData)
-                    .sort((a, b) => b[1] - a[1])
-                    .slice(0, 20);
-                
-                const labels = sorted.map(([productId]) => {
-                    const product = this.products.find(p => p.id === parseInt(productId));
-                    return product ? product.name : 'Sconosciuto';
+                // Filter movements by period
+                const filteredMovements = this.movements.filter(m => {
+                    const movementDate = new Date(m.date);
+                    return movementDate >= startDate && movementDate <= endDate &&
+                           (productId === '' || m.productId === parseInt(productId));
                 });
                 
-                const data = sorted.map(([_, value]) => value);
+                // Update charts
+                this.updateTopProductsChart(filteredMovements);
+                this.updateConsumptionTrendChart(filteredMovements);
+                this.updateCategoryPieChart(filteredMovements);
+            },
+
+            updateTopProductsChart(movements) {
+                const ctx = document.getElementById('topProductsChart').getContext('2d');
+                
+                // Calculate consumption by product
+                const productConsumption = {};
+                movements.forEach(movement => {
+                    if (movement.type === 'consumption') {
+                        if (!productConsumption[movement.productId]) {
+                            productConsumption[movement.productId] = 0;
+                        }
+                        productConsumption[movement.productId] += Math.abs(movement.quantity);
+                    }
+                });
+                
+                // Get top 20 products
+                const topProducts = Object.entries(productConsumption)
+                    .map(([productId, quantity]) => {
+                        const product = this.products.find(p => p.id === parseInt(productId));
+                        return product ? { product, quantity } : null;
+                    })
+                    .filter(item => item !== null)
+                    .sort((a, b) => b.quantity - a.quantity)
+                    .slice(0, 20);
                 
                 this.charts.topProducts = new Chart(ctx, {
                     type: 'bar',
                     data: {
-                        labels: labels,
+                        labels: topProducts.map(item => item.product.name),
                         datasets: [{
                             label: 'Consumo (L)',
-                            data: data,
+                            data: topProducts.map(item => item.quantity),
                             backgroundColor: 'rgba(139, 92, 246, 0.6)',
                             borderColor: 'rgba(139, 92, 246, 1)',
                             borderWidth: 1
@@ -1743,44 +2389,66 @@ updateTopProductsChart(period) {
                             }
                         },
                         scales: {
-                            x: {
-                                ticks: {
-                                    color: '#f3f4f6',
-                                    autoSkip: false,
-                                    maxRotation: 45,
-                                    minRotation: 45
-                                },
-                                grid: {
-                                    color: 'rgba(255, 255, 255, 0.1)'
-                                }
-                            },
                             y: {
+                                beginAtZero: true,
                                 ticks: {
                                     color: '#f3f4f6'
                                 },
                                 grid: {
                                     color: 'rgba(255, 255, 255, 0.1)'
                                 }
+                            },
+                            x: {
+                                ticks: {
+                                    color: '#f3f4f6',
+                                    maxRotation: 45,
+                                    minRotation: 45
+                                },
+                                grid: {
+                                    display: false
+                                }
                             }
                         }
                     }
                 });
             },
-            
-            updateConsumptionTrendChart(period, productId) {
+
+            updateConsumptionTrendChart(movements) {
                 const ctx = document.getElementById('consumptionTrendChart').getContext('2d');
-                const trendData = this.getTrendData(period, productId);
+                
+                // Group consumption by date
+                const dailyConsumption = {};
+                movements.forEach(movement => {
+                    if (movement.type === 'consumption') {
+                        const date = new Date(movement.date).toISOString().split('T')[0];
+                        if (!dailyConsumption[date]) {
+                            dailyConsumption[date] = 0;
+                        }
+                        const product = this.products.find(p => p.id === movement.productId);
+                        if (product && product.price) {
+                            dailyConsumption[date] += Math.abs(movement.quantity) * product.price;
+                        }
+                    }
+                });
+                
+                // Sort dates and prepare data
+                const dates = Object.keys(dailyConsumption).sort();
+                const values = dates.map(date => dailyConsumption[date]);
                 
                 this.charts.trend = new Chart(ctx, {
                     type: 'line',
                     data: {
-                        labels: trendData.labels,
+                        labels: dates.map(date => {
+                            const d = new Date(date);
+                            return d.toLocaleDateString('it-IT', { day: 'numeric', month: 'short' });
+                        }),
                         datasets: [{
-                            label: productId ? 'Consumo prodotto (L)' : 'Consumo totale (€)',
-                            data: trendData.values,
+                            label: 'Valore Consumo (€)',
+                            data: values,
                             borderColor: 'rgba(236, 72, 153, 1)',
                             backgroundColor: 'rgba(236, 72, 153, 0.1)',
-                            tension: 0.4
+                            tension: 0.3,
+                            fill: true
                         }]
                     },
                     options: {
@@ -1794,49 +2462,73 @@ updateTopProductsChart(period) {
                             }
                         },
                         scales: {
-                            x: {
+                            y: {
+                                beginAtZero: true,
                                 ticks: {
-                                    color: '#f3f4f6'
+                                    color: '#f3f4f6',
+                                    callback: function(value) {
+                                        return '€' + value.toFixed(0);
+                                    }
                                 },
                                 grid: {
                                     color: 'rgba(255, 255, 255, 0.1)'
                                 }
                             },
-                            y: {
+                            x: {
                                 ticks: {
                                     color: '#f3f4f6'
                                 },
                                 grid: {
-                                    color: 'rgba(255, 255, 255, 0.1)'
+                                    display: false
                                 }
                             }
                         }
                     }
                 });
             },
-            
-            updateCategoryPieChart(period) {
+
+            updateCategoryPieChart(movements) {
                 const ctx = document.getElementById('categoryPieChart').getContext('2d');
-                const categoryData = this.getCategoryData(period);
+                
+                // Calculate consumption by category
+                const categoryConsumption = {};
+                movements.forEach(movement => {
+                    if (movement.type === 'consumption') {
+                        const product = this.products.find(p => p.id === movement.productId);
+                        if (product && product.price) {
+                            if (!categoryConsumption[product.category]) {
+                                categoryConsumption[product.category] = 0;
+                            }
+                            categoryConsumption[product.category] += Math.abs(movement.quantity) * product.price;
+                        }
+                    }
+                });
+                
+                const categories = Object.keys(categoryConsumption);
+                const values = categories.map(cat => categoryConsumption[cat]);
+                
+                const colors = {
+                    vodka: '#fca5a5',
+                    gin: '#93c5fd',
+                    rum: '#fcd34d',
+                    whisky: '#fbbf24',
+                    tequila: '#6ee7b7',
+                    liquori: '#c084fc',
+                    champagne: '#f9a8d4',
+                    analcolici: '#67e8f9',
+                    energy: '#fca5a5',
+                    succhi: '#fdba74'
+                };
                 
                 this.charts.pie = new Chart(ctx, {
                     type: 'doughnut',
                     data: {
-                        labels: Object.keys(categoryData).map(cat => this.getCategoryName(cat)),
+                        labels: categories.map(cat => this.getCategoryName(cat)),
                         datasets: [{
-                            data: Object.values(categoryData),
-                            backgroundColor: [
-                                'rgba(252, 165, 165, 0.6)',
-                                'rgba(147, 197, 253, 0.6)',
-                                'rgba(252, 211, 77, 0.6)',
-                                'rgba(251, 191, 36, 0.6)',
-                                'rgba(110, 231, 183, 0.6)',
-                                'rgba(192, 132, 252, 0.6)',
-                                'rgba(249, 168, 212, 0.6)',
-                                'rgba(103, 232, 249, 0.6)',
-                                'rgba(252, 165, 165, 0.6)',
-                                'rgba(253, 186, 116, 0.6)'
-                            ]
+                            data: values,
+                            backgroundColor: categories.map(cat => colors[cat] || '#888'),
+                            borderWidth: 2,
+                            borderColor: '#1a1a1a'
                         }]
                     },
                     options: {
@@ -1846,659 +2538,320 @@ updateTopProductsChart(period) {
                             legend: {
                                 position: 'right',
                                 labels: {
-                                    color: '#f3f4f6'
+                                    color: '#f3f4f6',
+                                    padding: 15
+                                }
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        const value = context.parsed;
+                                        const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                        const percentage = ((value / total) * 100).toFixed(1);
+                                        return `€${value.toFixed(2)} (${percentage}%)`;
+                                    }
                                 }
                             }
                         }
                     }
                 });
             },
-            
-            getConsumptionData(period) {
-                const consumptionMap = {};
-                const startDate = new Date();
-                startDate.setDate(startDate.getDate() - (period === 'all' ? 365 : period));
-                
-                Object.entries(this.nights).forEach(([date, night]) => {
-                    if (period === 'all' || new Date(date) >= startDate) {
-                        Object.entries(night.consumptions).forEach(([productId, quantity]) => {
-                            if (!consumptionMap[productId]) {
-                                consumptionMap[productId] = 0;
-                            }
-                            consumptionMap[productId] += quantity;
-                        });
-                    }
-                });
-                
-                return consumptionMap;
-            },
-            
-            getTrendData(period, productId) {
-                const labels = [];
-                const values = [];
-                const startDate = new Date();
-                startDate.setDate(startDate.getDate() - (period === 'all' ? 365 : period));
-                
-                const nightDates = Object.keys(this.nights)
-                    .filter(date => period === 'all' || new Date(date) >= startDate)
-                    .sort();
-                
-                nightDates.forEach(date => {
-                    labels.push(new Date(date).toLocaleDateString('it-IT'));
-                    
-                    if (productId) {
-                        values.push(this.nights[date].consumptions[productId] || 0);
-                    } else {
-                        let total = 0;
-                        Object.entries(this.nights[date].consumptions).forEach(([pid, quantity]) => {
-                            const product = this.products.find(p => p.id === parseInt(pid));
-                            if (product && product.price) {
-                                total += quantity * product.price;
-                            }
-                        });
-                        values.push(total);
-                    }
-                });
-                
-                return { labels, values };
-            },
-            
-            getCategoryData(period) {
-                const categoryMap = {};
-                const startDate = new Date();
-                startDate.setDate(startDate.getDate() - (period === 'all' ? 365 : period));
-                
-                Object.entries(this.nights).forEach(([date, night]) => {
-                    if (period === 'all' || new Date(date) >= startDate) {
-                        Object.entries(night.consumptions).forEach(([productId, quantity]) => {
-                            const product = this.products.find(p => p.id === parseInt(productId));
-                            if (product && product.price) {
-                                if (!categoryMap[product.category]) {
-                                    categoryMap[product.category] = 0;
-                                }
-                                categoryMap[product.category] += quantity * product.price;
-                            }
-                        });
-                    }
-                });
-                
-                return categoryMap;
-            },
-            
-            // Report Generation
+// Report Generation
             generateReport() {
                 const reportType = document.getElementById('reportType').value;
                 const reportPeriod = document.getElementById('reportPeriod').value;
                 const reportFormat = document.getElementById('reportFormat').value;
                 
-                let data = [];
-                let filename = `cambusa_report_${reportType}_${new Date().toISOString().split('T')[0]}`;
+                let data;
+                let filename;
                 
                 switch (reportType) {
                     case 'inventory':
                         data = this.generateInventoryReport();
+                        filename = `inventario_${new Date().toISOString().split('T')[0]}`;
                         break;
                     case 'consumption':
                         data = this.generateConsumptionReport(reportPeriod);
+                        filename = `consumi_${reportPeriod}_${new Date().toISOString().split('T')[0]}`;
                         break;
                     case 'night':
                         data = this.generateNightReport();
+                        filename = `serate_${new Date().toISOString().split('T')[0]}`;
                         break;
                     case 'product':
-                        data = this.generateProductReport();
+                        data = this.generateProductReport(reportPeriod);
+                        filename = `prodotti_${reportPeriod}_${new Date().toISOString().split('T')[0]}`;
                         break;
+                }
+                
+                if (!data || data.length === 0) {
+                    this.showMessage('Nessun dato disponibile per il report selezionato', 'error');
+                    return;
                 }
                 
                 switch (reportFormat) {
                     case 'csv':
-                        this.downloadCSV(data, filename + '.csv');
+                        this.downloadCSV(data, filename);
                         break;
                     case 'json':
-                        this.downloadJSON(data, filename + '.json');
+                        this.downloadJSON(data, filename);
                         break;
                     case 'txt':
-                        this.downloadTXT(data, filename + '.txt');
+                        this.downloadTXT(data, filename);
                         break;
                 }
                 
-                this.showAlert('Report generato e scaricato con successo!', 'success');
+                this.showMessage('Report generato con successo!');
+                this.addRecentReport(filename, reportType, reportFormat);
             },
-            
+
             generateInventoryReport() {
-                return this.products.map(product => ({
-                    Prodotto: product.name,
-                    Categoria: this.getCategoryName(product.category),
-                    Formato: product.format + 'L',
-                    Prezzo: product.price || 0,
-                    Giacenza: this.inventory[product.id] || 0,
-                    Valore: ((this.inventory[product.id] || 0) * (product.price || 0)).toFixed(2)
-                }));
-            },
-            
-            generateConsumptionReport(period) {
-                const consumptionData = this.getConsumptionData(period === 'all' ? 'all' : 30);
-                
-                return Object.entries(consumptionData).map(([productId, quantity]) => {
-                    const product = this.products.find(p => p.id === parseInt(productId));
-                    return {
-                        Prodotto: product ? product.name : 'Sconosciuto',
-                        Categoria: product ? this.getCategoryName(product.category) : '-',
-                        'Quantità Consumata (L)': quantity.toFixed(2),
-                        'Valore (€)': product ? (quantity * product.price).toFixed(2) : '0.00'
-                    };
-                });
-            },
-            
-            generateNightReport() {
                 const report = [];
-                const nightDates = Object.keys(this.nights).sort((a, b) => new Date(b) - new Date(a));
                 
-                nightDates.forEach(date => {
-                    let totalValue = 0;
-                    let totalLiters = 0;
-                    
-                    Object.entries(this.nights[date].consumptions).forEach(([productId, quantity]) => {
-                        const product = this.products.find(p => p.id === parseInt(productId));
-                        if (product) {
-                            totalValue += quantity * (product.price || 0);
-                            totalLiters += quantity;
-                        }
-                    });
+                this.products.forEach(product => {
+                    const stock = this.inventory[product.id] || 0;
+                    const value = stock * (product.price || 0);
                     
                     report.push({
-                        Data: new Date(date).toLocaleDateString('it-IT'),
-                        'Totale Consumo (€)': totalValue.toFixed(2),
-                        'Litri Totali': totalLiters.toFixed(2),
-                        'Numero Prodotti': Object.keys(this.nights[date].consumptions).length
+                        'ID': product.id,
+                        'Prodotto': product.name,
+                        'Categoria': this.getCategoryName(product.category),
+                        'Formato (L)': product.format,
+                        'Prezzo (€)': product.price || 0,
+                        'Prezzo/L (€)': product.price ? (product.price / product.format).toFixed(2) : 0,
+                        'Giacenza (L)': stock.toFixed(2),
+                        'Valore (€)': value.toFixed(2),
+                        'Stato': stock <= 0 ? 'Esaurito' : stock < 5 ? 'In esaurimento' : 'OK'
                     });
                 });
                 
                 return report;
             },
-            
-            generateProductReport() {
+
+            generateConsumptionReport(period) {
+                const report = [];
+                const endDate = new Date();
+                const startDate = new Date();
+                
+                switch (period) {
+                    case 'day':
+                        startDate.setDate(startDate.getDate() - 1);
+                        break;
+                    case 'week':
+                        startDate.setDate(startDate.getDate() - 7);
+                        break;
+                    case 'month':
+                        startDate.setMonth(startDate.getMonth() - 1);
+                        break;
+                }
+                
+                const filteredMovements = this.movements.filter(m => {
+                    const movementDate = new Date(m.date);
+                    return m.type === 'consumption' && 
+                           movementDate >= startDate && 
+                           movementDate <= endDate;
+                });
+                
+                // Group by product
+                const productConsumption = {};
+                filteredMovements.forEach(movement => {
+                    if (!productConsumption[movement.productId]) {
+                        productConsumption[movement.productId] = {
+                            quantity: 0,
+                            value: 0,
+                            count: 0
+                        };
+                    }
+                    
+                    const product = this.products.find(p => p.id === movement.productId);
+                    if (product) {
+                        productConsumption[movement.productId].quantity += Math.abs(movement.quantity);
+                        productConsumption[movement.productId].value += Math.abs(movement.quantity) * (product.price || 0);
+                        productConsumption[movement.productId].count++;
+                    }
+                });
+                
+                Object.entries(productConsumption).forEach(([productId, data]) => {
+                    const product = this.products.find(p => p.id === parseInt(productId));
+                    if (product) {
+                        report.push({
+                            'Prodotto': product.name,
+                            'Categoria': this.getCategoryName(product.category),
+                            'Consumo Totale (L)': data.quantity.toFixed(2),
+                            'Valore Totale (€)': data.value.toFixed(2),
+                            'N. Movimenti': data.count,
+                            'Media per Movimento (L)': (data.quantity / data.count).toFixed(2)
+                        });
+                    }
+                });
+                
+                return report;
+            },
+
+            generateNightReport() {
+                const report = [];
+                
+                Object.entries(this.nights).forEach(([date, night]) => {
+                    let totalValue = 0;
+                    let totalLiters = 0;
+                    
+                    night.consumption.forEach(item => {
+                        const product = this.products.find(p => p.id === item.productId);
+                        if (product && product.price) {
+                            totalValue += item.quantity * product.price;
+                            totalLiters += item.quantity;
+                        }
+                    });
+                    
+                    report.push({
+                        'Data': new Date(date).toLocaleDateString('it-IT'),
+                        'Giorno': new Date(date).toLocaleDateString('it-IT', { weekday: 'long' }),
+                        'Prodotti Consumati': night.consumption.length,
+                        'Litri Totali': totalLiters.toFixed(2),
+                        'Valore Totale (€)': totalValue.toFixed(2),
+                        'Media per Prodotto (€)': (totalValue / night.consumption.length).toFixed(2)
+                    });
+                });
+                
+                return report;
+            },
+
+            generateProductReport(period) {
                 const report = [];
                 
                 this.products.forEach(product => {
-                    let totalConsumed = 0;
-                    let nightsCount = 0;
+                    const movements = this.movements.filter(m => m.productId === product.id);
                     
-                    Object.values(this.nights).forEach(night => {
-                        if (night.consumptions[product.id]) {
-                            totalConsumed += night.consumptions[product.id];
-                            nightsCount++;
+                    let totalOrdered = 0;
+                    let totalConsumed = 0;
+                    let totalAdjustments = 0;
+                    
+                    movements.forEach(movement => {
+                        switch (movement.type) {
+                            case 'order':
+                                totalOrdered += movement.quantity;
+                                break;
+                            case 'consumption':
+                                totalConsumed += Math.abs(movement.quantity);
+                                break;
+                            case 'adjustment':
+                                totalAdjustments += movement.quantity;
+                                break;
                         }
                     });
                     
-                    if (totalConsumed > 0) {
-                        report.push({
-                            Prodotto: product.name,
-                            Categoria: this.getCategoryName(product.category),
-                            'Consumo Totale (L)': totalConsumed.toFixed(2),
-                            'Valore Totale (€)': (totalConsumed * (product.price || 0)).toFixed(2),
-                            'Serate con Consumo': nightsCount,
-                            'Media per Serata (L)': (totalConsumed / nightsCount).toFixed(2)
-                        });
-                    }
+                    const currentStock = this.inventory[product.id] || 0;
+                    
+                    report.push({
+                        'ID': product.id,
+                        'Prodotto': product.name,
+                        'Categoria': this.getCategoryName(product.category),
+                        'Formato (L)': product.format,
+                        'Prezzo (€)': product.price || 0,
+                        'Giacenza Attuale (L)': currentStock.toFixed(2),
+                        'Totale Ordinato (L)': totalOrdered.toFixed(2),
+                        'Totale Consumato (L)': totalConsumed.toFixed(2),
+                        'Rettifiche (L)': totalAdjustments.toFixed(2),
+                        'Valore Consumato (€)': (totalConsumed * (product.price || 0)).toFixed(2)
+                    });
                 });
                 
-                return report.sort((a, b) => parseFloat(b['Valore Totale (€)']) - parseFloat(a['Valore Totale (€)']));
+                return report;
             },
-downloadCSV(data, filename) {
-                if (data.length === 0) return;
+
+            downloadCSV(data, filename) {
+                if (!data || data.length === 0) return;
                 
                 const headers = Object.keys(data[0]);
-                const csv = [
+                const csvContent = [
                     headers.join(','),
-                    ...data.map(row => headers.map(header => `"${row[header]}"`).join(','))
+                    ...data.map(row => 
+                        headers.map(header => {
+                            const value = row[header];
+                            // Escape quotes and wrap in quotes if contains comma
+                            const escaped = String(value).replace(/"/g, '""');
+                            return escaped.includes(',') ? `"${escaped}"` : escaped;
+                        }).join(',')
+                    )
                 ].join('\n');
                 
-                const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+                const blob = new Blob(['\ufeff' + csvContent], { type: 'text/csv;charset=utf-8;' });
                 const link = document.createElement('a');
                 link.href = URL.createObjectURL(blob);
-                link.download = filename;
+                link.download = `${filename}.csv`;
                 link.click();
             },
-            
+
             downloadJSON(data, filename) {
-                const json = JSON.stringify(data, null, 2);
-                const blob = new Blob([json], { type: 'application/json' });
+                const jsonContent = JSON.stringify(data, null, 2);
+                const blob = new Blob([jsonContent], { type: 'application/json' });
                 const link = document.createElement('a');
                 link.href = URL.createObjectURL(blob);
-                link.download = filename;
+                link.download = `${filename}.json`;
                 link.click();
             },
-            
+
             downloadTXT(data, filename) {
-                let txt = '';
-                data.forEach(row => {
-                    txt += Object.entries(row).map(([key, value]) => `${key}: ${value}`).join(' | ') + '\n';
+                if (!data || data.length === 0) return;
+                
+                let txtContent = `REPORT CAMBUSA TRACKER\n`;
+                txtContent += `Data generazione: ${new Date().toLocaleString('it-IT')}\n`;
+                txtContent += `${'='.repeat(80)}\n\n`;
+                
+                data.forEach((row, index) => {
+                    txtContent += `Record ${index + 1}:\n`;
+                    Object.entries(row).forEach(([key, value]) => {
+                        txtContent += `  ${key}: ${value}\n`;
+                    });
+                    txtContent += '\n';
                 });
                 
-                const blob = new Blob([txt], { type: 'text/plain' });
+                const blob = new Blob([txtContent], { type: 'text/plain' });
                 const link = document.createElement('a');
                 link.href = URL.createObjectURL(blob);
-                link.download = filename;
+                link.download = `${filename}.txt`;
                 link.click();
             },
-            
-            // Modal Functions
-            showInitialInventoryModal() {
-                const form = document.getElementById('initialInventoryForm');
-                form.innerHTML = '';
+
+            addRecentReport(filename, type, format) {
+                const container = document.getElementById('recentReportsContainer');
+                const reportItem = document.createElement('div');
+                reportItem.className = 'alert alert-info';
+                reportItem.style.marginBottom = '10px';
                 
-                // Group products by category
-                const categories = {};
-                this.products.forEach(product => {
-                    if (!categories[product.category]) {
-                        categories[product.category] = [];
-                    }
-                    categories[product.category].push(product);
-                });
-                
-                Object.entries(categories).forEach(([category, products]) => {
-                    const section = document.createElement('div');
-                    section.className = 'card';
-                    section.innerHTML = `<h3>${this.getCategoryName(category)}</h3>`;
-                    
-                    const grid = document.createElement('div');
-                    grid.className = 'form-grid';
-                    
-                    products.forEach(product => {
-                        const currentStock = this.inventory[product.id] || 0;
-                        const group = document.createElement('div');
-                        group.className = 'form-group';
-                        group.innerHTML = `
-                            <label>${product.name} (${product.format}L)</label>
-                            <input type="number" 
-                                id="initial_${product.id}" 
-                                value="${currentStock}" 
-                                step="0.01" 
-                                min="0"
-                                placeholder="0">
-                        `;
-                        grid.appendChild(group);
-                    });
-                    
-                    section.appendChild(grid);
-                    form.appendChild(section);
-                });
-                
-                document.getElementById('initialInventoryModal').classList.add('active');
-            },
-            
-            showEndOfNightModal() {
-                const form = document.getElementById('endOfNightForm');
-                form.innerHTML = '';
-                
-                // Group products by category
-                const categories = {};
-                this.products.forEach(product => {
-                    if (!categories[product.category]) {
-                        categories[product.category] = [];
-                    }
-                    categories[product.category].push(product);
-                });
-                
-                Object.entries(categories).forEach(([category, products]) => {
-                    const section = document.createElement('div');
-                    section.className = 'card';
-                    section.innerHTML = `<h3>${this.getCategoryName(category)}</h3>`;
-                    
-                    const grid = document.createElement('div');
-                    grid.className = 'form-grid';
-                    
-                    products.forEach(product => {
-                        const currentStock = this.inventory[product.id] || 0;
-                        const group = document.createElement('div');
-                        group.className = 'form-group';
-                        group.innerHTML = `
-                            <label>${product.name} (${product.format}L)</label>
-                            <div style="display: flex; gap: 10px; align-items: center;">
-                                <input type="number" 
-                                    id="endnight_${product.id}" 
-                                    value="${currentStock}" 
-                                    step="0.01" 
-                                    min="0"
-                                    placeholder="0"
-                                    style="flex: 1">
-                                <span style="color: var(--gray);">Attuale: ${currentStock.toFixed(2)}L</span>
-                            </div>
-                        `;
-                        grid.appendChild(group);
-                    });
-                    
-                    section.appendChild(grid);
-                    form.appendChild(section);
-                });
-                
-                document.getElementById('endOfNightModal').classList.add('active');
-            },
-            
-            showOrderModal() {
-                document.getElementById('orderItems').innerHTML = '';
-                this.addOrderItem();
-                document.getElementById('orderModal').classList.add('active');
-            },
-            
-            showAddProductModal() {
-                document.getElementById('addProductModal').classList.add('active');
-            },
-            
-            closeModal(modalId) {
-                document.getElementById(modalId).classList.remove('active');
-            },
-            
-            // Save Functions
-            saveInitialInventory() {
-                this.products.forEach(product => {
-                    const input = document.getElementById(`initial_${product.id}`);
-                    if (input) {
-                        const quantity = parseFloat(input.value) || 0;
-                        this.inventory[product.id] = quantity;
-                    }
-                });
-                
-                this.saveToStorage();
-                this.updateAllTables();
-                this.updateDashboard();
-                this.closeModal('initialInventoryModal');
-                this.showAlert('Giacenza iniziale salvata con successo!', 'success');
-            },
-            
-            saveEndOfNight() {
-                const nightDate = document.getElementById('nightDate').value;
-                if (!nightDate) {
-                    this.showAlert('Inserisci la data della serata', 'error');
-                    return;
-                }
-                
-                const consumptions = [];
-                const nightConsumptions = {};
-                
-                this.products.forEach(product => {
-                    const input = document.getElementById(`endnight_${product.id}`);
-                    if (input) {
-                        const finalStock = parseFloat(input.value) || 0;
-                        const initialStock = this.inventory[product.id] || 0;
-                        const consumption = initialStock - finalStock;
-                        
-                        if (consumption > 0) {
-                            consumptions.push({
-                                id: Date.now() + Math.random(),
-                                date: nightDate + ' 23:59:59',
-                                type: 'consumption',
-                                productId: product.id,
-                                quantity: -consumption,
-                                note: 'Consumo serata',
-                                operator: 'Sistema'
-                            });
-                            
-                            nightConsumptions[product.id] = consumption;
-                            
-                            // Update inventory
-                            this.inventory[product.id] = finalStock;
-                        } else if (consumption < 0) {
-                            // If final stock is higher than initial, update inventory
-                            this.inventory[product.id] = finalStock;
-                        }
-                    }
-                });
-                
-                if (Object.keys(nightConsumptions).length > 0) {
-                    // Save night data
-                    this.nights[nightDate] = {
-                        consumptions: nightConsumptions
-                    };
-                    
-                    // Add all consumptions to movements
-                    this.movements.push(...consumptions);
-                    
-                    this.saveToStorage();
-                    this.updateAllTables();
-                    this.updateDashboard();
-                    this.updateNightSelector();
-                    this.closeModal('endOfNightModal');
-                    
-                    // Calculate total consumption value
-                    let totalConsumption = 0;
-                    Object.entries(nightConsumptions).forEach(([productId, quantity]) => {
-                        const product = this.products.find(p => p.id === parseInt(productId));
-                        if (product && product.price) {
-                            totalConsumption += quantity * product.price;
-                        }
-                    });
-                    
-                    this.showAlert(`Consumi della serata registrati! Totale: €${totalConsumption.toFixed(2)}`, 'success');
-                } else {
-                    this.showAlert('Nessun consumo registrato per questa serata', 'warning');
-                }
-            },
-            
-            saveOrder() {
-                const supplier = document.getElementById('orderSupplier').value;
-                const orderDate = document.getElementById('orderDate').value;
-                
-                if (!supplier || !orderDate) {
-                    this.showAlert('Compila tutti i campi obbligatori', 'error');
-                    return;
-                }
-                
-                const orderItems = document.querySelectorAll('.order-item');
-                const movements = [];
-                
-                orderItems.forEach(item => {
-                    const productId = parseInt(item.querySelector('.order-product').value);
-                    const quantity = parseFloat(item.querySelector('.order-quantity').value) || 0;
-                    
-                    if (productId && quantity > 0) {
-                        movements.push({
-                            id: Date.now() + Math.random(),
-                            date: orderDate + ' 12:00:00',
-                            type: 'order',
-                            productId: productId,
-                            quantity: quantity,
-                            note: `Ordine da ${supplier}`,
-                            operator: 'Sistema'
-                        });
-                        
-                        // Update inventory
-                        if (!this.inventory[productId]) {
-                            this.inventory[productId] = 0;
-                        }
-                        this.inventory[productId] += quantity;
-                    }
-                });
-                
-                if (movements.length === 0) {
-                    this.showAlert('Aggiungi almeno un prodotto all\'ordine', 'error');
-                    return;
-                }
-                
-                this.movements.push(...movements);
-                this.saveToStorage();
-                this.updateAllTables();
-                this.updateDashboard();
-                this.closeModal('orderModal');
-                this.showAlert('Ordine registrato con successo!', 'success');
-            },
-saveNewProduct() {
-                const name = document.getElementById('newProductName').value;
-                const category = document.getElementById('newProductCategory').value;
-                const format = parseFloat(document.getElementById('newProductFormat').value);
-                const price = parseFloat(document.getElementById('newProductPrice').value);
-                
-                if (!name || !category || !format) {
-                    this.showAlert('Compila tutti i campi obbligatori', 'error');
-                    return;
-                }
-                
-                const newProduct = {
-                    id: Date.now(),
-                    name: name.toUpperCase(),
-                    category: category,
-                    format: format,
-                    price: price || null
+                const typeNames = {
+                    inventory: 'Inventario',
+                    consumption: 'Consumi',
+                    night: 'Serate',
+                    product: 'Prodotti'
                 };
                 
-                this.products.push(newProduct);
-                this.saveToStorage();
-                this.updateProductsTable();
-                this.populateStatsProductSelect();
-                this.closeModal('addProductModal');
-                this.showAlert('Prodotto aggiunto con successo!', 'success');
-                
-                // Clear form
-                document.getElementById('newProductName').value = '';
-                document.getElementById('newProductFormat').value = '';
-                document.getElementById('newProductPrice').value = '';
-            },
-            
-            // Order Item Management
-            addOrderItem() {
-                const container = document.getElementById('orderItems');
-                const itemDiv = document.createElement('div');
-                itemDiv.className = 'order-item form-grid';
-                itemDiv.style.marginBottom = '15px';
-                
-                itemDiv.innerHTML = `
-                    <div class="form-group" style="flex: 2;">
-                        <label>Prodotto</label>
-                        <select class="order-product">
-                            <option value="">Seleziona prodotto</option>
-                            ${this.products.map(p => 
-                                `<option value="${p.id}">${p.name} (${p.format}L)</option>`
-                            ).join('')}
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Quantità (L)</label>
-                        <input type="number" class="order-quantity" step="0.01" min="0" placeholder="0">
-                    </div>
-                    <div class="form-group" style="align-self: flex-end;">
-                        <button class="btn btn-danger btn-sm" onclick="this.parentElement.parentElement.remove()">
-                            🗑️ Rimuovi
-                        </button>
-                    </div>
+                reportItem.innerHTML = `
+                    📄 ${typeNames[type]} - ${filename}.${format} 
+                    <small style="opacity: 0.8;">
+                        (${new Date().toLocaleTimeString('it-IT')})
+                    </small>
                 `;
                 
-                container.appendChild(itemDiv);
-            },
-            
-            // Inventory Adjustment
-            adjustInventory(productId) {
-                const product = this.products.find(p => p.id === productId);
-                const currentStock = this.inventory[productId] || 0;
-                
-                const newStock = prompt(`Modifica giacenza per ${product.name}\nGiacenza attuale: ${currentStock.toFixed(2)}L\nNuova giacenza:`, currentStock);
-                
-                if (newStock !== null) {
-                    const quantity = parseFloat(newStock);
-                    if (!isNaN(quantity) && quantity >= 0) {
-                        const difference = quantity - currentStock;
-                        
-                        if (difference !== 0) {
-                            this.movements.push({
-                                id: Date.now().toString(),
-                                date: new Date().toISOString(),
-                                type: 'adjustment',
-                                productId: productId,
-                                quantity: difference,
-                                note: 'Rettifica manuale inventario',
-                                operator: 'Utente'
-                            });
-                        }
-                        
-                        this.inventory[productId] = quantity;
-                        this.saveToStorage();
-                        this.updateAllTables();
-                        this.updateDashboard();
-                        this.showAlert('Giacenza aggiornata con successo!', 'success');
-                    }
+                // Keep only last 5 reports
+                if (container.children.length >= 5) {
+                    container.removeChild(container.lastChild);
                 }
-            },
-            
-            // Product Editing
-            editProduct(productId) {
-                const product = this.products.find(p => p.id === productId);
-                const newPrice = prompt(`Modifica prezzo per ${product.name}\nPrezzo attuale: €${product.price || 'N/D'}\nNuovo prezzo:`, product.price || '');
                 
-                if (newPrice !== null) {
-                    const price = parseFloat(newPrice);
-                    if (!isNaN(price) && price >= 0) {
-                        product.price = price;
-                        this.saveToStorage();
-                        this.updateProductsTable();
-                        this.updateDashboard();
-                        this.showAlert('Prezzo aggiornato con successo!', 'success');
-                    }
-                }
-            },
-            
-            // Utility Functions
-            getCategoryName(category) {
-                const names = {
-                    vodka: 'Vodka',
-                    gin: 'Gin',
-                    rum: 'Rum',
-                    whisky: 'Whisky',
-                    tequila: 'Tequila',
-                    liquori: 'Liquori',
-                    champagne: 'Champagne/Spumanti',
-                    analcolici: 'Analcolici',
-                    energy: 'Energy Drink',
-                    succhi: 'Succhi'
-                };
-                return names[category] || category;
-            },
-            
-            getMovementTypeName(type) {
-                const names = {
-                    consumption: '📉 Consumo',
-                    order: '📦 Ordine',
-                    adjustment: '🔧 Rettifica'
-                };
-                return names[type] || type;
-            },
-            
-            getStockStatus(stock, product) {
-                if (stock === 0) return '<span style="color: var(--danger);">❌ Esaurito</span>';
-                if (stock < 5) return '<span style="color: var(--warning);">⚠️ Scorta bassa</span>';
-                return '<span style="color: var(--success);">✅ Disponibile</span>';
-            },
-            
-            filterTable(tableId, searchTerm) {
-                const rows = document.querySelectorAll(`#${tableId} tbody tr`);
-                const term = searchTerm.toLowerCase();
-                
-                rows.forEach(row => {
-                    const text = row.textContent.toLowerCase();
-                    row.style.display = text.includes(term) ? '' : 'none';
-                });
-            },
-            
-            showAlert(message, type = 'info') {
-                const alert = document.createElement('div');
-                alert.className = `alert alert-${type}`;
-                alert.innerHTML = `
-                    ${type === 'success' ? '✅' : type === 'error' ? '❌' : type === 'warning' ? '⚠️' : 'ℹ️'} ${message}
-                `;
-                
-                document.body.appendChild(alert);
-                alert.style.position = 'fixed';
-                alert.style.top = '20px';
-                alert.style.right = '20px';
-                alert.style.zIndex = '2000';
-                alert.style.maxWidth = '400px';
-                
-                setTimeout(() => {
-                    alert.style.opacity = '0';
-                    alert.style.transform = 'translateX(100px)';
-                    setTimeout(() => alert.remove(), 300);
-                }, 3000);
+                container.insertBefore(reportItem, container.firstChild);
             }
         };
-        
+
+        // CSS for animations
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeOut {
+                from { opacity: 1; transform: translateY(0); }
+                to { opacity: 0; transform: translateY(-20px); }
+            }
+        `;
+        document.head.appendChild(style);
+
         // Initialize app when DOM is loaded
         document.addEventListener('DOMContentLoaded', () => {
             app.init();
